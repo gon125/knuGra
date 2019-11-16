@@ -1,2 +1,2 @@
 # knuGra
-Graduation Helper Service for [KNU](cse.knu.ac.kr) CS Students.
+Graduation Helper Service for [KNU](www.knu.ac.kr) CS Students.
