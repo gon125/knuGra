@@ -1,0 +1,7 @@
+{
+  "name": "knuGra",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
