@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         student.put("fisrt", "Ada");
         student.put("last", "Lovelace");
         student.put("born", "1231");
+        student.put("career", 123);
         db.collection("students").document("2016114704").set(student);
 
         db.collection("students")
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("", "Error adding document", e);
-                    } 
+                    }
                 });
 
     }
