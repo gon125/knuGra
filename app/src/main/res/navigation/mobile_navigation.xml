@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.knucse.knugra.ui.home.HomeFragment"
+        android:name="com.knucse.knugra.UI_package.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.knucse.knugra.ui.gallery.GalleryFragment"
+        android:name="com.knucse.knugra.UI_package.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.knucse.knugra.ui.slideshow.SlideshowFragment"
+        android:name="com.knucse.knugra.UI_package.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_tools"
-        android:name="com.knucse.knugra.ui.tools.ToolsFragment"
+        android:name="com.knucse.knugra.UI_package.tools.ToolsFragment"
         android:label="@string/menu_tools"
         tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.knucse.knugra.ui.share.ShareFragment"
+        android:name="com.knucse.knugra.UI_package.share.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/nav_send"
-        android:name="com.knucse.knugra.ui.send.SendFragment"
+        android:name="com.knucse.knugra.UI_package.send.SendFragment"
         android:label="@string/menu_send"
         tools:layout="@layout/fragment_send" />
 </navigation>

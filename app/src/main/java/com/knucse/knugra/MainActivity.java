@@ -22,7 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.knucse.knugra.ui.settings.SettingsActivity;
+import com.knucse.knugra.UI_package.settings.SettingsActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -33,8 +33,6 @@ import android.view.Menu;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.opencensus.tags.Tag;
 
 public class MainActivity extends AppCompatActivity {
 
