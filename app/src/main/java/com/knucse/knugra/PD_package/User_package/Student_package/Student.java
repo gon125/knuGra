@@ -11,8 +11,8 @@ public class Student extends User {
     private String std_ph;
     private String std_nation;
     //객체 생성
-    public void login(String login_id, String login_pw){
-        this.user_id=login_id;
-        this.user_pw=login_pw;
+
+    //login할 때 정보 같이 가져옴
+    public void login(String std_lname, long std_lschoolnum, String std_lbirth, String std_lmajor, char std_lgrade, String std_lph, String std_lnation){
     }
 }
