@@ -50,7 +50,7 @@ public class LoginDataSource {
                 OutputStream os;
 
                 //aws server host
-                socket = new Socket("54.180.123.105", 3456);
+                socket = new Socket("54.180.149.57", 3456);
                 //SocketAddress addr = new InetSocketAddress(InetAddress.getByName("ec2-54-180-123-105.ap-northeast-2.compute.amazonaws.com"), 3456/*port*/) ;
                 //socket.connect(addr);
 
