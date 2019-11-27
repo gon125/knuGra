@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.knucse.knugra.data.LoginRepository;
-import com.knucse.knugra.data.Result;
-import com.knucse.knugra.data.model.LoggedInUser;
+import com.knucse.knugra.DM_package.LoginRepository;
+import com.knucse.knugra.DM_package.Result;
+import com.knucse.knugra.DM_package.model.LoggedInUser;
 import com.knucse.knugra.R;
 
 public class LoginViewModel extends ViewModel {

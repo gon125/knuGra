@@ -1,6 +1,6 @@
-package com.knucse.knugra.data;
+package com.knucse.knugra.DM_package;
 
-import com.knucse.knugra.data.model.LoggedInUser;
+import com.knucse.knugra.DM_package.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

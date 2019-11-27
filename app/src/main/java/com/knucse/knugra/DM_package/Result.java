@@ -1,4 +1,4 @@
-package com.knucse.knugra.data;
+package com.knucse.knugra.DM_package;
 
 /**
  * A generic class that holds a result success w/ data or an error exception.

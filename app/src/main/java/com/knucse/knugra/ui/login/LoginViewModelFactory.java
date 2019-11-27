@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.knucse.knugra.data.LoginDataSource;
-import com.knucse.knugra.data.LoginRepository;
+import com.knucse.knugra.DM_package.LoginDataSource;
+import com.knucse.knugra.DM_package.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

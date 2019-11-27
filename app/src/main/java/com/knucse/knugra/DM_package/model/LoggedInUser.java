@@ -1,4 +1,4 @@
-package com.knucse.knugra.data.model;
+package com.knucse.knugra.DM_package.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

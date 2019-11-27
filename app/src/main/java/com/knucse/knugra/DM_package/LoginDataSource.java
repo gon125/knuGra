@@ -1,28 +1,20 @@
-package com.knucse.knugra.data;
+package com.knucse.knugra.DM_package;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.knucse.knugra.MainActivity;
-import com.knucse.knugra.data.model.LoggedInUser;
-import com.knucse.knugra.ui.login.LoginActivity;
-import com.knucse.knugra.ui.settings.SettingsActivity;
+import com.knucse.knugra.DM_package.model.LoggedInUser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -57,6 +49,7 @@ public class LoginDataSource {
                 InputStream is;
                 OutputStream os;
 
+                //aws server host
                 socket = new Socket("54.180.123.105", 3456);
                 //SocketAddress addr = new InetSocketAddress(InetAddress.getByName("ec2-54-180-123-105.ap-northeast-2.compute.amazonaws.com"), 3456/*port*/) ;
                 //socket.connect(addr);
@@ -95,6 +88,11 @@ public class LoginDataSource {
                             new LoggedInUser(
                                     username,
                                     username);
+
+                    // set User data
+
+
+
                     return new Result.Success<>(user);
                 } else return new Result.Error(new IOException("Error logging in"));
             } catch (IOException e) {
