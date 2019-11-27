@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         student.put("last", "Lovelace");
         student.put("born", "1231");
         student.put("career", 123);
-        db.collection("students").document("2016114704").set(student);
+        db.collection("students").document("2015114704").set(student);
 
         db.collection("students")
                 .add(student)
