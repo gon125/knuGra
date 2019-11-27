@@ -16,7 +16,7 @@ public class Manager extends User {
     public static Manager getInstance(String man_lid, String man_lpw, boolean man_laccess, String man_lname) {
         // 객채가 이미 있는경우 새로 생성
         if (login_man==null) {
-            login_man = new Professor(man_lid, man_lpw, man_laccess, man_lname);
+            login_man = new Manager(man_lid, man_lpw, man_laccess, man_lname);
         }
         return login_man;
     }
