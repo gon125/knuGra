@@ -4,40 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
-
     <fragment
         android:id="@+id/nav_home"
         android:name="com.knucse.knugra.UI_package.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_career_success"
+        android:name="com.knucse.knugra.UI_package.career_success.CareerSuccessFragment"
+        android:label="@string/menu_career_success"
+        tools:layout="@layout/fragment_career_success" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.knucse.knugra.UI_package.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_g_info_search"
+        android:name="com.knucse.knugra.UI_package.g_info_search.GInfoSearchFragment"
+        android:label="@string/menu_g_info_search"
+        tools:layout="@layout/fragment_g_info_search" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.knucse.knugra.UI_package.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_std_info_input"
+        android:name="com.knucse.knugra.UI_package.std_info_input.StdInfoInputFragment"
+        android:label="@string/menu_std_info_input"
+        tools:layout="@layout/fragment_std_info_input" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.knucse.knugra.UI_package.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/nav_doc_agree"
+        android:name="com.knucse.knugra.UI_package.doc_agree.DocAgreeFragment"
+        android:label="@string/menu_doc_agree"
+        tools:layout="@layout/fragment_doc_agree" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.knucse.knugra.UI_package.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:id="@+id/nav_std_info_search"
+        android:name="com.knucse.knugra.UI_package.std_info_search.StdInfoSearchFragment"
+        android:label="@string/menu_std_info_search"
+        tools:layout="@layout/fragment_std_info_search" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="com.knucse.knugra.UI_package.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        android:id="@+id/nav_qa"
+        android:name="com.knucse.knugra.UI_package.qa.QAFragment"
+        android:label="@string/menu_qa"
+        tools:layout="@layout/fragment_qa" />
+
+    <fragment
+        android:id="@+id/nav_notice"
+        android:name="com.knucse.knugra.UI_package.notice.NoticeFragment"
+        android:label="@string/menu_notice"
+        tools:layout="@layout/fragment_notice" />
 </navigation>

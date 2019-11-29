@@ -1,16 +1,16 @@
-package com.knucse.knugra.UI_package.share;
+package com.knucse.knugra.UI_package.qa;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ShareViewModel extends ViewModel {
+public class QAViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ShareViewModel() {
+    public QAViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is share fragment");
+        mText.setValue("This is QA fragment");
     }
 
     public LiveData<String> getText() {

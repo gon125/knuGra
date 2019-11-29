@@ -1,17 +1,16 @@
-package com.knucse.knugra.UI_package.gallery;
+package com.knucse.knugra.UI_package.std_info_input;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class StdInfoInputViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public StdInfoInputViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
-        // add
+        mText.setValue("This is StdInfoInput fragment");
     }
 
     public LiveData<String> getText() {

@@ -1,16 +1,15 @@
-package com.knucse.knugra.UI_package.tools;
+package com.knucse.knugra.UI_package.doc_agree;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ToolsViewModel extends ViewModel {
-
+public class DocAgreeViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public ToolsViewModel() {
+    public DocAgreeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is tools fragment");
+        mText.setValue("This is DocAgree fragment");
     }
 
     public LiveData<String> getText() {

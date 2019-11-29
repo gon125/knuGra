@@ -1,4 +1,4 @@
-package com.knucse.knugra.UI_package.share;
+package com.knucse.knugra.UI_package.g_info_search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.knucse.knugra.R;
 
-public class ShareFragment extends Fragment {
+public class GInfoSearchFragment extends Fragment {
 
-    private ShareViewModel shareViewModel;
+    private GInfoSearchViewModel gInfoSearchViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        shareViewModel =
-                ViewModelProviders.of(this).get(ShareViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_share, container, false);
-        final TextView textView = root.findViewById(R.id.text_share);
-        shareViewModel.getText().observe(this, new Observer<String>() {
+        gInfoSearchViewModel =
+                ViewModelProviders.of(this).get(GInfoSearchViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_g_info_search, container, false);
+        final TextView textView = root.findViewById(R.id.text_g_info_search);
+        gInfoSearchViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

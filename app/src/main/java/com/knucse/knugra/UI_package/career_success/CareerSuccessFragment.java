@@ -1,4 +1,4 @@
-package com.knucse.knugra.UI_package.slideshow;
+package com.knucse.knugra.UI_package.career_success;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.knucse.knugra.R;
 
-public class SlideshowFragment extends Fragment {
-
-    private SlideshowViewModel slideshowViewModel;
+public class CareerSuccessFragment extends Fragment {
+    private CareerSuccessViewModel careerSuccessViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
+        careerSuccessViewModel =
+                ViewModelProviders.of(this).get(CareerSuccessViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_career_success, container, false);
+        final TextView textView = root.findViewById(R.id.text_career_success);
+        careerSuccessViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

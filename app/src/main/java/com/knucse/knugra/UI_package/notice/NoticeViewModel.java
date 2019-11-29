@@ -1,16 +1,16 @@
-package com.knucse.knugra.UI_package.home;
+package com.knucse.knugra.UI_package.notice;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class NoticeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public NoticeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Home fragment");
+        mText.setValue("This is Notice fragment");
     }
 
     public LiveData<String> getText() {

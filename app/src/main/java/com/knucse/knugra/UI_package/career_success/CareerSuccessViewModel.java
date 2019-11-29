@@ -1,16 +1,16 @@
-package com.knucse.knugra.UI_package.home;
+package com.knucse.knugra.UI_package.career_success;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class CareerSuccessViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public CareerSuccessViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is Home fragment");
+        mText.setValue("This is CareerSuccess fragment");
     }
 
     public LiveData<String> getText() {

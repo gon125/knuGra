@@ -7,12 +7,13 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_gra_manage">남은 졸업자격요건 관리</string>
-    <string name="menu_gra_info_check">졸업자격요건 확인</string>
-    <string name="menu_stud_info_input">학생 정보 입력</string>
-    <string name="menu_stud_info_search">학생 정보 검색</string>
-    <string name="menu_qna">Q+A</string>
-    <string name="menu_notice">공지하기</string>
+    <string name="menu_career_success">남은 졸업자격요건 관리</string>
+    <string name="menu_g_info_search">졸업자격요건 확인</string>
+    <string name="menu_std_info_input">학생 정보 입력</string>
+    <string name="menu_doc_agree">증명서 승인</string>
+    <string name="menu_std_info_search">학생 정보 검색</string>
+    <string name="menu_qa">Q+A</string>
+    <string name="menu_notice">공지</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -22,6 +23,7 @@
     <string name="menu_send">Send</string>
     <string name="title_activity_login">로그인</string>
     <string name="prompt_email">Yes 시스템 아이디</string>
+    <string name="prompt_id">ID</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">로그인</string>
     <string name="action_sign_in_short">Sign in</string>

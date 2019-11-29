@@ -1,4 +1,4 @@
-package com.knucse.knugra.UI_package.gallery;
+package com.knucse.knugra.UI_package.qa;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.knucse.knugra.R;
 
-public class GalleryFragment extends Fragment {
+public class QAFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private QAViewModel QAViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(this, new Observer<String>() {
+        QAViewModel =
+                ViewModelProviders.of(this).get(QAViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_qa, container, false);
+        final TextView textView = root.findViewById(R.id.text_qa);
+        QAViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
