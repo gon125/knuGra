@@ -104,6 +104,11 @@ public class LoginDataSource {
 
         }
         @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
         protected void onPostExecute(Result<LoggedInUser> result) {
 
         }
