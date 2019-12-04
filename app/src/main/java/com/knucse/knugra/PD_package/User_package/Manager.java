@@ -2,14 +2,16 @@ package com.knucse.knugra.PD_package.User_package;
 
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 
-public class Manager extends User {
+public class Manager extends UserData {
     private String man_name;
 
     //sigleton pattern
     private static Manager login_man =null;
 
+    public Manager() {};
+
     private Manager(String man_lid, String man_lpw, boolean man_laccess, String man_lname){
-        super(man_lid, man_lpw, man_laccess);
+        //super(man_lid, man_lpw, man_laccess);
         this.man_name=man_lname;
     }
 

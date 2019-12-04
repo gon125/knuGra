@@ -6,16 +6,20 @@ package com.knucse.knugra.DM_package.model;
 public class LoggedInUser {
 
     private String userId;
+    private String userPwd;
     private String displayName;
 
-    public LoggedInUser(String userId, String displayName) {
+    public LoggedInUser(String userId, String userPwd, String displayName) {
         this.userId = userId;
+        this.userPwd = userPwd;
         this.displayName = displayName;
     }
 
     public String getUserId() {
         return userId;
     }
+
+    public String getUserPwd() { return userPwd; }
 
     public String getDisplayName() {
         return displayName;

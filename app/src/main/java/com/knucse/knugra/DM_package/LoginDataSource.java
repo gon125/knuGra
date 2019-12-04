@@ -6,6 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
+import com.knucse.knugra.PD_package.User_package.Student_package.Student;
+import com.knucse.knugra.PD_package.User_package.User;
+import com.knucse.knugra.PD_package.User_package.UserAccessLevel;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -87,10 +90,11 @@ public class LoginDataSource {
                     LoggedInUser user =
                             new LoggedInUser(
                                     username,
+                                    pwd,
                                     username);
 
                     // set User data
-
+                  User newUser = User.getInstance(user, UserAccessLevel.STUDENT);
 
 
                     return new Result.Success<>(user);

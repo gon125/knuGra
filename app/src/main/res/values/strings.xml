@@ -2,41 +2,37 @@
     <string name="app_name">KNUGra</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">학생경력관리 시스템</string>
+    <string name="nav_header_subtitle">학생경력관리를 도와줘요!</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">설정</string>
 
     <string name="menu_career_success">남은 졸업자격요건 관리</string>
     <string name="menu_g_info_search">졸업자격요건 확인</string>
     <string name="menu_std_info_input">학생 정보 입력</string>
     <string name="menu_doc_agree">증명서 승인</string>
     <string name="menu_std_info_search">학생 정보 검색</string>
-    <string name="menu_qa">Q+A</string>
+    <string name="menu_qa">QnA</string>
     <string name="menu_notice">공지</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_home">메뉴</string>
     <string name="title_activity_login">로그인</string>
     <string name="prompt_email">Yes 시스템 아이디</string>
     <string name="prompt_id">Yes 시스템 ID</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">로그인</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome ! "</string>
-    <string name="invalid_username">Not a valid username</string>
+    <string name="action_sign_in_short">로그인</string>
+    <string name="welcome">"환영합니다 ! "</string>
+    <string name="invalid_username">유효한 아이디가 아닙니다.</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="login_failed">"로그인 실패"</string>
+    <string name="title_activity_settings">설정</string>
+정
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
-
+패
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>

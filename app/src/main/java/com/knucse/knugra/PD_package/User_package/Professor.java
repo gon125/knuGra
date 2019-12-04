@@ -2,16 +2,18 @@ package com.knucse.knugra.PD_package.User_package;
 
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 
-public class Professor extends User {
+public class Professor extends UserData {
     private String pro_name;
     private long pro_num;
 
     //sigleton pattern
     private static Professor login_pro =null;
 
+
+    public Professor() {};
     //login할 때 정보 같이 가져옴
     private Professor(String pro_lid, String pro_lpw, boolean pro_laccess, String pro_lname, long pro_lnum){
-        super(pro_lid, pro_lpw, pro_laccess);
+        //super(pro_lid, pro_lpw, pro_laccess);
         this.pro_name=pro_lname;
         this.pro_num=pro_lnum;
     }

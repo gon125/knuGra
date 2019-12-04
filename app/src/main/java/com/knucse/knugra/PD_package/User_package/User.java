@@ -1,32 +1,41 @@
 package com.knucse.knugra.PD_package.User_package;
+import com.knucse.knugra.DM_package.model.LoggedInUser;
+import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 
 public class User {
-    protected String user_id;
-    protected String user_pw;
-    protected boolean user_access;
+    private static volatile User instance = null;
+    private int accessLevel;
+    private LoggedInUser loggedInUser;
+    private UserData userData;
 
+    private User(LoggedInUser user, int accessLevel) {
+        this.loggedInUser = user;
+        this.accessLevel = accessLevel;
 
-    protected User(String login_id, String login_pw, boolean login_access) {
-        this.user_id=login_id;
-        this.user_pw=login_pw;
-        this.user_access=login_access;
-    }
-    /*
-    //sigleton pattern
-    private static User login_user =null;
-
-    private User(String login_id, String login_pw, boolean login_access){
-        this.user_id=login_id;
-        this.user_pw=login_pw;
-        this.user_access=login_access;
-    }
-
-    public static User getInstance(String login_id, String login_pw, boolean login_access) {
-        // 객채가 이미 있는경우 새로 생성
-        if (login_user==null) {
-            login_user = new User(login_id, login_pw, login_access);
+        // set user data by access level
+        switch (accessLevel) {
+            case UserAccessLevel.STUDENT :
+                userData = new Student();
+            case UserAccessLevel.ADMIN :
+                userData = new Adminstaff();
+            case UserAccessLevel.MANAGER :
+                userData = new Manager();
+            case UserAccessLevel.PROFESSOR :
+                userData = new Professor();
         }
-        return login_user;
     }
-    */
+
+    public static User getInstance(LoggedInUser user, int accessLevel) {
+        if (instance == null) {
+            return new User(user, accessLevel);
+        } else return instance;
+    }
+
+    public int getAccessLevel() {
+        return accessLevel;
+    }
+
+    public LoggedInUser getLoggedInUser() {
+        return loggedInUser;
+    }
 }
