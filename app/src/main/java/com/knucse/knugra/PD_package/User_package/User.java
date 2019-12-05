@@ -31,11 +31,19 @@ public class User {
         } else return instance;
     }
 
+    public static User getInstance() {
+        return instance;
+    }
+
     public int getAccessLevel() {
         return accessLevel;
     }
 
     public LoggedInUser getLoggedInUser() {
         return loggedInUser;
+    }
+
+    public UserData getUserData() {
+        return userData;
     }
 }

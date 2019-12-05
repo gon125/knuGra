@@ -6,8 +6,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
+import com.knucse.knugra.PD_package.User_package.Student_package.Student;
+import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
+import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareerList;
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.PD_package.User_package.UserAccessLevel;
+import com.knucse.knugra.PD_package.User_package.UserData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -93,12 +97,30 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
             return new Result.Success<>(user);
         } else return new Result.Error(new IOException("Error logging in"));
     }
-
+    //key값 받아와서
     private void update(String result) {
+        int i;
         JsonParser jp = new JsonParser();
+        StudentCareer update_data;
+        Student update_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+        StudentCareerList update_list=update_student.getStudentCareerList();
+        JsonObject jo = (JsonObject)jp.parse(result); //key:value, dictionary형태로 변환해서 저장
+        //구조=string, string
 
-        JsonObject jo = (JsonObject)jp.parse(result);
-        JsonElement je = jo.get("login");
+        for(i=0;i<jo.size();i++) {
+            update_data=new StudentCareer();
+            //update_data.setName();
+            //update_data.setContent();
+            update_list.add(update_data);
+        }
+        /*{
+            key:value,
+            le: efwf,
+            sf ; wef,
+
+        }*/
+
+        JsonElement je = jo.get("login");//key=login인 value값을 je로 반환
     }
 
 
