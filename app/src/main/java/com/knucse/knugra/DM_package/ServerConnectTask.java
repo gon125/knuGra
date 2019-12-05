@@ -31,8 +31,6 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
             InputStream is;
             OutputStream os;
             socket = new Socket("54.180.106.239", 3456);
-            //SocketAddress addr = new InetSocketAddress(InetAddress.getByName("ec2-54-180-123-105.ap-northeast-2.compute.amazonaws.com"), 3456/*port*/) ;
-            //socket.connect(addr);
 
             is = socket.getInputStream();
             os = socket.getOutputStream();
@@ -61,6 +59,7 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
                 case RequestType.LOGIN:
                     return login(result, username, pwd);
                 case RequestType.UPDATE:
+                    update(result);
                     break;
             }
 
@@ -94,5 +93,13 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
             return new Result.Success<>(user);
         } else return new Result.Error(new IOException("Error logging in"));
     }
+
+    private void update(String result) {
+        JsonParser jp = new JsonParser();
+
+        JsonObject jo = (JsonObject)jp.parse(result);
+        JsonElement je = jo.get("login");
+    }
+
 
 }
