@@ -1,9 +1,14 @@
 package com.knucse.knugra.UI_package.career_success;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,7 +18,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.knucse.knugra.MainActivity;
 import com.knucse.knugra.R;
+
+import java.util.ArrayList;
 
 public class CareerSuccessFragment extends Fragment {
     private CareerSuccessViewModel careerSuccessViewModel;
@@ -23,7 +31,25 @@ public class CareerSuccessFragment extends Fragment {
         careerSuccessViewModel =
                 ViewModelProviders.of(this).get(CareerSuccessViewModel.class);
         View root = inflater.inflate(R.layout.fragment_career_success, container, false);
-        final TextView textView = root.findViewById(R.id.text_career_success);
+        final TextView textView = root.findViewById(R.id.text1_career_success);
+        final Spinner trackSpinner = (Spinner)root.findViewById(R.id.track_spinner);
+        final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.track, android.R.layout.simple_dropdown_item_1line);
+        trackSpinner.setAdapter(trackAdapter);
+        trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+
+                        break;
+                    default:    break;
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         careerSuccessViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

@@ -6,35 +6,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_career_success"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_career_success"
             android:title="@string/menu_career_success" />
         <item
             android:id="@+id/nav_g_info_search"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_g_info_search"
             android:title="@string/menu_g_info_search" />
         <item
             android:id="@+id/nav_std_info_input"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_std_info_input"
             android:title="@string/menu_std_info_input" />
         <item
             android:id="@+id/nav_doc_agree"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_doc_agree"
             android:title="@string/menu_doc_agree" />
         <item
             android:id="@+id/nav_std_info_search"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_std_info_search"
             android:title="@string/menu_std_info_search" />
         <item
             android:id="@+id/nav_qa"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_menu_qa"
             android:title="@string/menu_qa" />
         <item
             android:id="@+id/nav_notice"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_menu_notice"
             android:title="@string/menu_notice" />
     </group>
 

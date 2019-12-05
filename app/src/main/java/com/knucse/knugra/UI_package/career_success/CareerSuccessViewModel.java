@@ -10,7 +10,7 @@ public class CareerSuccessViewModel extends ViewModel {
 
     public CareerSuccessViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is CareerSuccess fragment");
+        mText.setValue("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThis is CareerSuccess fragment");
     }
 
     public LiveData<String> getText() {

@@ -27,7 +27,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"로그인 실패"</string>
     <string name="title_activity_settings">설정</string>
-정
+
+    <string name="ok">확인</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
