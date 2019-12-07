@@ -13,6 +13,9 @@ import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.PD_package.User_package.UserAccessLevel;
 import com.knucse.knugra.PD_package.User_package.UserData;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,6 +24,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUser>> {
     @Override
@@ -97,30 +102,43 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
             return new Result.Success<>(user);
         } else return new Result.Error(new IOException("Error logging in"));
     }
-    //key값 받아와서
+
     private void update(String result) {
-        int i;
-        JsonParser jp = new JsonParser();
+        int i, j;
         StudentCareer update_data;
         Student update_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+        StudentCareerList update_list=update_student.getStudentCareerList();//여기에 update_data 추가할 것
+        
+        try {
+            JSONObject jo = new JSONObject(result);
+            Iterator keyi=jo.keys();
+
+            for(i=0;i<jo.length();i++) {//객체갯수만큼 반복해서 StudentCareer객체 만들어서 넣기
+                //선언
+                update_data=new StudentCareer();
+                String jo_name = keyi.next().toString();//key값
+                //
+                for(j=0;j<update_list.size();j++) {
+                    //list에 있으면 추가하면 안됨, 값 변경
+                    if(jo_name.equals(update_list.get(j).getName())){
+                        update_list.get(j).setName(jo_name);
+                        update_list.get(j).setContent(jo.getString(jo_name));
+                    }
+                    else{//list에 없으면 객체 새로 만들어서 추가
+                        update_data=new StudentCareer();
+                        update_data.setName(jo_name);//key값
+                        update_data.setContent(jo.getString(jo_name));//value값
+                        update_list.add(update_data);
+                    }
+                }
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+        /*JsonParser jp = new JsonParser();
         StudentCareerList update_list=update_student.getStudentCareerList();
         JsonObject jo = (JsonObject)jp.parse(result); //key:value, dictionary형태로 변환해서 저장
-        //구조=string, string
-
-        for(i=0;i<jo.size();i++) {
-            update_data=new StudentCareer();
-            //update_data.setName();
-            //update_data.setContent();
-            update_list.add(update_data);
-        }
-        /*{
-            key:value,
-            le: efwf,
-            sf ; wef,
-
-        }*/
-
-        JsonElement je = jo.get("login");//key=login인 value값을 je로 반환
+        */
     }
 
 
