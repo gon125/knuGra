@@ -12,7 +12,7 @@
         <activity
             android:name=".UI_package.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".UI_package.MainActivity">
         </activity>
         <activity
             android:name=".UI_package.login.LoginActivity"
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".UI_package.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

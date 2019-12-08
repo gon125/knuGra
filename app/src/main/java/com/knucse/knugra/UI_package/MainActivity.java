@@ -1,7 +1,8 @@
-package com.knucse.knugra;
+package com.knucse.knugra.UI_package;
 
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,6 +20,11 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.knucse.knugra.DM_package.DAPATH;
+import com.knucse.knugra.DM_package.RequestType;
+import com.knucse.knugra.DM_package.ServerConnectTask;
+import com.knucse.knugra.PD_package.User_package.User;
+import com.knucse.knugra.R;
 import com.knucse.knugra.UI_package.settings.SettingsActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -53,32 +59,32 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    // add comment
 
-        //firebase test
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Map<String, Object> student = new HashMap<>();
-        student.put("fisrt", "Ada");
-        student.put("last", "Lovelace");
-        student.put("born", "1231");
-        student.put("career", 123);
-        db.collection("students").document("2015114704").set(student);
 
-        db.collection("students")
-                .add(student)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("", "DocumentSnapshot added with ID : " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("", "Error adding document", e);
-                    }
-                });
+
+        // update user data in th beginning of the main activity.
+        AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                ServerConnectTask serverConnectTask = new ServerConnectTask();
+
+                serverConnectTask.execute(
+                        User.getInstance().getId(),
+                        User.getInstance().getPassword(),
+                        RequestType.UPDATE);
+                return null;
+            }
+        };
+        asyncTask.execute();
+
+// !!! 주의 아래 코드로 데이터베이스 데이터가 다 날아갈 수 있음 ...
+//        //firebase test
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        Map<String, Object> newMajor = new HashMap<>();
+//        newMajor.put("공학전공", "Ada");
+//        db.collection(DAPATH.GRADUATION_INFO_LIST).document(DAPATH.COMPUTPER_ABEEK).set(newMajor);
 
     }
 
