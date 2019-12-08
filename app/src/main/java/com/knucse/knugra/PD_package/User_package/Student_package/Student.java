@@ -7,7 +7,8 @@ public class Student extends UserData {
     private StudentCareerList studentCareerList;
 
     public Student() {
-
+        this.studentCareerList = new StudentCareerList();
+        this.studentBasicInfo = new StudentBasicInfo();
     }
 
     public Student(StudentCareerList studentCareerList, StudentBasicInfo studentBasicInfo){

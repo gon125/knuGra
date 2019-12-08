@@ -1,6 +1,5 @@
 package com.knucse.knugra.UI_package.career_success;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +7,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.knucse.knugra.MainActivity;
 import com.knucse.knugra.R;
-
-import java.util.ArrayList;
 
 public class CareerSuccessFragment extends Fragment {
     private CareerSuccessViewModel careerSuccessViewModel;

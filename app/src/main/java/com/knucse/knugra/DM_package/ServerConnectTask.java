@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ServerConnectTask {
-    protected Result<LoggedInUser> execute(String... str) {
+    public Result<LoggedInUser> execute(String... str) {
         String username = str[0];
         String pwd = str[1];
         String requestType = str[2];
@@ -105,6 +105,7 @@ public class ServerConnectTask {
         StudentCareerList update_list=update_student.getStudentCareerList();//여기에 update_data 추가할 것
 
         try {
+            result = "{\"key\":\"value\"}";
             JSONObject jo = new JSONObject(result);
             Iterator keyi=jo.keys();
 
