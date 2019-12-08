@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -66,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
+
                 loginButton.setEnabled(true);
                 if (loginResult.getError() != null) {
                     showLoginFailed(loginResult.getError());
@@ -100,26 +103,24 @@ public class LoginActivity extends AppCompatActivity {
         };
         usernameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
-                return false;
-            }
-        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginButton.setEnabled(false);
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loadingProgressBar.setMax(100);
-                loginViewModel.login(usernameEditText.getText().toString(),
+
+                //update ui
+                AsyncTask<String, Void, Void> asyncTask = new AsyncTask<String, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(String... strings) {
+                        login(strings[0], strings[1]);
+                        return null;
+                    }
+                };
+                asyncTask.execute(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                loginButton.setEnabled(false);
             }
         });
     }
@@ -133,6 +134,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    }
+
+    private void login(String username, String password) {
+        loginViewModel.login(username, password);
     }
 
 

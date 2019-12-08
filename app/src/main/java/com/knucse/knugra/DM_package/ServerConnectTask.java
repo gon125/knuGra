@@ -27,11 +27,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUser>> {
-    @Override
-    protected Result<LoggedInUser> doInBackground(String... str) {
-        if(android.os.Debug.isDebuggerConnected())
-            android.os.Debug.waitForDebugger();
+public class ServerConnectTask {
+    protected Result<LoggedInUser> execute(String... str) {
         String username = str[0];
         String pwd = str[1];
         String requestType = str[2];
@@ -62,8 +59,6 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
 
             // wait for the server respond
             String result = br.readLine();
-
-
             switch (requestType) {
                 case RequestType.LOGIN:
                     return login(result, username, pwd);
