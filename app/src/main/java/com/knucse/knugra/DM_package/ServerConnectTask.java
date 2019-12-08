@@ -108,20 +108,18 @@ public class ServerConnectTask extends AsyncTask<String, Void, Result<LoggedInUs
         StudentCareer update_data;
         Student update_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         StudentCareerList update_list=update_student.getStudentCareerList();//여기에 update_data 추가할 것
-        
+
         try {
             JSONObject jo = new JSONObject(result);
             Iterator keyi=jo.keys();
 
             for(i=0;i<jo.length();i++) {//객체갯수만큼 반복해서 StudentCareer객체 만들어서 넣기
                 //선언
-                update_data=new StudentCareer();
                 String jo_name = keyi.next().toString();//key값
                 //
                 for(j=0;j<update_list.size();j++) {
                     //list에 있으면 추가하면 안됨, 값 변경
                     if(jo_name.equals(update_list.get(j).getName())){
-                        update_list.get(j).setName(jo_name);
                         update_list.get(j).setContent(jo.getString(jo_name));
                     }
                     else{//list에 없으면 객체 새로 만들어서 추가
