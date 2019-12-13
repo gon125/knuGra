@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
 
@@ -39,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
+        //test
+        //Graduation_Info_List.getInstance();
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override

@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.DM_package.RequestType;
 import com.knucse.knugra.DM_package.ServerConnectTask;
+import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.R;
 import com.knucse.knugra.UI_package.settings.SettingsActivity;
@@ -77,14 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         asyncTask.execute();
-
-// !!! 주의 아래 코드로 데이터베이스 데이터가 다 날아갈 수 있음 ...
-//        //firebase test
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//        Map<String, Object> newMajor = new HashMap<>();
-//        newMajor.put("공학전공", "Ada");
-//        db.collection(DAPATH.GRADUATION_INFO_LIST).document(DAPATH.COMPUTPER_ABEEK).set(newMajor);
 
     }
 
