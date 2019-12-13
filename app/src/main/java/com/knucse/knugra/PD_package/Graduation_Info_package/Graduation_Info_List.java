@@ -35,7 +35,6 @@ public class Graduation_Info_List{
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Gra
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                         } else {
