@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         asyncTask.execute();
-
     }
 
     @Override

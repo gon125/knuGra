@@ -1,6 +1,7 @@
 package com.knucse.knugra.PD_package.Graduation_Info_package;
 
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.knucse.knugra.DM_package.Database;
 
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
     public static Graduation_Info_List getInstance() {
         if (instance == null) {
-            instance = Database.getGraduationInfoList();
+            instance = new Graduation_Info_List();
+            Database.getGraduationInfoList();
         }
         return instance;
     }
