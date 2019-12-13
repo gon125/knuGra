@@ -67,7 +67,7 @@ public class Database {
 
 
                                     Graduation_Info gi = new Graduation_Info();
-
+                                    gi.setInfo_track(document.getId());
                                     while(it.hasNext()) {
                                         String key = it.next();
                                         String value = (String)a.get(key);
