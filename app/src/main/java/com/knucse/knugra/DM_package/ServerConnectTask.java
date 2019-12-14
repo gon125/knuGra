@@ -110,7 +110,14 @@ public class ServerConnectTask {
             for(i=0;i<jo.length();i++) {//객체갯수만큼 반복해서 StudentCareer객체 만들어서 넣기
                 //선언
                 String jo_name = keyi.next().toString();//key값
-                //
+                //  비어있는경우
+                if (update_list.size()  == 0) {
+                    update_data=new StudentCareer();
+                    update_data.setName(jo_name);//key값
+                    update_data.setContent(jo.getString(jo_name));//value값
+                    update_list.add(update_data);
+                }
+
                 for(j=0;j<update_list.size();j++) {
                     //list에 있으면 추가하면 안됨, 값 변경
                     if(jo_name.equals(update_list.get(j).getName())){
