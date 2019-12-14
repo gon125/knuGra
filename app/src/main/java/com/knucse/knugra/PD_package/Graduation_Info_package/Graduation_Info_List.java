@@ -30,7 +30,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     //졸업요건정보 검색(졸업트랙)
     //졸업요건정보 검색(졸업트랙)//
     // (전체조건)/(학생이 완수한조건)
-    public static void Graduation_Info_compare(){
+    public static void Graduation_Info_compare(final String selectedTrack){
         int i;
         //list가 전체정보
         //학생정보받아와서
@@ -44,7 +44,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Iterator<Graduation_Info> std = std_career.iterator();
         while(std.hasNext()){
             std_track=std.next();
-            if(student_career.getCareer_track().equals(std_track.info_track))
+            if(selectedTrack.equals(std_track.info_track))
                 break;
         }
         //비교(전체 갯수 count, 완수한 갯수 count)

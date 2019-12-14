@@ -11,7 +11,6 @@ import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareerList;
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.PD_package.User_package.UserAccessLevel;
-import com.knucse.knugra.PD_package.User_package.UserData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +23,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ServerConnectTask {
@@ -120,7 +118,6 @@ public class ServerConnectTask {
 
         update_list.setCareer_track(DAPATH.COMPUTPER_ABEEK);
         try {
-            result = "{\"key\":\"value\"}";
             JSONObject jo = new JSONObject(result);
             Iterator keyi=jo.keys();
 
@@ -132,12 +129,14 @@ public class ServerConnectTask {
                     //list에 있으면 추가하면 안됨, 값 변경
                     if(jo_name.equals(update_list.get(j).getName())){
                         update_list.get(j).setContent(jo.getString(jo_name));
+                        break;
                     }
                     else{//list에 없으면 객체 새로 만들어서 추가
                         update_data=new StudentCareer();
                         update_data.setName(jo_name);//key값
                         update_data.setContent(jo.getString(jo_name));//value값
                         update_list.add(update_data);
+                        break;
                     }
                 }
             }

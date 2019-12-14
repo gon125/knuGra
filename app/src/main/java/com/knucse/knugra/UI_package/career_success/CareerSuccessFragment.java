@@ -1,6 +1,7 @@
 package com.knucse.knugra.UI_package.career_success;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,9 @@ public class CareerSuccessFragment extends Fragment {
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Graduation_Info_List.Graduation_Info_compare();
+                Graduation_Info_List.Graduation_Info_compare((String)parent.getItemAtPosition(position));
                 switch (position) {
                     case 0:
-
                         break;
                     default:    break;
                 }
