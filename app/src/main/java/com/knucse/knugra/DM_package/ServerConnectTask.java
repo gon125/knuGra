@@ -101,20 +101,6 @@ public class ServerConnectTask {
         StudentCareer update_data;
         Student update_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         StudentCareerList update_list=update_student.getStudentCareerList();//여기에 update_data 추가할 것
-        update_data = new StudentCareer();
-        update_data.setName("이수합계");
-        update_data.setContent("120");
-        update_list.add(update_data);
-
-        update_data = new StudentCareer();
-        update_data.setName("기본소양");
-        update_data.setContent("5");
-        update_list.add(update_data);
-
-        update_data = new StudentCareer();
-        update_data.setName("공학인증");
-        update_data.setContent("3");
-        update_list.add(update_data);
 
         update_list.setCareer_track(DAPATH.COMPUTPER_ABEEK);
         try {
