@@ -98,6 +98,7 @@ public class ServerConnectTask {
 
     private void update(String result) {
         int i, j;
+        boolean found;
         StudentCareer update_data;
         Student update_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         StudentCareerList update_list=update_student.getStudentCareerList();//여기에 update_data 추가할 것
@@ -118,19 +119,22 @@ public class ServerConnectTask {
                     update_list.add(update_data);
                 }
 
+                found = false;
+
                 for(j=0;j<update_list.size();j++) {
                     //list에 있으면 추가하면 안됨, 값 변경
                     if(jo_name.equals(update_list.get(j).getName())){
                         update_list.get(j).setContent(jo.getString(jo_name));
+                        found = true;
                         break;
                     }
-                    else{//list에 없으면 객체 새로 만들어서 추가
-                        update_data=new StudentCareer();
-                        update_data.setName(jo_name);//key값
-                        update_data.setContent(jo.getString(jo_name));//value값
-                        update_list.add(update_data);
-                        break;
-                    }
+                }
+
+                if (!found){//list에 없으면 객체 새로 만들어서 추가
+                    update_data=new StudentCareer();
+                    update_data.setName(jo_name);//key값
+                    update_data.setContent(jo.getString(jo_name));//value값
+                    update_list.add(update_data);
                 }
             }
         }catch(JSONException e){
