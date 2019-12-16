@@ -1,6 +1,17 @@
 package com.knucse.knugra.DM_package;
 
+import java.util.ArrayList;
+
 public class DAPATH { // data access path
+
+    public static final ArrayList<String> LIST_ALL = new ArrayList<String>() {{
+        add(COMPUTPER_ABEEK);
+        add(COMPUTPER);
+        add(TEACHING);
+        add(MINER);
+        add(FOREIGN_EXCHANGE);
+    }};
+
     public static final String GRADUATION_INFO_LIST = "졸업요건정보목록";
     public static final String STUDENT_LIST = "학생목록";
     public static final String COMPUTPER_ABEEK = "심화컴퓨터전공(ABEEK)";
