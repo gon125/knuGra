@@ -83,7 +83,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
 
     //졸업요건정보 검색(졸업트랙)//
-    public ArrayList<String[]> Graduation_Info_search(String selectedTrack) {
+    public static ArrayList<String[]> Graduation_Info_search(final String selectedTrack) {
         int i;
         Graduation_Info_List std_career = getInstance();
         Graduation_Info std_track = new Graduation_Info();
@@ -94,10 +94,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Iterator<Graduation_Info> std = std_career.iterator();
         while (std.hasNext()) {
             std_track = std.next();
+
             if (selectedTrack.equals(std_track.info_track))
                 break;
+
         }
-        //문자열로 반환해주기(?)
+        //문자열로 반환해주기
         for(i=0;i<std_track.size();i++) {
             element = new String[]{std_track.get(i).getName(), std_track.get(i).getContent()};
             returnList.add(element);
