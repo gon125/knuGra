@@ -55,13 +55,13 @@ public class HomeFragment extends Fragment {
                             ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
                             break;
                         case R.id.button2_home:
-                            ((MainActivity)getActivity()).navigateTo(R.id.nav_std_info_input);
-                            break;
-                        case R.id.button3_home:
                             ((MainActivity)getActivity()).navigateTo(R.id.nav_g_info_search);
                             break;
+                        case R.id.button3_home:
+                            ((MainActivity)getActivity()).navigateTo(R.id.nav_std_info_input);
+                            break;
                         case R.id.button4_home:
-                            ((MainActivity)getActivity()).navigateTo(R.id.nav_qa);
+                            ((MainActivity)getActivity()).navigateTo(R.id.nav_doc_agree);
                             break;
                         default:    break;
                     }
