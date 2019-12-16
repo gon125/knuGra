@@ -28,8 +28,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         }
         return instance;
     }
-    //졸업요건정보 검색(졸업트랙)
-    //졸업요건정보 검색(졸업트랙)//
+
+    //남은 졸업자격정보 열람 요청(졸업트랙)
     // (전체조건)/(학생이 완수한조건)
     public static ArrayList<String[]> Graduation_Info_compare(final String selectedTrack){
         int i;
@@ -81,8 +81,29 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         return returnValueList;
     }
 
+
+    //졸업요건정보 검색(졸업트랙)//
+    public ArrayList<String[]> Graduation_Info_search(String selectedTrack) {
+        int i;
+        Graduation_Info_List std_career = getInstance();
+        Graduation_Info std_track = new Graduation_Info();
+        ArrayList<String[]> returnList = new ArrayList<>();
+        String[] element;
+
+        //해당트랙정보 가져오기
+        Iterator<Graduation_Info> std = std_career.iterator();
+        while (std.hasNext()) {
+            std_track = std.next();
+            if (selectedTrack.equals(std_track.info_track))
+                break;
+        }
+        //문자열로 반환해주기(?)
+        for(i=0;i<std_track.size();i++) {
+            element = new String[]{std_track.get(i).getName(), std_track.get(i).getContent()};
+            returnList.add(element);
+        }
+        return returnList;
+    }
     //졸업요건정보 업데이트()
     //졸업요건정보 추가()
-    //남은 졸업자격정보 열람 요청(졸업트랙)
-
 }
