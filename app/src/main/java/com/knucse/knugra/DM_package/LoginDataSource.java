@@ -16,8 +16,14 @@ public class LoginDataSource {
         }
     }
 
-    public void logout() {
-        // TODO: revoke authentication
+    public void logout(String username, String password) {
+        try {
+            ServerConnectTask serverConnectTask = new ServerConnectTask();
+            serverConnectTask.execute(username, password, RequestType.LOGOUT);
+        } catch (Exception e) {
+            e.printStackTrace();
+           return;
+        }
     }
 
 }

@@ -63,6 +63,8 @@ public class ServerConnectTask {
                 case RequestType.UPDATE:
                     update(result);
                     break;
+                case RequestType.LOGOUT:
+                    logout(result);
             }
 
         } catch (IOException e) {
@@ -96,6 +98,20 @@ public class ServerConnectTask {
         } else return new Result.Error(new IOException("Error logging in"));
     }
 
+    private boolean logout(String result) {
+        JsonParser jp = new JsonParser();
+
+        JsonObject jo = (JsonObject) jp.parse(result);
+        JsonElement je = jo.get("logout");
+        String respond = je.getAsString();
+        System.out.println(respond);
+
+        if (respond.equals("success")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     private void update(String result) {
         int i, j;
         boolean found;

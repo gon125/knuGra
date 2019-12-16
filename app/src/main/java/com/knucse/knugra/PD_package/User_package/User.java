@@ -1,4 +1,6 @@
 package com.knucse.knugra.PD_package.User_package;
+import com.knucse.knugra.DM_package.LoginDataSource;
+import com.knucse.knugra.DM_package.LoginRepository;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 
@@ -37,6 +39,12 @@ public class User {
             instance = new User(user, accessLevel);
         }
         return instance;
+    }
+
+    public static void logout() {
+       LoginRepository.getInstance(new LoginDataSource()).logout(instance.id, instance.password);
+       instance = null;
+       return;
     }
 
     public static User getInstance() {

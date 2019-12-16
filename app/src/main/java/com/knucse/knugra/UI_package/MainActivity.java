@@ -107,6 +107,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // user logout
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                User.logout();
+            }
+        }).start();
+
+    }
+
     public void navigateTo(int resId) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navController.navigate(resId);
