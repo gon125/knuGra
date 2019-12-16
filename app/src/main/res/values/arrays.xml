@@ -14,11 +14,14 @@
         <item>심화컴퓨터전공(ABEEK)</item>
         <item>심화컴퓨터전공(일반)</item>
         <item>글로벌소프트웨어전공</item>
-        <item>SW연계융합전공</item>
+        <item>SW연계전공</item>
+        <item>SW융합전공</item>
         <item>교직이수</item>
-        <item>복수전공</item>
+        <item>복수전공(심컴)</item>
+        <item>복수전공(글솦)</item>
         <item>부전공</item>
-        <item>외국인복수학위</item>
+        <item>외국인복수학위(2+2)</item>
+        <item>외국인복수학위(3+1)</item>
         <item>외국인교환학생</item>
     </string-array>
 </resources>

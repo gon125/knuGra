@@ -33,8 +33,11 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     // (전체조건)/(학생이 완수한조건)
     public static ArrayList<String[]> Graduation_Info_compare(final String selectedTrack){
         int i;
-        float totalBase = 0;
-        float totalSum = 0;
+        boolean found;
+        float totalSuccess_rate = 0;
+        int totalcount = 0;
+        String userContentString;
+        StudentCareer scobject = null;
         ArrayList<String[]> returnValueList = new ArrayList<>();
         String[] element;
         //list가 전체정보
@@ -55,27 +58,55 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //비교(전체 갯수 count, 완수한 갯수 count)
         for(i=0;i<std_track.size();i++) {
             Iterator<StudentCareer> sc=student_career.iterator();
+            // reset found
+            found = false;
             while(sc.hasNext()){
-                StudentCareer scobject= sc.next();
+                scobject = sc.next();
                 if(scobject.getName().equals(std_track.get(i).getName())){
-                    try {
-                        stddata = Integer.parseInt(std_track.get(i).getContent());//content가 숫자
-                        userdata = Integer.parseInt(scobject.getContent());
-                        success_rate = (float) userdata/(float) stddata;
-                        int temp = (int)(success_rate*100);
-                        element = new String[]{std_track.get(i).getName(), std_track.get(i).getContent(), scobject.getContent(), new Integer(temp).toString() + "%"};
-                        returnValueList.add(element);
-
-                        totalBase += stddata;
-                        totalSum  += userdata;
-
-                    }catch(NumberFormatException e) {
-                        //NumberFormatException=숫자형태가 아닌 문자열
-                    }
+                        found = true;
+                        break;
                 }
             }
+
+            try {
+                stddata = Integer.parseInt(std_track.get(i).getContent());//content가 숫자
+                if(found == true) {
+                    userdata = Integer.parseInt(scobject.getContent());
+                    userContentString = scobject.getContent();
+                } else {
+                    userdata = 0;
+                    userContentString = "0";
+                }
+
+                if (userdata > stddata) {
+                    success_rate = new Float(1.0);
+
+                } else {
+                    success_rate = (float) userdata/(float) stddata;
+                }
+                // 영어성적의 경우
+                if (Integer.valueOf(std_track.get(i).getContent()) > 500) {
+                    totalSuccess_rate += success_rate*15;
+                    totalcount += 15;
+                } else {
+                    totalSuccess_rate += success_rate*Float.valueOf(std_track.get(i).getContent());
+                    totalcount += Integer.valueOf(std_track.get(i).getContent());
+                }
+
+                int temp = (int)(success_rate*100);
+
+
+                element = new String[]{std_track.get(i).getName(), std_track.get(i).getContent(), userContentString, new Integer(temp).toString() + "%"};
+
+
+                returnValueList.add(element);
+
+
+            }catch(NumberFormatException e) {
+                //NumberFormatException=숫자형태가 아닌 문자열
+            }
         }
-        int a = (int)((totalSum/totalBase) * 100);
+        int a = (int)((totalSuccess_rate/totalcount) * 100);
         element = new String[]{"총  합", "", "", new Integer(a).toString() + "%"};
         returnValueList.add(0, element);
         return returnValueList;
