@@ -80,7 +80,7 @@ public class Database {
 
                                     gilist.add(gi);
 
-                                    Log.d("내꺼", gi.get(0).getContent());
+                                    //Log.d("내꺼", gi.get(0).getContent());
                                 }
                             }
                         }
