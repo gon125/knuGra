@@ -13,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="165dp" />
+        android:layout_marginEnd="165dp"
+        android:theme="@style/SpinnerTheme"/>
 
     <de.codecrafters.tableview.TableView
         xmlns:table="http://schemas.android.com/apk/res-auto"

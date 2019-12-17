@@ -13,13 +13,54 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="165dp" />
+        android:layout_marginEnd="165dp"
+        android:theme="@style/SpinnerTheme" />
 
-    <de.codecrafters.tableview.TableView
-        xmlns:table="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tableView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        table:tableView_columnCount="4" />
-    
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="1dp"
+        android:background="@color/colorLightGray">
+        <TextView
+            android:id="@+id/sc_item"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginVertical="4dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            android:text="@string/sc_item"/>
+        <TextView
+            android:id="@+id/sc_pct"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginVertical="4dp"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:textAlignment="center"
+            android:text="@string/sc_pct"/>
+        <TextView
+            android:id="@+id/sc_prg"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="4dp"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:textAlignment="center"
+            android:text="@string/sc_prg"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_career_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
+
 </LinearLayout>
