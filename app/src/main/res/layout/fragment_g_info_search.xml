@@ -16,11 +16,47 @@
         android:layout_marginEnd="165dp"
         android:theme="@style/SpinnerTheme"/>
 
-    <de.codecrafters.tableview.TableView
-        xmlns:table="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/tableView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        table:tableView_columnCount="4" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorLightGray">
+        <TextView
+            android:id="@+id/gis_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:textSize="17sp"
+            android:text="@string/sc_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/gis_gra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginEnd="40dp"
+            android:text="@string/sc_gra"
+            android:textAlignment="center"
+            android:textSize="17sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_ginfo_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -18,7 +18,7 @@
     <string name="sc_item">"항목"</string>
     <string name="sc_pct">"학생/졸업기준"</string>
     <string name="sc_std">"학생"</string>
-    <string name="sc_gra">"졸업"</string>
+    <string name="sc_gra">"졸업기준"</string>
     <string name="sc_percent">"%"</string>
     <string name="sc_prg">"달성도"</string>
 

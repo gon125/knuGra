@@ -14,9 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.R;
+import com.knucse.knugra.UI_package.career_success.CareerSuccessAdapter;
 
 import java.util.ArrayList;
 
@@ -27,8 +31,7 @@ import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 public class GInfoSearchFragment extends Fragment {
 
     private GInfoSearchViewModel gInfoSearchViewModel;
-    private static ArrayList<String[]> tableViewDatas =  new ArrayList<String[]>();
-    private static final String[] TABLE_HEADERS = { "항목", "졸업기준" };
+    private static ArrayList<String[]> ginfoDatas = new ArrayList<String[]>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,17 +40,23 @@ public class GInfoSearchFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_g_info_search, container, false);
         final Spinner trackSpinner = (Spinner)root.findViewById(R.id.track_spinner);
         final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.track, android.R.layout.simple_dropdown_item_1line);
-        final TableView<String[]> tableView = root.findViewById(R.id.tableView);
 
-        tableView.setHeaderAdapter(new SimpleTableHeaderAdapter(this.getActivity(), TABLE_HEADERS));
-        tableView.setColumnCount(2);
+        final RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_ginfo_search);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(ginfoDatas);
+        recyclerView.setAdapter(gis_adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
         trackSpinner.setAdapter(trackAdapter);
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tableViewDatas = Graduation_Info_List.Graduation_Info_search((String)parent.getItemAtPosition(position));
-                tableView.setDataAdapter(new SimpleTableDataAdapter(getActivity(), tableViewDatas));
+                ginfoDatas = Graduation_Info_List.Graduation_Info_search((String)parent.getItemAtPosition(position));
+                GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(ginfoDatas);
+                recyclerView.setAdapter(gis_adapter);
+                recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
                 switch (position) {
                     case 0:
                         break;
