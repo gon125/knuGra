@@ -5,25 +5,19 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-
-import android.util.Log;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.knucse.knugra.DM_package.DAPATH;
+
 import com.knucse.knugra.DM_package.RequestType;
 import com.knucse.knugra.DM_package.ServerConnectTask;
-import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
+
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.R;
 import com.knucse.knugra.UI_package.settings.SettingsActivity;
@@ -35,8 +29,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // menu should be considered as top` level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_career_success, R.id.nav_g_info_search, R.id.nav_std_info_input,
                 R.id.nav_doc_agree, R.id.nav_std_info_search, R.id.nav_qa, R.id.nav_notice)

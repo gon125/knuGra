@@ -18,6 +18,7 @@ public class StudentCareerList extends ArrayList<StudentCareer> {
     int career_counsel;//상담횟수*/
     //학생경력항목 추가하기
 
+    // 선택한 졸업트랙 종류 요청
     public String getCareer_track() {
         return career_track;
     }
