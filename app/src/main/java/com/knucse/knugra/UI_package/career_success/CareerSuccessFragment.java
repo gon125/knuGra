@@ -52,9 +52,10 @@ public class CareerSuccessFragment extends Fragment {
         recyclerView.setAdapter(cs_adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-        final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.track, android.R.layout.simple_dropdown_item_1line);
+        final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.track, android.R.layout.simple_spinner_dropdown_item);
 
         trackSpinner.setAdapter(trackAdapter);
+        trackSpinner.setSelection(((MainActivity)getActivity()).getMajorposition());
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

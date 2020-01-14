@@ -2,6 +2,7 @@ package com.knucse.knugra.UI_package.login;
 
 import android.app.Activity;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -13,28 +14,36 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
+import com.knucse.knugra.PD_package.User_package.Student_package.StudentBasicInfo;
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
+import com.knucse.knugra.UI_package.career_success.CareerSuccessAdapter;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
+    private int majorposition;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +57,21 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
+        final Spinner trackSpinner = (Spinner)this.findViewById(R.id.track_spinner);
+
+        final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(this, R.array.track, android.R.layout.simple_spinner_dropdown_item);
+
+        trackSpinner.setAdapter(trackAdapter);
+        trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                majorposition = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         // always sync with network
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -157,6 +181,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void switchToMain() {
         Intent it = new Intent(LoginActivity.this, MainActivity.class);
+        it.putExtra("mposition", majorposition);
         startActivity(it);
     }
 }

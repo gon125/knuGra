@@ -20,6 +20,7 @@ import com.knucse.knugra.DM_package.ServerConnectTask;
 
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.R;
+
 import com.knucse.knugra.UI_package.settings.SettingsActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,11 +34,15 @@ import android.view.Menu;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private int majorposition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//생성하기
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent it = getIntent();
+        majorposition = it.getIntExtra("mposition", 0);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -93,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -115,5 +119,13 @@ public class MainActivity extends AppCompatActivity {
     public void navigateTo(int resId) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navController.navigate(resId);
+    }
+
+    public int getMajorposition() {
+        return majorposition;
+    }
+
+    public void setMajorposition(int majorposition) {
+        this.majorposition = majorposition;
     }
 }

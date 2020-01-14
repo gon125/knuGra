@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
+import com.knucse.knugra.UI_package.career_success.CareerSuccessFragment;
+import com.knucse.knugra.UI_package.g_info_search.GInfoSearchFragment;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +30,7 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
+
         final TextView textView = root.findViewById(R.id.text_home);
         ArrayList<Button> buttons = new ArrayList<Button>();
         final Button b1 = root.findViewById(R.id.button1_home);
