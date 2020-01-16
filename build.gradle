@@ -6,6 +6,11 @@ buildscript {
         jcenter()
         
     }
+
+    ext {
+        poiVersion = '3.17'
+    }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.1'
         classpath 'com.google.gms:google-services:4.3.2'
@@ -19,6 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
         
     }
 }
