@@ -22,4 +22,6 @@ public class DAPATH { // data access path
     public static final String DESIGNSUBJECTLIST = "design_subject_list";
     public static final String REQUIREDSUBJECTLIST = "required_subject_list";
 
+    public static final String SUBJECTCODE = "교과목번호";
+
 }

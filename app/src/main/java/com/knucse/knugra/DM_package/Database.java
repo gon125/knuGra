@@ -143,6 +143,7 @@ public class Database { // 데이터베이스 접근 객체
             row = rowIterator.next();
             cellIterator = row.iterator();
             Iterator<String> keysIterator = keys.iterator();
+            subject = new Subject();
             while (cellIterator.hasNext()) {
                 cell = cellIterator.next();
 
@@ -166,7 +167,6 @@ public class Database { // 데이터베이스 접근 객체
                         break;
                 }
                 String key = keysIterator.next();
-                subject = new Subject();
                 subject.put(key, cellToString);
             }
 
@@ -174,7 +174,7 @@ public class Database { // 데이터베이스 접근 객체
 
 
             // 과목코드는 키값의 0 번쨰 인덱스에 있음
-            String subjectCode = subject.get(keys.get(0));
+            String subjectCode = subject.get(DAPATH.SUBJECTCODE);
 
 
             // 과목코드를 키값으로 설계과목목록에 설계과목 해시테이블을 집어넣음
