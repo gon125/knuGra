@@ -8,8 +8,13 @@ import java.io.IOException;
 public class LoginDataSource {
     public Result<LoggedInUser> login(String username, String password, String major) {
         try {
+
+            ServerConnectTask.ServerConnectTaskPrams params =
+                    new ServerConnectTask.ServerConnectTaskPrams(username, password, RequestType.LOGIN, major);
+
+
             ServerConnectTask serverConnectTask = new ServerConnectTask();
-            return serverConnectTask.execute(username, password, RequestType.LOGIN, major);
+            return serverConnectTask.execute(params);
         } catch (Exception e) {
             e.printStackTrace();
             return new Result.Error(new IOException("Error logging in", e));
@@ -25,5 +30,7 @@ public class LoginDataSource {
            return;
         }
     }
+
+
 
 }

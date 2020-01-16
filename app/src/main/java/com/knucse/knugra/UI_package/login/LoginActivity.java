@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.UI_package.MainActivity;
@@ -72,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                major = (String)parent.getItemAtPosition(parent.getFirstVisiblePosition());
             }
         });
 
@@ -156,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
                 AsyncTask<String, Void, Void> asyncTask = new AsyncTask<String, Void, Void>() {
                     @Override
                     protected Void doInBackground(String... strings) {
-                        login(strings[0], strings[1]);
+                        login(strings[0], strings[1], major);
                         return null;
                     }
                 };
@@ -177,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 
-    private void login(String username, String password) {
+    private void login(String username, String password, String major) {
         loginViewModel.login(username, password, major);
     }
 

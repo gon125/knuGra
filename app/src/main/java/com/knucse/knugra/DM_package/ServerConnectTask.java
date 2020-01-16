@@ -30,7 +30,58 @@ public class ServerConnectTask {
         String username = str[0];
         String pwd = str[1];
         String requestType = str[2];
-        String major = str[3];
+
+        try {
+            Socket socket;
+            InputStream is;
+            OutputStream os;
+            socket = new Socket("54.180.106.239", 3456);
+
+            is = socket.getInputStream();
+            os = socket.getOutputStream();
+
+            OutputStreamWriter osw = new OutputStreamWriter(os);
+            BufferedWriter bw = new BufferedWriter(osw);
+
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("requestType", requestType);
+            jsonObject.addProperty("id", username);
+            jsonObject.addProperty("pwd", pwd);
+
+            String s = jsonObject.toString();
+            bw.write(s);
+            bw.flush();
+
+            InputStreamReader isr = new InputStreamReader(is);
+
+            BufferedReader br = new BufferedReader(isr);
+
+            // wait for the server respond
+            String result = br.readLine();
+            switch (requestType) {
+                case RequestType.LOGIN:
+                    return login(result, username, pwd);
+                case RequestType.UPDATE:
+                    update(result);
+                    break;
+                case RequestType.LOGOUT:
+                    logout(result);
+            }
+
+        } catch (IOException e) {
+            return new Result.Error(new IOException("Error serverConnect in", e));
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return new Result.Error(new Exception("Error logging in", e));
+        }
+        return new Result.Error(new Exception("Error serverConnect"));
+    }
+
+    public Result<LoggedInUser> execute(ServerConnectTaskPrams... params) {
+        String username = params[0].username;
+        String pwd = params[0].password;
+        String requestType = params[0].requestType;
+        String major = params[0].major;
 
         try {
             Socket socket;
@@ -166,4 +217,18 @@ public class ServerConnectTask {
     }
 
 
+    public static class ServerConnectTaskPrams {
+        String username;
+        String password;
+        String requestType;
+        String major;
+
+        ServerConnectTaskPrams(String username, String password, String requestType, String major) {
+            this.username = username;
+            this.password = password;
+            this.major = major;
+            this.requestType = requestType;
+        }
+    }
 }
+
