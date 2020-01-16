@@ -58,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
         // test
-        Database.getDesignSubjectList(getApplicationContext());
-        Database.getRequiredSubjectList(getApplicationContext());
+        //Database.getDesignSubjectList(getApplicationContext());
+        //Database.getRequiredSubjectList(getApplicationContext());
 
 
         trackSpinner.setAdapter(trackAdapter);
