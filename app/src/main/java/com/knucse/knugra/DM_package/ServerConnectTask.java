@@ -30,6 +30,8 @@ public class ServerConnectTask {
         String username = str[0];
         String pwd = str[1];
         String requestType = str[2];
+        String major = str[3];
+
         try {
             Socket socket;
             InputStream is;
@@ -46,6 +48,7 @@ public class ServerConnectTask {
             jsonObject.addProperty("requestType", requestType);
             jsonObject.addProperty("id", username);
             jsonObject.addProperty("pwd", pwd);
+            jsonObject.addProperty("major", major);
 
             String s = jsonObject.toString();
             bw.write(s);
