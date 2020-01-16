@@ -1,11 +1,5 @@
 package com.knucse.knugra.PD_package.Graduation_Info_package;
 
-
-import android.util.Log;
-import android.widget.ArrayAdapter;
-
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
@@ -26,6 +20,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             instance = new Graduation_Info_List();
             Database.getGraduationInfoList();
         }
+
         return instance;
     }
 
