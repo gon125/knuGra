@@ -6,7 +6,6 @@ public class DAPATH { // data access path
 
 
     public static final String COMPUTPER_ABEEK = "심화컴퓨터전공(ABEEK)";
-    public static final String COMPUTPER = "심화컴퓨터전공(일반)";
     public static final String GLOBAL_SOFTWARE = "글로벌소프트웨어전공";
     public static final String CONNECTED__SOFTWARE = "SW연계전공";
     public static final String CORE_SOFTWARE = "SW융합전공";
@@ -19,4 +18,8 @@ public class DAPATH { // data access path
     public static final String FOREIGN_DOUBLE_TWO_TWO = "외국인복수학위(2+2)";
     public static final String FOREIGN_DOUBLE_THREE_ONE = "외국인복수학위(3+1)";
     public static final String FOREIGN_EXCHANGE = "외국인교환학생";
+
+    public static final String DESIGNSUBJECTLIST = "design_subject_list";
+    public static final String REQUIREDSUBJECTLIST = "required_subject_list";
+
 }
