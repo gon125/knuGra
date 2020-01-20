@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
+import com.knucse.knugra.PD_package.Subject_package.SubjectList;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareerList;
@@ -169,11 +170,15 @@ public class ServerConnectTask {
     private void update(String result) {
         int i, j;
         boolean found;
-        StudentCareer update_data;
-        Student update_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
-        StudentCareerList update_list=update_student.getStudentCareerList();//여기에 update_data 추가할 것
+        StudentCareer studentCareer;
+        SubjectList requiredSubjectList;
+        SubjectList designSubjectList;
+        Student student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+        StudentCareerList studentCareerList=student.getStudentCareerList();//여기에 studentCareer 추가할 것
 
-        update_list.setCareer_track(DAPATH.COMPUTPER_ABEEK);
+        //studentCareerList.setCareer_track(DAPATH.COMPUTPER_ABEEK);
+
+        // have to get
         try {
             JSONObject jo = new JSONObject(result);
             Iterator keyi=jo.keys();
@@ -182,38 +187,34 @@ public class ServerConnectTask {
                 //선언
                 String jo_name = keyi.next().toString();//key값
                 //  비어있는경우
-                if (update_list.size()  == 0) {
-                    update_data=new StudentCareer();
-                    update_data.setName(jo_name);//key값
-                    update_data.setContent(jo.getString(jo_name));//value값
-                    update_list.add(update_data);
+                if (studentCareerList.size()  == 0) {
+                    studentCareer=new StudentCareer();
+                    studentCareer.setName(jo_name);//key값
+                    studentCareer.setContent(jo.getString(jo_name));//value값
+                    studentCareerList.add(studentCareer);
                 }
 
                 found = false;
 
-                for(j=0;j<update_list.size();j++) {
+                for(j=0;j<studentCareerList.size();j++) {
                     //list에 있으면 추가하면 안됨, 값 변경
-                    if(jo_name.equals(update_list.get(j).getName())){
-                        update_list.get(j).setContent(jo.getString(jo_name));
+                    if(jo_name.equals(studentCareerList.get(j).getName())){
+                        studentCareerList.get(j).setContent(jo.getString(jo_name));
                         found = true;
                         break;
                     }
                 }
 
                 if (!found){//list에 없으면 객체 새로 만들어서 추가
-                    update_data=new StudentCareer();
-                    update_data.setName(jo_name);//key값
-                    update_data.setContent(jo.getString(jo_name));//value값
-                    update_list.add(update_data);
+                    studentCareer=new StudentCareer();
+                    studentCareer.setName(jo_name);//key값
+                    studentCareer.setContent(jo.getString(jo_name));//value값
+                    studentCareerList.add(studentCareer);
                 }
             }
         }catch(JSONException e){
             e.printStackTrace();
         }
-        /*JsonParser jp = new JsonParser();
-        StudentCareerList update_list=update_student.getStudentCareerList();
-        JsonObject jo = (JsonObject)jp.parse(result); //key:value, dictionary형태로 변환해서 저장
-        */
     }
 
 
