@@ -5,9 +5,14 @@ import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareerList;
 import com.knucse.knugra.PD_package.User_package.User;
+//subject test
+import com.knucse.knugra.PD_package.Subject_package.Subject;
+import com.knucse.knugra.PD_package.Subject_package.SubjectList;
+import java.lang.String;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Set;
 
 public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     private static volatile Graduation_Info_List instance;
@@ -131,6 +136,70 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             returnList.add(element);
         }
         return returnList;
+    }
+
+    //설계과목 이수여부확인
+    public ArrayList<String[]> Subject_Design_check(){
+        //결과 값 저장공간
+        ArrayList<String[]> returnValueList = new ArrayList<>();
+        String[] element;
+        //학생정보
+        Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+        SubjectList student_design = now_student.getDesignSubjectList();//학생 설계과목 이수현황 가져오기
+        //(표준) 설계과목정보
+        SubjectList sub_list = SubjectList.getInstance("Design");
+
+        //설계과목 각각 가져와서 비교
+        Set<String> sub_keys = sub_list.keySet();
+        Iterator<String> sub_key = sub_keys.iterator();
+
+        while(sub_key.hasNext()){
+            //과목코드로 이수확인
+            String now_key=sub_key.next();
+            if(student_design.containsKey(now_key)){//이수 했을 경우
+                Subject now_sub = student_design.get(now_key);
+                element = new String[]{now_key, now_sub.get(now_key) + "O"};
+                returnValueList.add(element);
+            }
+            else{//이수 안했을 경우
+                Subject now_sub = sub_list.get(now_key);
+                element = new String[]{now_key, now_sub.get(now_key) + "X"};
+                returnValueList.add(element);
+            }
+        }
+
+        return returnValueList;
+    }
+    //필수과목 이수여부확인
+    public ArrayList<String[]> Subject_Required_check(){
+        //결과 값 저장공간
+        ArrayList<String[]> returnValueList = new ArrayList<>();
+        String[] element;
+        //학생정보
+        Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+        SubjectList student_required = now_student.getRequiredSubjectList();//학생 필수과목 이수현황 가져오기
+        //(표준) 필수과목정보
+        SubjectList sub_list = SubjectList.getInstance("Required");
+
+        //필수과목 각각 가져와서 비교
+        Set<String> sub_keys = sub_list.keySet();
+        Iterator<String> sub_key = sub_keys.iterator();
+        while(sub_key.hasNext()){
+            //과목코드로 이수확인
+            String now_key=sub_key.next();
+            if(student_required.containsKey(sub_key.next())){//이수 했을 경우
+                Subject now_sub = student_required.get(now_key);
+                element = new String[]{now_key, now_sub.get(now_key) + "O"};
+                returnValueList.add(element);
+            }
+            else{//이수 안했을 경우
+                Subject now_sub = sub_list.get(now_key);
+                element = new String[]{now_key, now_sub.get(now_key) + "X"};
+                returnValueList.add(element);
+            }
+        }
+
+        return returnValueList;
     }
     //졸업요건정보 업데이트()
     //졸업요건정보 추가()
