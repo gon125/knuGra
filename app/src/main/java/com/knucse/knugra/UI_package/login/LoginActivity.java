@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,8 +30,13 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
+import com.knucse.knugra.PD_package.Subject_package.SubjectList;
+import com.knucse.knugra.PD_package.User_package.Student_package.Student;
+import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
+
+import java.util.Iterator;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,14 +60,11 @@ public class LoginActivity extends AppCompatActivity {
 
         final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(this, R.array.track, android.R.layout.simple_spinner_dropdown_item);
 
+
+        // setting for poi dependencies
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
-
-        // test
-        //Database.getDesignSubjectList(getApplicationContext());
-        //Database.getRequiredSubjectList(getApplicationContext());
-
 
         trackSpinner.setAdapter(trackAdapter);
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -171,6 +174,10 @@ public class LoginActivity extends AppCompatActivity {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         switchToMain();
+
+        // 사용자가 학생밖에 없다는 전제하에
+        Student student = (Student)User.getInstance().getUserData();
+        student.getStudentCareerList().setCareer_track(major);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 

@@ -21,7 +21,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
+import com.knucse.knugra.PD_package.User_package.Student_package.Student;
+import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.R;
 import com.knucse.knugra.UI_package.MainActivity;
 
@@ -33,12 +36,14 @@ import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
+import static com.knucse.knugra.DM_package.DAPATH.*;
+
 public class CareerSuccessFragment extends Fragment {
     private CareerSuccessViewModel careerSuccessViewModel;
     private static ArrayList<RecyclerItem> mData = new ArrayList<RecyclerItem>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             final ViewGroup container, Bundle savedInstanceState) {
         careerSuccessViewModel =
                 ViewModelProviders.of(this).get(CareerSuccessViewModel.class);
         View root = inflater.inflate(R.layout.fragment_career_success, container, false);
@@ -73,7 +78,27 @@ public class CareerSuccessFragment extends Fragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Student student = (Student)User.getInstance().getUserData();
+                String selection = student.getStudentCareerList().getCareer_track();
+                int position = 0;
+                switch (selection) {
+                    case COMPUTPER_ABEEK: position = 0;
+                        break;
+                    case GLOBAL_SOFTWARE: position = 1;
+                        break;
+                    case BIGDATA: position = 2;
+                        break;
+                    case CONSTRUCTION_IT: position = 3;
+                        break;
+                    case FINTECH: position = 4;
+                        break;
+                    case MEDIAART: position = 5;
+                        break;
+                    default :
+                        break;
+                }
 
+                parent.setSelection(position);
             }
         });
         careerSuccessViewModel.getText().observe(this, new Observer<String>() {
