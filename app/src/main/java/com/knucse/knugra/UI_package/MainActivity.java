@@ -33,15 +33,11 @@ import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static MainActivity mainActivity;
-
     private AppBarConfiguration mAppBarConfiguration;
     private int majorposition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//생성하기
-
-        mainActivity = this;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

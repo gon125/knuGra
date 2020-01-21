@@ -23,7 +23,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     public static Graduation_Info_List getInstance() {
         if (instance == null) {
             instance = new Graduation_Info_List();
-            Database.getGraduationInfoList();
+            //Database.getGraduationInfoList();
+            Database.getGraduationInfoList_temp();
         }
 
         return instance;

@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,25 +26,21 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.knucse.knugra.DM_package.DAPATH;
-import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
-import com.knucse.knugra.PD_package.Subject_package.SubjectList;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
 
-import java.util.Iterator;
-
 public class LoginActivity extends AppCompatActivity {
-
+    public static LoginActivity loginActivity;
     private LoginViewModel loginViewModel;
     private int majorposition;
     private String major;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        loginActivity = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
@@ -80,12 +75,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // always sync with network
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(false)
-                .build();
-        db.setFirestoreSettings(settings);
+//        // always sync with network
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+//                .setPersistenceEnabled(false)
+//                .build();
+//        db.setFirestoreSettings(settings);
         //init graduation info
         Graduation_Info_List.getInstance();
 
