@@ -195,26 +195,22 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 found = true;
                 user_data++;
                 Subject now_sub = student_design.get(now_key);
-                element = new String[]{now_key, now_sub.get(now_key) + "O"};
+                element = new String[]{now_key, now_sub.get("교과목명"), "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
                 //대체 과목 여부 확인
-                Subject replace_sub = sub_list.get(now_key);
-                Set<String> rep_keys = replace_sub.keySet();
-                Iterator<String> rep_key = rep_keys.iterator();
-                while(rep_key.hasNext()){
-                    if(student_design.containsKey(rep_key.next())){//대체과목 이수 했을 경우
-                        found = true;
-                        user_data++;
-                        element = new String[]{rep_key.toString(), sub_list.get(now_key).get(rep_key) + "O"};
-                        returnValueList.add(element);
-                        break;
-                    }
+                Subject sub_info = sub_list.get(now_key);
+                String replace_key = sub_info.get("대체교과목번호");
+                if(student_design.containsKey(replace_key)){
+                    found=true;
+                    user_data++;
+                    element = new String[]{replace_key, sub_info.get("교과목명"), "O(대체)"};
+                    returnValueList.add(element);
                 }
-                if(!found) {//모두(원래, 대체) 이수 안했을 경우
+                else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
                     Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_key, now_sub.get(now_key) + "X"};
+                    element = new String[]{now_key, now_sub.get(now_key) , "X"};
                     returnValueList.add(element);
                 }
             }
@@ -262,20 +258,15 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
-                Subject replace_sub = sub_list.get(now_key);
-                Set<String> rep_keys = replace_sub.keySet();
-                Iterator<String> rep_key = rep_keys.iterator();
-                while(rep_key.hasNext()){
-                    if(student_required.containsKey(rep_key.next())){//대체과목 이수 했을 경우
-                        found = true;
-                        user_data++;
-                        element = new String[]{rep_key.toString(), sub_list.get(now_key).get(rep_key) + "O"};
-                        returnValueList.add(element);
-                        break;
-                    }
+                Subject sub_info = sub_list.get(now_key);
+                String replace_key = sub_info.get("대체교과목번호");
+                if(student_required.containsKey(replace_key)){
+                    found=true;
+                    user_data++;
+                    element = new String[]{replace_key, sub_info.get("교과목명"), "O(대체)"};
+                    returnValueList.add(element);
                 }
-                //
-                if(!found) {
+                else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
                     Subject now_sub = sub_list.get(now_key);
                     element = new String[]{now_key, now_sub.get(now_key) + "X"};
                     returnValueList.add(element);
