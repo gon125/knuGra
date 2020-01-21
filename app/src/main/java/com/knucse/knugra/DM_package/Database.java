@@ -16,6 +16,7 @@ import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List
 import com.knucse.knugra.PD_package.Subject_package.Subject;
 import com.knucse.knugra.PD_package.Subject_package.SubjectList;
 import com.knucse.knugra.R;
+import com.knucse.knugra.UI_package.MainActivity;
 
 
 import org.apache.poi.openxml4j.opc.OPCPackage;
@@ -88,15 +89,15 @@ public class Database { // 데이터베이스 접근 객체
         return Graduation_Info_List.getInstance();
     }
 
-    public static SubjectList getDesignSubjectList(Context context) { // 설계과목 가져오기
-        return getSubjectList(R.raw.design_subject_list, context);
+    public static SubjectList getDesignSubjectList() { // 설계과목 가져오기
+        return getSubjectList(R.raw.design_subject_list);
     }
 
-    public static SubjectList getRequiredSubjectList(Context context) {// 필수과목 가져오기
-        return getSubjectList(R.raw.required_subject_list, context);
+    public static SubjectList getRequiredSubjectList() {// 필수과목 가져오기
+        return getSubjectList(R.raw.required_subject_list);
     }
 
-    private static SubjectList getSubjectList(int resourceId, Context context) {
+    private static SubjectList getSubjectList(int resourceId) {
         SubjectList subjectList = new SubjectList();
         XSSFWorkbook workbook = null;
         Row row;
@@ -106,7 +107,7 @@ public class Database { // 데이터베이스 접근 객체
         Subject subject = null;
 
 
-        InputStream is = context.getResources().openRawResource(resourceId);
+        InputStream is = MainActivity.mainActivity.getResources().openRawResource(resourceId);
 
         try {
             File file = File.createTempFile("temp", ".tmp");
@@ -174,7 +175,7 @@ public class Database { // 데이터베이스 접근 객체
 
 
             // 과목코드는 키값의 0 번쨰 인덱스에 있음
-            String subjectCode = subject.get(DAPATH.SUBJECTCODE);
+            String subjectCode = subject.get(DAPATH.SUBJECT_CODE);
 
 
             // 과목코드를 키값으로 설계과목목록에 설계과목 해시테이블을 집어넣음

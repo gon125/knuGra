@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
+import com.knucse.knugra.PD_package.Subject_package.Subject;
 import com.knucse.knugra.PD_package.Subject_package.SubjectList;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
@@ -13,6 +14,7 @@ import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareerLi
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.PD_package.User_package.UserAccessLevel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -154,43 +156,44 @@ public class ServerConnectTask {
     }
 
     private boolean logout(String result) {
-        JsonParser jp = new JsonParser();
 
-        JsonObject jo = (JsonObject) jp.parse(result);
-        JsonElement je = jo.get("logout");
-        String respond = je.getAsString();
-        System.out.println(respond);
-
-        if (respond.equals("success")) {
-            return true;
-        } else {
-            return false;
-        }
+        return true;
+        //        JsonParser jp = new JsonParser();
+//
+//        JsonObject jo = (JsonObject) jp.parse(result);
+//        JsonElement je = jo.get("logout");
+//        String respond = je.getAsString();
+//        System.out.println(respond);
+//
+//        if (respond.equals("success")) {
+//            return true;
+//        } else {
+//            return false;
+//        }
     }
     private void update(String result) {
         int i, j;
         boolean found;
         StudentCareer studentCareer;
-        SubjectList requiredSubjectList;
-        SubjectList designSubjectList;
         Student student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         StudentCareerList studentCareerList=student.getStudentCareerList();//여기에 studentCareer 추가할 것
-
-        //studentCareerList.setCareer_track(DAPATH.COMPUTPER_ABEEK);
-
+        SubjectList requiredSubjectList = student.getRequiredSubjectList();
+        SubjectList designSubjectList = student.getDesignSubjectList();
         // have to get
         try {
-            JSONObject jo = new JSONObject(result);
-            Iterator keyi=jo.keys();
+           JSONObject jsonObject = new JSONObject(result);
 
-            for(i=0;i<jo.length();i++) {//객체갯수만큼 반복해서 StudentCareer객체 만들어서 넣기
+            // get grade info
+            JSONObject gradeInfoList = jsonObject.getJSONObject(JSONKey.GRADE_INFO);
+            Iterator keyi=gradeInfoList.keys();
+            for(i=0;i<gradeInfoList.length();i++) {//객체갯수만큼 반복해서 StudentCareer객체 만들어서 넣기
                 //선언
                 String jo_name = keyi.next().toString();//key값
                 //  비어있는경우
                 if (studentCareerList.size()  == 0) {
                     studentCareer=new StudentCareer();
                     studentCareer.setName(jo_name);//key값
-                    studentCareer.setContent(jo.getString(jo_name));//value값
+                    studentCareer.setContent(gradeInfoList.getString(jo_name));//value값
                     studentCareerList.add(studentCareer);
                 }
 
@@ -199,7 +202,7 @@ public class ServerConnectTask {
                 for(j=0;j<studentCareerList.size();j++) {
                     //list에 있으면 추가하면 안됨, 값 변경
                     if(jo_name.equals(studentCareerList.get(j).getName())){
-                        studentCareerList.get(j).setContent(jo.getString(jo_name));
+                        studentCareerList.get(j).setContent(gradeInfoList.getString(jo_name));
                         found = true;
                         break;
                     }
@@ -208,10 +211,63 @@ public class ServerConnectTask {
                 if (!found){//list에 없으면 객체 새로 만들어서 추가
                     studentCareer=new StudentCareer();
                     studentCareer.setName(jo_name);//key값
-                    studentCareer.setContent(jo.getString(jo_name));//value값
+                    studentCareer.setContent(gradeInfoList.getString(jo_name));//value값
                     studentCareerList.add(studentCareer);
                 }
             }
+            //get requiredList
+            JSONArray required = jsonObject.getJSONArray(JSONKey.REQUIRED_SUBJECT_LIST);
+            JSONArray design = jsonObject.getJSONArray(JSONKey.DESIGN_SUBJECT_LIST);
+
+            for (i = 0; i < required.length(); i++) {
+                JSONObject object = required.getJSONObject(i);
+                Subject subject = new Subject();
+
+                String subject_code = object.getString(DAPATH.SUBJECT_CODE);
+                if (subject_code == "") { continue; }
+                subject.put(DAPATH.SUBJECT_CODE, subject_code);
+
+                String name = object.getString(DAPATH.SUBJECT_NAME);
+                subject.put(DAPATH.SUBJECT_NAME, name);
+
+                String credit = object.getString(DAPATH.SUBJECT_CREDIT);
+                subject.put(DAPATH.SUBJECT_CREDIT, credit);
+
+                // put in list
+                requiredSubjectList.put(subject_code, subject);
+            }
+
+            for (i = 0; i < design.length(); i++) {
+                JSONObject object = required.getJSONObject(i);
+                Subject subject = new Subject();
+
+                String subject_code = object.getString(DAPATH.SUBJECT_CODE);
+                if (subject_code == "") { continue; }
+                subject.put(DAPATH.SUBJECT_CODE, subject_code);
+
+                String name = object.getString(DAPATH.SUBJECT_NAME);
+                subject.put(DAPATH.SUBJECT_NAME, name);
+
+                String credit = object.getString(DAPATH.SUBJECT_CREDIT);
+                subject.put(DAPATH.SUBJECT_CREDIT, credit);
+
+                // put in list
+                designSubjectList.put(subject_code, subject);
+            }
+
+
+//            Iterator<String> it = required.keys();
+//
+//            required.
+//
+//            while (it.hasNext()) {
+//                String key = it.next();
+//            }
+
+            //get designList
+
+
+
         }catch(JSONException e){
             e.printStackTrace();
         }
