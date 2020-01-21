@@ -48,6 +48,13 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Graduation_Info std_track=new Graduation_Info();
         int userdata, stddata;
         Float success_rate;
+
+        //Design & Required
+        //float design_rate=0, design_std=0;
+        //float required_rate=0, required_std=0;
+        ArrayList<String[]> resultDesign = std_career.Subject_Design_check();
+        ArrayList<String[]> resultRequired = std_career.Subject_Required_check();
+
         //해당 트랙 정보가져오기
         Iterator<Graduation_Info> std = std_career.iterator();
         while(std.hasNext()){
@@ -106,6 +113,25 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 //NumberFormatException=숫자형태가 아닌 문자열
             }
         }
+
+        //설계과목 count design_rate, design_std
+        returnValueList.add(resultDesign.get(0));
+        String[] Design = resultDesign.get(0);
+        String Design_std = Design[1], Design_user = Design[2];
+        totalSuccess_rate += Float.valueOf(Design_user);
+        totalcount += Integer.getInteger(Design_std);
+        //totalSuccess_rate += design_rate*design_std;
+        //totalcount += (int)(design_std);
+
+        //필수과목 count
+        returnValueList.add(resultRequired.get(0));
+        String[] Required = resultRequired.get(0);
+        String Required_std = Required[1], Required_user = Required[2];
+        totalSuccess_rate += Float.valueOf(Required_user);
+        totalcount += Integer.getInteger(Required_std);
+        //totalSuccess_rate += required_rate*required_std;
+        //totalcount += (int)(required_std);
+
         int a = (int)((totalSuccess_rate/totalcount) * 100);
         element = new String[]{"총  합", "", "", new Integer(a).toString() + "%"};
         returnValueList.add(0, element);
@@ -139,10 +165,14 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     }
 
     //설계과목 이수여부확인
-    public ArrayList<String[]> Subject_Design_check(){
+    public static ArrayList<String[]> Subject_Design_check(){
+        String subject_type = "설계과목";
+        float success_rate;
+        int success;
         //결과 값 저장공간
         ArrayList<String[]> returnValueList = new ArrayList<>();
         String[] element;
+        int user_data, sub_data;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_design = now_student.getDesignSubjectList();//학생 설계과목 이수현황 가져오기
@@ -152,11 +182,14 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //설계과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
-
+        user_data=0;//이수한 설계과목수
+        sub_data=0;//모든 설계과목 수
         while(sub_key.hasNext()){
             //과목코드로 이수확인
+            sub_data++;
             String now_key=sub_key.next();
             if(student_design.containsKey(now_key)){//이수 했을 경우
+                user_data++;
                 Subject now_sub = student_design.get(now_key);
                 element = new String[]{now_key, now_sub.get(now_key) + "O"};
                 returnValueList.add(element);
@@ -167,14 +200,25 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 returnValueList.add(element);
             }
         }
+        success_rate = (float)(user_data) / (float)(sub_data);
+        success=(int)(success_rate*100);
+        element = new String[]{subject_type, new Integer(sub_data).toString(),new Integer(user_data).toString(), success + "%"};
+        returnValueList.add(0, element);
+
+        //design_success=success_rate;
+        //design_std=sub_data;
 
         return returnValueList;
     }
     //필수과목 이수여부확인
-    public ArrayList<String[]> Subject_Required_check(){
+    public static ArrayList<String[]> Subject_Required_check(){
+        String subject_type = "필수과목";
+        float success_rate;
+        int success;
         //결과 값 저장공간
         ArrayList<String[]> returnValueList = new ArrayList<>();
         String[] element;
+        int user_data, sub_data;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_required = now_student.getRequiredSubjectList();//학생 필수과목 이수현황 가져오기
@@ -184,10 +228,14 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //필수과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
+        user_data=0;//이수한 필수과목수
+        sub_data=0;//모든 필수과목 수
         while(sub_key.hasNext()){
             //과목코드로 이수확인
+            sub_data++;
             String now_key=sub_key.next();
             if(student_required.containsKey(sub_key.next())){//이수 했을 경우
+                user_data++;
                 Subject now_sub = student_required.get(now_key);
                 element = new String[]{now_key, now_sub.get(now_key) + "O"};
                 returnValueList.add(element);
@@ -198,6 +246,14 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 returnValueList.add(element);
             }
         }
+
+        success_rate = (float)(user_data) / (float)(sub_data);
+        success=(int)(success_rate*100);
+        element = new String[]{subject_type, new Integer(sub_data).toString(),new Integer(user_data).toString(), success + "%"};
+        returnValueList.add(0, element);
+
+        //required_success=success_rate;
+        //required_std=sub_data;
 
         return returnValueList;
     }
