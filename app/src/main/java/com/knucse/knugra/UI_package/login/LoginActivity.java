@@ -24,8 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.User;
@@ -61,6 +59,16 @@ public class LoginActivity extends AppCompatActivity {
         System.setProperty("org.apache.poi.javax.xml.stream.XMLOutputFactory", "com.fasterxml.aalto.stax.OutputFactoryImpl");
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
+        // ui independent work
+        AsyncTask<String, Void, Void> asyncTask = new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                Graduation_Info_List.getInstance();
+                return null;
+            }
+        };
+        asyncTask.execute();
+
         trackSpinner.setAdapter(trackAdapter);
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -82,8 +90,6 @@ public class LoginActivity extends AppCompatActivity {
 //                .build();
 //        db.setFirestoreSettings(settings);
         //init graduation info
-        Graduation_Info_List.getInstance();
-
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
