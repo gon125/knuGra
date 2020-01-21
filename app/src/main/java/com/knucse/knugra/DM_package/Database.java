@@ -1,8 +1,5 @@
 package com.knucse.knugra.DM_package;
 
-import android.content.Context;
-import android.content.res.Resources;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,7 +13,6 @@ import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List
 import com.knucse.knugra.PD_package.Subject_package.Subject;
 import com.knucse.knugra.PD_package.Subject_package.SubjectList;
 import com.knucse.knugra.R;
-import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.UI_package.login.LoginActivity;
 
 
@@ -163,7 +159,7 @@ public class Database { // 데이터베이스 접근 객체
             case _NONE:
                 break;
             case NUMERIC:
-                cellToString = String.valueOf(cell.getNumericCellValue());
+                cellToString = String.valueOf(Math.round(cell.getNumericCellValue()));
                 break;
             case STRING:
                 cellToString = cell.getStringCellValue();
@@ -240,25 +236,8 @@ public class Database { // 데이터베이스 접근 객체
             while (cellIterator.hasNext()) {
                 cell = cellIterator.next();
 
-                String cellToString = "";
-                switch (cell.getCellTypeEnum()) {
-                    case _NONE:
-                        break;
-                    case NUMERIC:
-                        cellToString = String.valueOf(cell.getNumericCellValue());
-                        break;
-                    case STRING:
-                        cellToString = cell.getStringCellValue();
-                        break;
-                    case FORMULA:
-                        break;
-                    case BLANK:
-                        break;
-                    case BOOLEAN:
-                        break;
-                    case ERROR:
-                        break;
-                }
+                String cellToString = getCellToString(cell);
+
                 String key = keysIterator.next();
                 subject.put(key, cellToString);
             }
