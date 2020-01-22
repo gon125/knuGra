@@ -2,6 +2,7 @@ package com.knucse.knugra.PD_package.Graduation_Info_package;
 
 import android.provider.ContactsContract;
 
+import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.Student_package.StudentCareer;
@@ -195,7 +196,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 found = true;
                 user_data++;
                 Subject now_sub = student_design.get(now_key);
-                element = new String[]{now_key, now_sub.get("교과목명"), "O"};
+                element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME), "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
@@ -205,12 +206,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 if(student_design.containsKey(replace_key)){
                     found=true;
                     user_data++;
-                    element = new String[]{replace_key, sub_info.get("교과목명"), "O(대체)"};
+                    element = new String[]{replace_key, sub_info.get(DAPATH.SUBJECT_NAME), "O(대체)"};
                     returnValueList.add(element);
                 }
                 else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
                     Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_key, now_sub.get(now_key) , "X"};
+                    element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME) , "X"};
                     returnValueList.add(element);
                 }
             }
@@ -254,7 +255,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             if(student_required.containsKey(sub_key.next())){//이수 했을 경우
                 user_data++;
                 Subject now_sub = student_required.get(now_key);
-                element = new String[]{now_key, now_sub.get(now_key) + "O"};
+                element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME) + "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
@@ -263,12 +264,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 if(student_required.containsKey(replace_key)){
                     found=true;
                     user_data++;
-                    element = new String[]{replace_key, sub_info.get("교과목명"), "O(대체)"};
+                    element = new String[]{replace_key, sub_info.get(DAPATH.SUBJECT_NAME), "O(대체)"};
                     returnValueList.add(element);
                 }
                 else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
                     Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_key, now_sub.get(now_key) + "X"};
+                    element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME) + "X"};
                     returnValueList.add(element);
                 }
             }
