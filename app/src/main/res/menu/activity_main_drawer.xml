@@ -16,26 +16,7 @@
             android:id="@+id/nav_g_info_search"
             android:icon="@drawable/ic_menu_g_info_search"
             android:title="@string/menu_g_info_search" />
-        <item
-            android:id="@+id/nav_std_info_input"
-            android:icon="@drawable/ic_menu_std_info_input"
-            android:title="@string/menu_std_info_input" />
-        <item
-            android:id="@+id/nav_doc_agree"
-            android:icon="@drawable/ic_menu_doc_agree"
-            android:title="@string/menu_doc_agree" />
-        <item
-            android:id="@+id/nav_std_info_search"
-            android:icon="@drawable/ic_menu_std_info_search"
-            android:title="@string/menu_std_info_search" />
-        <item
-            android:id="@+id/nav_qa"
-            android:icon="@drawable/ic_menu_qa"
-            android:title="@string/menu_qa" />
-        <item
-            android:id="@+id/nav_notice"
-            android:icon="@drawable/ic_menu_notice"
-            android:title="@string/menu_notice" />
+
     </group>
 
 </menu>

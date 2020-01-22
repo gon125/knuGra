@@ -15,8 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
-import com.knucse.knugra.UI_package.career_success.CareerSuccessFragment;
-import com.knucse.knugra.UI_package.g_info_search.GInfoSearchFragment;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,9 +33,7 @@ public class HomeFragment extends Fragment {
         ArrayList<Button> buttons = new ArrayList<Button>();
         final Button b1 = root.findViewById(R.id.button1_home);
         final Button b2 = root.findViewById(R.id.button2_home);
-        final Button b3 = root.findViewById(R.id.button3_home);
-        final Button b4 = root.findViewById(R.id.button4_home);
-        buttons.add(b1);buttons.add(b2);buttons.add(b3);buttons.add(b4);
+        buttons.add(b1);buttons.add(b2);
 
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
@@ -59,12 +55,6 @@ public class HomeFragment extends Fragment {
                             break;
                         case R.id.button2_home:
                             ((MainActivity)getActivity()).navigateTo(R.id.nav_g_info_search);
-                            break;
-                        case R.id.button3_home:
-                            ((MainActivity)getActivity()).navigateTo(R.id.nav_std_info_input);
-                            break;
-                        case R.id.button4_home:
-                            ((MainActivity)getActivity()).navigateTo(R.id.nav_doc_agree);
                             break;
                         default:    break;
                     }

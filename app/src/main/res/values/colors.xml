@@ -10,4 +10,6 @@
     <color name="colorGray">#7E7E7E</color>
     <color name="colorLightGray">#DCDCDC</color>
     <color name="colorOrange">#E06343</color>
+    <color name="colorLightGrayA">#E0E0E0</color>
+    <color name="colorLightGrayB">#EBEBEB</color>
 </resources>

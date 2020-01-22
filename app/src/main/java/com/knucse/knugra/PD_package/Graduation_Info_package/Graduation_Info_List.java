@@ -253,7 +253,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             if(student_required.containsKey(now_key)){//이수 했을 경우
                 user_data++;
                 Subject now_sub = student_required.get(now_key);
-                element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME) + "O"};
+                element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME), "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
@@ -267,7 +267,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 }
                 else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
                     Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME) + "X"};
+                    element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME), "X"};
                     returnValueList.add(element);
                 }
             }

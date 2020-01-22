@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,57 +8,202 @@
     <Spinner
         android:id="@+id/track_spinner"
         android:entries="@array/track"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="165dp"
         android:theme="@style/SpinnerTheme" />
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorLightGray">
-        <TextView
-            android:id="@+id/sc_item"
-            android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:descendantFocusability="blocksDescendants"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginVertical="4dp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:textSize="16dp"
-            android:text="@string/sc_item"/>
-        <TextView
-            android:id="@+id/sc_pct"
-            android:layout_width="105dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginVertical="4dp"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:textAlignment="center"
-            android:text="@string/sc_pct"/>
-        <TextView
-            android:id="@+id/sc_prg"
-            android:layout_width="185dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginVertical="4dp"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:textAlignment="center"
-            android:text="@string/sc_prg"/>
-    </LinearLayout>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/sc_graduation_item_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:background="@color/colorLightGrayA"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="16dp"
+                android:text="@string/graduation_item_status"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorLightGrayB">
+                <TextView
+                    android:id="@+id/sc_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:text="@string/sc_item"/>
+                <TextView
+                    android:id="@+id/sc_pct"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:textAlignment="center"
+                    android:text="@string/sc_pct"/>
+                <TextView
+                    android:id="@+id/sc_prg"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    android:textAlignment="center"
+                    android:text="@string/sc_prg"/>
+            </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_career_success"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_career_success"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/sc_required_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayA"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:text="@string/required_subject_complete_status"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/colorLightGrayB">
+                    <TextView
+                        android:id="@+id/cs_required_subject_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:textAlignment="center"
+                        android:textSize="16dp"
+                        android:text="@string/subject_name"/>
+
+                    <TextView
+                        android:id="@+id/cs_required_success_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:text="@string/subject_success"
+                        android:textAlignment="center"
+                        android:textSize="16dp"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_required_subject_complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/sc_design_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayA"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:text="@string/design_subject_complete_status"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/colorLightGrayB">
+                    <TextView
+                        android:id="@+id/cs_design_subject_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:textAlignment="center"
+                        android:textSize="16dp"
+                        android:text="@string/subject_name"/>
+
+                    <TextView
+                        android:id="@+id/cs_design_success_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:text="@string/design_credit"
+                        android:textAlignment="center"
+                        android:textSize="16dp"/>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_design_subject_complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 
 </LinearLayout>

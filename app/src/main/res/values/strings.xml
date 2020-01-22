@@ -15,12 +15,24 @@
     <string name="menu_qa">QnA</string>
     <string name="menu_notice">공지</string>
 
+    <string name="graduation_item_status">"졸업 요건 달성 현황"</string>
+    <string name="graduation_item">"졸업 요건"</string>
     <string name="sc_item">"항목"</string>
     <string name="sc_pct">"학생/졸업기준"</string>
     <string name="sc_std">"학생"</string>
     <string name="sc_gra">"졸업기준"</string>
     <string name="sc_percent">"%"</string>
     <string name="sc_prg">"달성도"</string>
+    <string name="sc_curriculum_status">"교과 과정 이수 현황"</string>
+    <string name="sc_curriculum">교과 과정</string>
+    <string name="required_subject_complete_status">"필수 교과목 이수 현황"</string>
+    <string name="design_subject_complete_status">"설계 과목 이수 현황"</string>
+    <string name="sc_gra_item">"졸업자격 인정원"</string>
+    <string name="sc_subject">"필수 교과목"</string>
+    <string name="subject_number">"과목번호</string>
+    <string name="subject_name">"교과목명"</string>
+    <string name="subject_success">"이수여부"</string>
+    <string name="design_credit">"이수 설계학점"</string>
 
     <string name="menu_home">메뉴</string>
     <string name="title_activity_login">로그인</string>
