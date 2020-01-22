@@ -36,9 +36,15 @@ public class Database { // 데이터베이스 접근 객체
 
     private static volatile Database instance;
 
+    private static Graduation_Info_List graduationInfoList = Graduation_Info_List.getInstance();
+    private static SubjectList requiredSubjectList;
+    private static SubjectList designSubjectList;
+
+
     private Database() {
 
     }
+
 
     public static Database getInstance() {
         if (instance == null) {
@@ -47,45 +53,13 @@ public class Database { // 데이터베이스 접근 객체
         return instance;
     }
 
-    public static Graduation_Info_List getGraduationInfoList() { // 졸업정보목록을 데이터베이스로부터 가져옴
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-        db.collection(DAPATH.GRADUATION_INFO_LIST)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Graduation_Info_List gilist = Graduation_Info_List.getInstance();
-                                Map a = document.getData();
-
-                                Iterator<String> it = a.keySet().iterator();
-
-                                Graduation_Info gi = new Graduation_Info();
-                                gi.setInfo_track(document.getId());
-                                while(it.hasNext()) {
-                                    String key = it.next();
-                                    String value = (String)a.get(key);
-                                    Graduation_Info_Item git = new Graduation_Info_Item();
-                                    git.setName(key);
-                                    git.setContent(value);
-
-                                    gi.add(git);
-                                }
-
-                                gilist.add(gi);
-                            }
-                        }
-                    }
-                });
-
-        return Graduation_Info_List.getInstance();
+    public static void load() {
+        graduationInfoList = loadGraduationInfoList_temp();
+        designSubjectList = loadDesignSubjectList();
+        requiredSubjectList = loadRequiredSubjectList();
     }
 
-    public static Graduation_Info_List getGraduationInfoList_temp() {
+    private static Graduation_Info_List loadGraduationInfoList_temp() {
         XSSFWorkbook workbook = null;
         Row row;
         Cell cell;
@@ -177,11 +151,11 @@ public class Database { // 데이터베이스 접근 객체
         return cellToString;
     }
 
-    public static SubjectList getDesignSubjectList() { // 설계과목 가져오기
+    private static SubjectList loadDesignSubjectList() { // 설계과목 가져오기
         return getSubjectList(R.raw.design_subject_list);
     }
 
-    public static SubjectList getRequiredSubjectList() {// 필수과목 가져오기
+    private static SubjectList loadRequiredSubjectList() {// 필수과목 가져오기
         return getSubjectList(R.raw.required_subject_list);
     }
 
@@ -254,5 +228,17 @@ public class Database { // 데이터베이스 접근 객체
         }
 
         return subjectList;
+    }
+
+    public static SubjectList getDesignSubjectList() {
+        return designSubjectList;
+    }
+
+    public static SubjectList getRequiredSubjectList() {
+        return requiredSubjectList;
+    }
+
+    public static Graduation_Info_List getGraduationInfoList() {
+        return graduationInfoList;
     }
 }

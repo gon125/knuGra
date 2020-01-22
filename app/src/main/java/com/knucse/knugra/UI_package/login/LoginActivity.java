@@ -24,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.User;
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         AsyncTask<String, Void, Void> asyncTask = new AsyncTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String... strings) {
-                Graduation_Info_List.getInstance();
+                Database.load();
                 return null;
             }
         };
