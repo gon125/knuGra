@@ -116,8 +116,16 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         returnValueList.add(resultDesign.get(0));
         String[] Design = resultDesign.get(0);
         String Design_std = Design[1], Design_user = Design[2];
-        totalSuccess_rate += Float.parseFloat(Design_user);
-        totalcount += Integer.parseInt(Design_std);
+
+        Float user_design_score = Float.parseFloat(Design_user);
+        int std_design_score = Integer.parseInt(Design_std);
+        if(user_design_score>std_design_score){//기준보다 클 경우
+            totalSuccess_rate+=std_design_score;
+        }
+        else {
+            totalSuccess_rate += user_design_score;
+        }
+        totalcount += std_design_score;
         //totalSuccess_rate += design_rate*design_std;
         //totalcount += (int)(design_std);
 
@@ -125,8 +133,16 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         returnValueList.add(resultRequired.get(0));
         String[] Required = resultRequired.get(0);
         String Required_std = Required[1], Required_user = Required[2];
-        totalSuccess_rate += Float.parseFloat(Required_user);
-        totalcount += Integer.parseInt(Required_std);
+
+        Float user_required_score = Float.parseFloat(Required_user);
+        int std_required_score = Integer.parseInt(Required_std);
+        if(user_required_score>std_required_score){
+            totalSuccess_rate += std_required_score;
+        }
+        else
+            totalSuccess_rate += user_required_score;
+
+        totalcount += std_required_score;
         //totalSuccess_rate += required_rate*required_std;
         //totalcount += (int)(required_std);
 
@@ -187,12 +203,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
         user_data=0;//이수한 설계과목 학점
-        sub_data=0;//모든 설계과목 학점
+        sub_data=16;//설계과목 학점 기준
         while(sub_key.hasNext()){
             //과목코드로 이수확인
             String now_key=sub_key.next();
             Subject now_sub = sub_list.get(now_key);
-            sub_data+=Integer.parseInt(now_sub.get(DAPATH.SUBJECT_CREDIT));
+
             if(student_design.containsKey(now_key)){//이수 했을 경우
                 user_data+=Integer.parseInt(now_sub.get(DAPATH.SUBJECT_CREDIT));
                 element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
@@ -204,6 +220,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             }
         }
         success_rate = (float)(user_data) / (float)(sub_data);
+
         success=(int)(success_rate*100);
         element = new String[]{subject_type, new Integer(sub_data).toString(), new Integer(user_data).toString(), new Integer(success).toString() + "%"};
         returnValueList.add(0, element);
