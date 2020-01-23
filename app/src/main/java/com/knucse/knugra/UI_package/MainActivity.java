@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,7 +33,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
     private int majorposition;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top` level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -126,5 +129,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void setMajorposition(int majorposition) {
         this.majorposition = majorposition;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int menuId = menuItem.getItemId();
+        switch (menuId){
+            case R.id.nav_career_success:
+                break;
+            default:
+                break;
+        }
+        ((MainActivity)this).navigateTo(menuId);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
