@@ -235,7 +235,7 @@ public class ServerConnectTask {
             }
 
             for (i = 0; i < design.length(); i++) {
-                JSONObject object = required.getJSONObject(i);
+                JSONObject object = design.getJSONObject(i);
                 Subject subject = new Subject();
 
                 String subject_code = object.getString(DAPATH.SUBJECT_CODE);
