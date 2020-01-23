@@ -70,6 +70,7 @@ public class HomeFragment extends Fragment {
 
     private class DataLoadingTask extends AsyncTask<Void, Void, Void> {
         ProgressDialog dataLoadingProgress = new ProgressDialog((MainActivity)getActivity());
+        int timeOut = 0;
         @Override
         protected void onPreExecute() {
             dataLoadingProgress.show();
@@ -80,9 +81,10 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            while (ServerConnectTask.updateCompleted == false){
+            while (ServerConnectTask.updateCompleted == false && timeOut < 3){
                 try {
                     Thread.sleep(1000);
+                    timeOut++;
                 }catch (Exception e){
                 }
             }
@@ -92,7 +94,9 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             dataLoadingProgress.dismiss();
-            ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
+            if (timeOut < 3) {
+                ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
+            } else {}
             super.onPostExecute(aVoid);
         }
     }
