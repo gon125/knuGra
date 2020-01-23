@@ -42,22 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {//생성하기
         super.onCreate(savedInstanceState);
 
-
-        // update user data in th beginning of the main activity.
-        AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                ServerConnectTask serverConnectTask = new ServerConnectTask();
-
-                serverConnectTask.execute(
-                        User.getInstance().getId(),
-                        User.getInstance().getPassword(),
-                        RequestType.UPDATE);
-                return null;
-            }
-        };
-        asyncTask.execute();
-
         setContentView(R.layout.activity_main);
         Intent it = getIntent();
         majorposition = it.getIntExtra("mposition", 0);
