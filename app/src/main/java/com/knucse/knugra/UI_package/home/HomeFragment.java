@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
                     switch (v.getId()) {
                         case R.id.button1_home:
                             DataLoadingTask dataloading = new DataLoadingTask();
-                            dataloading.execute();
+                            dataloading.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                             break;
                         case R.id.button2_home:
                             ((MainActivity)getActivity()).navigateTo(R.id.nav_g_info_search);
