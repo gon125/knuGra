@@ -15,12 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.knucse.knugra.DM_package.RequestType;
 import com.knucse.knugra.DM_package.ServerConnectTask;
+import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import io.grpc.Server;
 
 public class HomeFragment extends Fragment {
 
@@ -81,7 +85,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            while (ServerConnectTask.updateCompleted == false && timeOut < 3){
+            while (!ServerConnectTask.updateCompleted && timeOut < 20){
                 try {
                     Thread.sleep(1000);
                     timeOut++;
@@ -94,9 +98,10 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             dataLoadingProgress.dismiss();
-            if (timeOut < 3) {
+            if (ServerConnectTask.updateCompleted) {
                 ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
-            } else {}
+            } else {
+            }
             super.onPostExecute(aVoid);
         }
     }
