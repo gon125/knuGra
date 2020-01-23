@@ -29,6 +29,9 @@ import java.net.Socket;
 import java.util.Iterator;
 
 public class ServerConnectTask {
+
+    public static boolean updateCompleted = false;
+
     public Result<LoggedInUser> execute(String... str) {
         String username = str[0];
         String pwd = str[1];
@@ -118,7 +121,7 @@ public class ServerConnectTask {
                 case RequestType.LOGIN:
                     return login(result, username, pwd);
                 case RequestType.UPDATE:
-                    update(result);
+                    updateCompleted = update(result);
                     break;
                 case RequestType.LOGOUT:
                     logout(result);
@@ -171,51 +174,45 @@ public class ServerConnectTask {
 //            return false;
 //        }
     }
-    private void update(String result) {
-        int i, j;
-        boolean found;
+
+    private boolean update(String result) {
+        int i;
         StudentCareer studentCareer;
-        Student student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
-        StudentCareerList studentCareerList=student.getStudentCareerList();//여기에 studentCareer 추가할 것
-        SubjectList requiredSubjectList = student.getRequiredSubjectList();
-        SubjectList designSubjectList = student.getDesignSubjectList();
-        // have to get
-        try {
-           JSONObject jsonObject = new JSONObject(result);
+            Student student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+            StudentCareerList studentCareerList = student.getStudentCareerList();//여기에 studentCareer 추가할 것
+            SubjectList requiredSubjectList = student.getRequiredSubjectList();
+            SubjectList designSubjectList = student.getDesignSubjectList();
+            // have to get
+            try {
+                JSONObject jsonObject = new JSONObject(result);
 
             // get grade info
             JSONObject gradeInfoList = jsonObject.getJSONObject(JSONKey.GRADE_INFO);
+
+            //init list
+            studentCareerList.clear();
+
             Iterator keyi=gradeInfoList.keys();
             for(i=0;i<gradeInfoList.length();i++) {//객체갯수만큼 반복해서 StudentCareer객체 만들어서 넣기
                 //선언
                 String jo_name = keyi.next().toString();//key값
-                //  비어있는경우
-                if (studentCareerList.size()  == 0) {
-                    studentCareer=new StudentCareer();
-                    studentCareer.setName(jo_name);//key값
-                    studentCareer.setContent(gradeInfoList.getString(jo_name));//value값
-                    studentCareerList.add(studentCareer);
-                }
 
-                found = false;
-
-                for(j=0;j<studentCareerList.size();j++) {
-                    //list에 있으면 추가하면 안됨, 값 변경
-                    if(jo_name.equals(studentCareerList.get(j).getName())){
-                        studentCareerList.get(j).setContent(gradeInfoList.getString(jo_name));
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found){//list에 없으면 객체 새로 만들어서 추가
-                    studentCareer=new StudentCareer();
-                    studentCareer.setName(jo_name);//key값
-                    studentCareer.setContent(gradeInfoList.getString(jo_name));//value값
-                    studentCareerList.add(studentCareer);
-                }
+                studentCareer = new StudentCareer();
+                studentCareer.setName(jo_name);//key값
+                studentCareer.setContent(gradeInfoList.getString(jo_name));//value값
+                studentCareerList.add(studentCareer);
             }
-            //get requiredList
+
+            // add 공학인증
+               Integer sum = new Integer(gradeInfoList.getString("기본소양"))
+                        +  new Integer(gradeInfoList.getString("전공기반"))
+                        +  new Integer(gradeInfoList.getString("공학전공"));
+            studentCareer = new StudentCareer();
+            studentCareer.setName("공학인증");
+            studentCareer.setContent(sum.toString());
+            studentCareerList.add(studentCareer);
+
+                        //get requiredList
             JSONArray required = jsonObject.getJSONArray(JSONKey.REQUIRED_SUBJECT_LIST);
             JSONArray design = jsonObject.getJSONArray(JSONKey.DESIGN_SUBJECT_LIST);
 
@@ -264,15 +261,17 @@ public class ServerConnectTask {
 //                String key = it.next();
 //            }
 
-            //get designList
+                //get designList
 
 
 
         }catch(JSONException e){
             e.printStackTrace();
+            return false;
         }
-    }
 
+        return true;
+    }
 
     public static class ServerConnectTaskPrams {
         String username;

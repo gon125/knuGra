@@ -36,7 +36,6 @@ public class Database { // 데이터베이스 접근 객체
 
     private static volatile Database instance;
 
-    private static Graduation_Info_List graduationInfoList = Graduation_Info_List.getInstance();
     private static SubjectList requiredSubjectList;
     private static SubjectList designSubjectList;
 
@@ -54,12 +53,12 @@ public class Database { // 데이터베이스 접근 객체
     }
 
     public static void load() {
-        graduationInfoList = loadGraduationInfoList_temp();
+        loadGraduationInfoList_temp();
         designSubjectList = loadDesignSubjectList();
         requiredSubjectList = loadRequiredSubjectList();
     }
 
-    private static Graduation_Info_List loadGraduationInfoList_temp() {
+    private static void loadGraduationInfoList_temp() {
         XSSFWorkbook workbook = null;
         Row row;
         Cell cell;
@@ -120,9 +119,6 @@ public class Database { // 데이터베이스 접근 객체
             // after graduation_info is done fill subject list
             graduation_info_list.add(gi);
         }
-
-
-        return Graduation_Info_List.getInstance();
     }
 
     private static String getCellToString(Cell cell) {
@@ -133,10 +129,10 @@ public class Database { // 데이터베이스 접근 객체
             case _NONE:
                 break;
             case NUMERIC:
-                cellToString = String.valueOf(Math.round(cell.getNumericCellValue()));
+                cellToString = String.valueOf(Math.round(cell.getNumericCellValue())).trim();
                 break;
             case STRING:
-                cellToString = cell.getStringCellValue();
+                cellToString = cell.getStringCellValue().trim();
                 break;
             case FORMULA:
                 break;
@@ -238,7 +234,4 @@ public class Database { // 데이터베이스 접근 객체
         return requiredSubjectList;
     }
 
-    public static Graduation_Info_List getGraduationInfoList() {
-        return graduationInfoList;
-    }
 }

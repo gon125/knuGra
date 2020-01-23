@@ -62,7 +62,7 @@ public class CareerSuccessFragment extends Fragment {
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ArrayList<String[]> data = new ArrayList<String[]>();
+                ArrayList<String[]> data;
                 data = Graduation_Info_List.Graduation_Info_compare((String)parent.getItemAtPosition(position));
                 mData = getCsList(data);
                 CareerSuccessAdapter cs_adapter = new CareerSuccessAdapter(mData);
@@ -86,27 +86,27 @@ public class CareerSuccessFragment extends Fragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Student student = (Student)User.getInstance().getUserData();
-                String selection = student.getStudentCareerList().getCareer_track();
-                int position = 0;
-                switch (selection) {
-                    case COMPUTPER_ABEEK: position = 0;
-                        break;
-                    case GLOBAL_SOFTWARE: position = 1;
-                        break;
-                    case BIGDATA: position = 2;
-                        break;
-                    case CONSTRUCTION_IT: position = 3;
-                        break;
-                    case FINTECH: position = 4;
-                        break;
-                    case MEDIAART: position = 5;
-                        break;
-                    default :
-                        break;
-                }
-
-                parent.setSelection(position);
+//                Student student = (Student)User.getInstance().getUserData();
+//                String selection = student.getStudentCareerList().getCareer_track();
+//                int position = 0;
+//                switch (selection) {
+//                    case COMPUTPER_ABEEK: position = 0;
+//                        break;
+//                    case GLOBAL_SOFTWARE: position = 1;
+//                        break;
+//                    case BIGDATA: position = 2;
+//                        break;
+//                    case CONSTRUCTION_IT: position = 3;
+//                        break;
+//                    case FINTECH: position = 4;
+//                        break;
+//                    case MEDIAART: position = 5;
+//                        break;
+//                    default :
+//                        break;
+//                }
+//
+//                parent.setSelection(position);
             }
         });
         careerSuccessViewModel.getText().observe(this, new Observer<String>() {
