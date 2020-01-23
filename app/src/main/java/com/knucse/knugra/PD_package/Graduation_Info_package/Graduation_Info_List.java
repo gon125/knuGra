@@ -168,7 +168,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         String subject_type = "설계과목";
         float success_rate;
         int success;
-        boolean found;
         //결과 값 저장공간
         ArrayList<String[]> returnValueList = new ArrayList<>();
         String[] element;
@@ -179,25 +178,27 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //(표준) 설계과목정보
         SubjectList sub_list = Database.getDesignSubjectList();
 
+        //학생test
+        /*
+        Set<String> stu_keys = student_design.keySet();
+        System.out.println(stu_keys);*/
+
         //설계과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
-        user_data=0;//이수한 설계과목수
-        sub_data=0;//모든 설계과목 수
+        user_data=0;//이수한 설계과목 학점
+        sub_data=0;//모든 설계과목 학점
         while(sub_key.hasNext()){
             //과목코드로 이수확인
-            found = false;//찾기 전 초기화
-            sub_data++;
             String now_key=sub_key.next();
+            Subject now_sub = sub_list.get(now_key);
+            sub_data+=Integer.parseInt(now_sub.get(DAPATH.SUBJECT_CREDIT));
             if(student_design.containsKey(now_key)){//이수 했을 경우
-                found = true;
-                user_data++;
-                Subject now_sub = student_design.get(now_key);
+                user_data+=Integer.parseInt(now_sub.get(DAPATH.SUBJECT_CREDIT));
                 element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
-                Subject now_sub = sub_list.get(now_key);
                 element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
                 returnValueList.add(element);
             }
