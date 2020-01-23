@@ -25,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.knucse.knugra.DM_package.Database;
+import com.knucse.knugra.DM_package.RequestType;
+import com.knucse.knugra.DM_package.ServerConnectTask;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.User;
@@ -122,6 +124,23 @@ public class LoginActivity extends AppCompatActivity {
                     loginViewModel.getLoginResult().getValue().resetError();
                 }
                 if (loginResult.getSuccess() != null) {
+
+                    // update user data in th beginning of the main activity.
+                    AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            ServerConnectTask serverConnectTask = new ServerConnectTask();
+
+                            serverConnectTask.execute(
+                                    User.getInstance().getId(),
+                                    User.getInstance().getPassword(),
+                                    RequestType.UPDATE);
+                            return null;
+                        }
+                    };
+                    asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
                     updateUiWithUser(loginResult.getSuccess());
                     setResult(Activity.RESULT_OK);
                     //Complete and destroy login activity once successful
