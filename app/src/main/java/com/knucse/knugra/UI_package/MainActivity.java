@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {//생성하기
+        super.onCreate(savedInstanceState);
 
 
         // update user data in th beginning of the main activity.
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         asyncTask.execute();
 
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent it = getIntent();
         majorposition = it.getIntExtra("mposition", 0);
