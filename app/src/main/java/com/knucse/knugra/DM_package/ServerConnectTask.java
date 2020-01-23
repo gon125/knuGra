@@ -30,7 +30,7 @@ import java.util.Iterator;
 
 public class ServerConnectTask {
 
-    public static boolean updateCompleted = false;
+    public static volatile boolean updateCompleted = false;
 
     public Result<LoggedInUser> execute(String... str) {
         String username = str[0];
