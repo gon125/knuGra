@@ -86,27 +86,6 @@ public class CareerSuccessFragment extends Fragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-//                Student student = (Student)User.getInstance().getUserData();
-//                String selection = student.getStudentCareerList().getCareer_track();
-//                int position = 0;
-//                switch (selection) {
-//                    case COMPUTPER_ABEEK: position = 0;
-//                        break;
-//                    case GLOBAL_SOFTWARE: position = 1;
-//                        break;
-//                    case BIGDATA: position = 2;
-//                        break;
-//                    case CONSTRUCTION_IT: position = 3;
-//                        break;
-//                    case FINTECH: position = 4;
-//                        break;
-//                    case MEDIAART: position = 5;
-//                        break;
-//                    default :
-//                        break;
-//                }
-//
-//                parent.setSelection(position);
             }
         });
         careerSuccessViewModel.getText().observe(this, new Observer<String>() {

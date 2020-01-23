@@ -68,7 +68,7 @@ public class ServerConnectTask {
                 case RequestType.LOGIN:
                     return login(result, username, pwd);
                 case RequestType.UPDATE:
-                    update(result);
+                    updateCompleted = update(result);
                     break;
                 case RequestType.LOGOUT:
                     logout(result);

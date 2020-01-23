@@ -41,6 +41,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {//생성하기
 
+
+        // update user data in th beginning of the main activity.
+        AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                ServerConnectTask serverConnectTask = new ServerConnectTask();
+
+                serverConnectTask.execute(
+                        User.getInstance().getId(),
+                        User.getInstance().getPassword(),
+                        RequestType.UPDATE);
+                return null;
+            }
+        };
+        asyncTask.execute();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent it = getIntent();
@@ -62,21 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-
-        // update user data in th beginning of the main activity.
-        AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                ServerConnectTask serverConnectTask = new ServerConnectTask();
-
-                serverConnectTask.execute(
-                        User.getInstance().getId(),
-                        User.getInstance().getPassword(),
-                        RequestType.UPDATE);
-                return null;
-            }
-        };
-        asyncTask.execute();
     }
 
     @Override

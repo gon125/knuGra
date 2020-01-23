@@ -54,9 +54,8 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     switch (v.getId()) {
                         case R.id.button1_home:
-//                            DataLoadingTask dataloading = new DataLoadingTask();
-//                            dataloading.execute();
-//                            ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
+                            DataLoadingTask dataloading = new DataLoadingTask();
+                            dataloading.execute();
                             break;
                         case R.id.button2_home:
                             ((MainActivity)getActivity()).navigateTo(R.id.nav_g_info_search);
@@ -69,32 +68,32 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
-//    private class DataLoadingTask extends AsyncTask<Void, Void, Void> {
-//        ProgressDialog dataLoadingProgress = new ProgressDialog((MainActivity)getActivity());
-//        @Override
-//        protected void onPreExecute() {
-//            dataLoadingProgress.show();
-//            dataLoadingProgress.setContentView(R.layout.dataloading_progress_dialog);
-//            dataLoadingProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Void... voids) {
-//            while (ServerConnectTask.updateCompleted == false){
-//                try {
-//                    Thread.sleep(1000);
-//                }catch (Exception e){
-//                }
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Void aVoid) {
-//            dataLoadingProgress.dismiss();
-//            ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
-//            super.onPostExecute(aVoid);
-//        }
-//    }
+    private class DataLoadingTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog dataLoadingProgress = new ProgressDialog((MainActivity)getActivity());
+        @Override
+        protected void onPreExecute() {
+            dataLoadingProgress.show();
+            dataLoadingProgress.setContentView(R.layout.dataloading_progress_dialog);
+            dataLoadingProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            while (ServerConnectTask.updateCompleted == false){
+                try {
+                    Thread.sleep(1000);
+                }catch (Exception e){
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            dataLoadingProgress.dismiss();
+            ((MainActivity)getActivity()).navigateTo(R.id.nav_career_success);
+            super.onPostExecute(aVoid);
+        }
+    }
 }
