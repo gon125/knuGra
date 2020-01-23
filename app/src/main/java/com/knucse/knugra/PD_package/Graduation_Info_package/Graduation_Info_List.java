@@ -193,31 +193,19 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 found = true;
                 user_data++;
                 Subject now_sub = student_design.get(now_key);
-                element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME), "O"};
+                element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
-                //대체 과목 여부 확인
-                Subject sub_info = sub_list.get(now_key);
-                String replace_key = sub_info.get("대체교과목번호");
-                if(student_design.containsKey(replace_key)){
-                    found=true;
-                    user_data++;
-                    element = new String[]{replace_key, sub_info.get(DAPATH.SUBJECT_NAME), "O(대체)"};
-                    returnValueList.add(element);
-                }
-                else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
-                    Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME) , "X"};
-                    returnValueList.add(element);
-                }
+                Subject now_sub = sub_list.get(now_key);
+                element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
+                returnValueList.add(element);
             }
         }
         success_rate = (float)(user_data) / (float)(sub_data);
         success=(int)(success_rate*100);
         element = new String[]{subject_type, new Integer(sub_data).toString(), new Integer(user_data).toString(), new Integer(success).toString() + "%"};
         returnValueList.add(0, element);
-        System.out.println(subject_type);
 
         //design_success=success_rate;
         //design_std=sub_data;
@@ -253,7 +241,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             if(student_required.containsKey(now_key)){//이수 했을 경우
                 user_data++;
                 Subject now_sub = student_required.get(now_key);
-                element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME), "O"};
+                String testsub = now_sub.get(DAPATH.SUBJECT_NAME);
+                element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
@@ -262,12 +251,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 if(student_required.containsKey(replace_key)){
                     found=true;
                     user_data++;
-                    element = new String[]{replace_key, sub_info.get(DAPATH.SUBJECT_NAME), "O(대체)"};
+                    element = new String[]{sub_info.get(DAPATH.SUBJECT_NAME), replace_key, "O(대체)"};
                     returnValueList.add(element);
                 }
                 else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
                     Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_key, now_sub.get(DAPATH.SUBJECT_NAME), "X"};
+                    element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
                     returnValueList.add(element);
                 }
             }
@@ -275,7 +264,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
         success_rate = (float)(user_data) / (float)(sub_data);
         success=(int)(success_rate*100);
-        element = new String[]{subject_type, Integer.toString(sub_data), Integer.toString(user_data), Integer.toString(success) + "%"};
+        element = new String[]{subject_type, Integer.toString(sub_data), Integer.toString(user_data), new Integer(success).toString() + "%"};
         returnValueList.add(0, element);
 
 
