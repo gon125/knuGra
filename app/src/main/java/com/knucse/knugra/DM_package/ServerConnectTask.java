@@ -68,7 +68,7 @@ public class ServerConnectTask {
                 case RequestType.LOGIN:
                     return login(result, username, pwd);
                 case RequestType.UPDATE:
-                    updateCompleted = update(result);
+                    update(result);
                     break;
                 case RequestType.LOGOUT:
                     logout(result);
@@ -121,7 +121,7 @@ public class ServerConnectTask {
                 case RequestType.LOGIN:
                     return login(result, username, pwd);
                 case RequestType.UPDATE:
-                    updateCompleted = update(result);
+                    update(result);
                     break;
                 case RequestType.LOGOUT:
                     logout(result);
@@ -175,7 +175,7 @@ public class ServerConnectTask {
 //        }
     }
 
-    private boolean update(String result) {
+    private void update(String result) {
         int i;
         StudentCareer studentCareer;
             Student student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
@@ -267,10 +267,10 @@ public class ServerConnectTask {
 
         }catch(JSONException e){
             e.printStackTrace();
-            return false;
+            updateCompleted = false;
         }
 
-        return true;
+        updateCompleted = true;
     }
 
     public static class ServerConnectTaskPrams {
