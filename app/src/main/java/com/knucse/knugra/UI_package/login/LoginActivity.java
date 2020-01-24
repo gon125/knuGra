@@ -63,14 +63,13 @@ public class LoginActivity extends AppCompatActivity {
         System.setProperty("org.apache.poi.javax.xml.stream.XMLEventFactory", "com.fasterxml.aalto.stax.EventFactoryImpl");
 
         // ui independent work
-        AsyncTask<String, Void, Void> asyncTask = new AsyncTask<String, Void, Void>() {
+        new AsyncTask<String, Void, Void>() {
             @Override
             protected Void doInBackground(String... strings) {
                 Database.load();
                 return null;
             }
-        };
-        asyncTask.execute();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         trackSpinner.setAdapter(trackAdapter);
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -126,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
 
                     // update user data in th beginning of the main activity.
-                    AsyncTask<Void, Void, Void> asyncTask = new AsyncTask<Void, Void, Void>() {
+                    new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
                             ServerConnectTask serverConnectTask = new ServerConnectTask();
@@ -137,8 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                                     RequestType.UPDATE);
                             return null;
                         }
-                    };
-                    asyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
                     updateUiWithUser(loginResult.getSuccess());
