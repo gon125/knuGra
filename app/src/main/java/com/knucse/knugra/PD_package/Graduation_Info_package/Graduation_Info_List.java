@@ -195,9 +195,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         SubjectList sub_list = Database.getDesignSubjectList();
 
         //학생test
-        /*
-        Set<String> stu_keys = student_design.keySet();
-        System.out.println(stu_keys);*/
+        //Set<String> stu_keys = student_design.keySet();
+        //System.out.println(stu_keys);
 
         //설계과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
@@ -249,6 +248,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //필수과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
+
         user_data=0;//이수한 필수과목수
         sub_data=0;//모든 필수과목 수
         while(sub_key.hasNext()){
@@ -257,15 +257,52 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             sub_data++;
             String now_key=sub_key.next();
             if(student_required.containsKey(now_key)){//이수 했을 경우
-                user_data++;
                 Subject now_sub = student_required.get(now_key);
-                String testsub = now_sub.get(DAPATH.SUBJECT_NAME);
-                element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
-                returnValueList.add(element);
+                //이수한 게 최근에 대체된 과목일 경우
+                //이미 else while에서 list에 더해줌
+                if(now_sub.get(DAPATH.SUBJECT_REPLACE)!=null && now_sub.get(DAPATH.SUBJECT_REPLACE).compareTo("") != 0){
+                    System.out.println(now_sub.get(DAPATH.SUBJECT_NAME)+"(대체)");
+                    found=true;
+                }
+                else{
+                    user_data++;
+                    element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
+                    returnValueList.add(element);
+                }
+
             }
             else{//이수 안했을 경우
                 Subject sub_info = sub_list.get(now_key);
-                String replace_key = sub_info.get("대체교과목번호");
+                String replace_key = sub_info.get(DAPATH.SUBJECT_REPLACE);
+
+                //testing
+                //반복해서 대체할 수 있는 걸 찾기
+                if(sub_info.get(DAPATH.SUBJECT_REPLACE)==null || sub_info.get(DAPATH.SUBJECT_REPLACE).compareTo("")==0){
+                    Iterator<String> sub_replaces = sub_keys.iterator();
+                    while(sub_replaces.hasNext()){
+                        Subject sub_replace = sub_list.get(sub_replaces.next());
+                        if(sub_replace.get(DAPATH.SUBJECT_REPLACE)!=null && sub_replace.get(DAPATH.SUBJECT_REPLACE).compareTo("")!=0){//not space and null
+                            if(sub_replace.get(DAPATH.SUBJECT_REPLACE).compareTo(sub_info.get(DAPATH.SUBJECT_CODE))==0){//대체되는 과목이면
+                                if(student_required.containsKey(sub_replace.get(DAPATH.SUBJECT_CODE))){
+                                    found=true;
+                                    user_data++;
+                                    element = new String[]{sub_replace.get(DAPATH.SUBJECT_NAME), replace_key, "O"};
+                                    returnValueList.add(element);
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                    found=true;
+                if(found==false){//모두(원래, 대체) 이수 안했을 경우
+                    Subject now_sub = sub_list.get(now_key);
+                    element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
+                    returnValueList.add(element);
+                }
+                //testing
+
+/*
                 if(student_required.containsKey(replace_key)){
                     found=true;
                     user_data++;
@@ -277,6 +314,9 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                     element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
                     returnValueList.add(element);
                 }
+
+ */
+
             }
         }
 

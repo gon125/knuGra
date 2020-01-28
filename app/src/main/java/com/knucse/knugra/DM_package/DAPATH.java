@@ -34,5 +34,6 @@ public class DAPATH { // data access path
     public static final String SUBJECT_CODE = "교과목번호";
     public static final String SUBJECT_NAME = "교과목명";
     public static final String SUBJECT_CREDIT = "학점";
+    public static final String SUBJECT_REPLACE = "대체교과목번호";
 
 }
