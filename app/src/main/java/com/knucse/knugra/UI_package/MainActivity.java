@@ -24,8 +24,6 @@ import com.knucse.knugra.DM_package.ServerConnectTask;
 import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.R;
 
-import com.knucse.knugra.UI_package.settings.SettingsActivity;
-
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -52,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top` level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -81,10 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
