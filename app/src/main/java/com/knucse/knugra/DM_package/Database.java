@@ -1,12 +1,5 @@
 package com.knucse.knugra.DM_package;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_Item;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
@@ -27,10 +20,7 @@ import org.apache.xmlbeans.impl.common.IOUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
-
 
 public class Database { // 데이터베이스 접근 객체
 
@@ -160,9 +150,8 @@ public class Database { // 데이터베이스 접근 객체
         XSSFWorkbook workbook = null;
         Row row;
         Iterator<Cell> cellIterator;
-        ArrayList<String> keys = new ArrayList<>();
         Cell cell;
-        Subject subject = null;
+        Subject subject;
 
 
         InputStream is = LoginActivity.loginActivity.getResources().openRawResource(resourceId);
@@ -187,11 +176,6 @@ public class Database { // 데이터베이스 접근 객체
 
             // get first row
             row = rowIterator.next();
-            cellIterator = row.iterator();
-            while (cellIterator.hasNext()) {
-                cell = cellIterator.next();
-                keys.add(cell.getStringCellValue());
-            }
         } else {
             // handle error
         }
@@ -201,14 +185,22 @@ public class Database { // 데이터베이스 접근 객체
         while (rowIterator.hasNext()) {
             row = rowIterator.next();
             cellIterator = row.iterator();
-            Iterator<String> keysIterator = keys.iterator();
             subject = new Subject();
             while (cellIterator.hasNext()) {
                 cell = cellIterator.next();
 
                 String cellToString = getCellToString(cell);
+                // if empty then don't put in
+                if (cellToString.equals("")) {
+                    continue;
+                }
 
-                String key = keysIterator.next();
+                String key = getCellToString(
+                        sheet
+                                .getRow(0)
+                                .getCell(
+                                        cell
+                                                .getColumnIndex()));
                 subject.put(key, cellToString);
             }
 
