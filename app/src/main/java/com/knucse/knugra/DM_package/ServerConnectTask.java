@@ -180,8 +180,7 @@ public class ServerConnectTask {
         StudentCareer studentCareer;
             Student student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
             StudentCareerList studentCareerList = student.getStudentCareerList();//여기에 studentCareer 추가할 것
-            SubjectList requiredSubjectList = student.getRequiredSubjectList();
-            SubjectList designSubjectList = student.getDesignSubjectList();
+            SubjectList completedSubjectList = student.getCompletedSubjectList();
             // have to get
             try {
                 JSONObject jsonObject = new JSONObject(result);
@@ -213,15 +212,14 @@ public class ServerConnectTask {
             studentCareerList.add(studentCareer);
 
                         //get requiredList
-            JSONArray required = jsonObject.getJSONArray(JSONKey.REQUIRED_SUBJECT_LIST);
-            JSONArray design = jsonObject.getJSONArray(JSONKey.DESIGN_SUBJECT_LIST);
+            JSONArray compeleted = jsonObject.getJSONArray(JSONKey.COMPLETED_SUBJECT_LIST);
 
-            for (i = 0; i < required.length(); i++) {
-                JSONObject object = required.getJSONObject(i);
+            for (i = 0; i < compeleted.length(); i++) {
+                JSONObject object = compeleted.getJSONObject(i);
                 Subject subject = new Subject();
 
                 String subject_code = object.getString(DAPATH.SUBJECT_CODE);
-                if (subject_code == "") { continue; }
+                if (subject_code.equals("")) { continue; }
                 subject.put(DAPATH.SUBJECT_CODE, subject_code);
 
                 String name = object.getString(DAPATH.SUBJECT_NAME);
@@ -231,31 +229,12 @@ public class ServerConnectTask {
                 subject.put(DAPATH.SUBJECT_CREDIT, credit);
 
                 // put in list
-                requiredSubjectList.put(subject_code, subject);
+                completedSubjectList.put(subject_code, subject);
             }
 
-            for (i = 0; i < design.length(); i++) {
-                JSONObject object = design.getJSONObject(i);
-                Subject subject = new Subject();
-
-                String subject_code = object.getString(DAPATH.SUBJECT_CODE);
-                if (subject_code == "") { continue; }
-                subject.put(DAPATH.SUBJECT_CODE, subject_code);
-
-                String name = object.getString(DAPATH.SUBJECT_NAME);
-                subject.put(DAPATH.SUBJECT_NAME, name);
-
-                String credit = object.getString(DAPATH.SUBJECT_CREDIT);
-                subject.put(DAPATH.SUBJECT_CREDIT, credit);
-
-                // put in list
-                designSubjectList.put(subject_code, subject);
-            }
-
-
-//            Iterator<String> it = required.keys();
+//            Iterator<String> it = compeleted.keys();
 //
-//            required.
+//            compeleted.
 //
 //            while (it.hasNext()) {
 //                String key = it.next();
