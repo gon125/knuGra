@@ -1,6 +1,7 @@
 package com.knucse.knugra.UI_package;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
+        //NavigationUI.setupWithNavController(navigationView, navController);
 
     }
 
@@ -106,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void navigateTo(int resId) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navController.navigate(resId);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.getMenu().findItem(resId).setChecked(true);
     }
 
     public int getMajorposition() {
@@ -119,15 +121,54 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int menuId = menuItem.getItemId();
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         switch (menuId){
             case R.id.nav_career_success:
+                DataLoadingTask dataloading = new DataLoadingTask();
+                dataloading.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 break;
             default:
+                navController.navigate(menuId);
                 break;
         }
-        ((MainActivity)this).navigateTo(menuId);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private class DataLoadingTask extends AsyncTask<Void, Void, Void> {
+        ProgressDialog dataLoadingProgress = new ProgressDialog(MainActivity.this);
+        int timeOut = 0;
+        @Override
+        protected void onPreExecute() {
+            dataLoadingProgress.show();
+            dataLoadingProgress.setContentView(R.layout.dataloading_progress_dialog);
+            dataLoadingProgress.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            while (!ServerConnectTask.updateCompleted && timeOut < 20){
+                try {
+                    Thread.sleep(1000);
+                    timeOut++;
+                }catch (Exception e){
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            dataLoadingProgress.dismiss();
+            if (ServerConnectTask.updateCompleted) {
+                NavController navController = Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_career_success);
+            } else {
+            }
+            super.onPostExecute(aVoid);
+        }
     }
 }
