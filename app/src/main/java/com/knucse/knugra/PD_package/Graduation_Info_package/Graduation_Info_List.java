@@ -254,17 +254,17 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         while(sub_key.hasNext()){
             found = false;//찾기 전 초기화
             //과목코드로 이수확인
-            sub_data++;
             String now_key=sub_key.next();
             if(student_required.containsKey(now_key)){//이수 했을 경우
                 Subject now_sub = student_required.get(now_key);
                 //이수한 게 최근에 대체된 과목일 경우
                 //이미 else while에서 list에 더해줌
-                if(now_sub.get(DAPATH.SUBJECT_REPLACE)!=null && now_sub.get(DAPATH.SUBJECT_REPLACE).compareTo("") != 0){
+                if(now_sub.get(DAPATH.SUBJECT_REPLACE)!=null && now_sub.get(DAPATH.SUBJECT_REPLACE).compareTo("") != 0 && now_sub.get(DAPATH.SUBJECT_REPLACE).compareTo(" ") != 0){
                     System.out.println(now_sub.get(DAPATH.SUBJECT_NAME)+"(대체)");
                     found=true;
                 }
                 else{
+                    sub_data++;
                     user_data++;
                     element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
                     returnValueList.add(element);
@@ -281,10 +281,11 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                     Iterator<String> sub_replaces = sub_keys.iterator();
                     while(sub_replaces.hasNext()){
                         Subject sub_replace = sub_list.get(sub_replaces.next());
-                        if(sub_replace.get(DAPATH.SUBJECT_REPLACE)!=null && sub_replace.get(DAPATH.SUBJECT_REPLACE).compareTo("")!=0){//not space and null
+                        if(sub_replace.get(DAPATH.SUBJECT_REPLACE)!=null && sub_replace.get(DAPATH.SUBJECT_REPLACE).compareTo("")!=0 && sub_replace.get(DAPATH.SUBJECT_REPLACE).compareTo(" ")!=0){//not space and null
                             if(sub_replace.get(DAPATH.SUBJECT_REPLACE).compareTo(sub_info.get(DAPATH.SUBJECT_CODE))==0){//대체되는 과목이면
                                 if(student_required.containsKey(sub_replace.get(DAPATH.SUBJECT_CODE))){
                                     found=true;
+                                    sub_data++;
                                     user_data++;
                                     element = new String[]{sub_replace.get(DAPATH.SUBJECT_NAME), replace_key, "O"};
                                     returnValueList.add(element);
@@ -296,6 +297,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 else
                     found=true;
                 if(found==false){//모두(원래, 대체) 이수 안했을 경우
+                    sub_data++;
                     Subject now_sub = sub_list.get(now_key);
                     element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
                     returnValueList.add(element);
