@@ -20,13 +20,19 @@ import org.apache.xmlbeans.impl.common.IOUtil;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Iterator;
+
+import static com.knucse.knugra.DM_package.DAPATH.COMPUTPER_ABEEK;
+import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_DOUBLE_MAJOR;
+import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_MASTERS_CHAINING;
+import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_OVERSEAS_UNIV;
 
 public class Database { // 데이터베이스 접근 객체
 
     private static volatile Database instance;
 
-    private static SubjectList requiredSubjectList;
+    private static HashMap<String, SubjectList> requiredSubjectLists;
     private static SubjectList designSubjectList;
 
 
@@ -45,8 +51,13 @@ public class Database { // 데이터베이스 접근 객체
     public static void load() {
         loadGraduationInfoList_temp();
         designSubjectList = loadDesignSubjectList();
-        requiredSubjectList = loadRequiredSubjectList();
+        requiredSubjectLists = loadRequiredSubjectLists();
     }
+
+    public static void destroy() {
+        instance = null;
+    }
+
 
     private static void loadGraduationInfoList_temp() {
         XSSFWorkbook workbook = null;
@@ -141,8 +152,89 @@ public class Database { // 데이터베이스 접근 객체
         return getSubjectList(R.raw.design_subject_list);
     }
 
-    private static SubjectList loadRequiredSubjectList() {// 필수과목 가져오기
-        return getSubjectList(R.raw.required_subject_list);
+    private static HashMap<String, SubjectList> loadRequiredSubjectLists() {// 필수과목 가져오기
+        return getSubjectLists(R.raw.required_subject_list);
+    }
+
+    private static HashMap<String, SubjectList> getSubjectLists(int resourceId) {
+        HashMap<String, SubjectList> subjectListHashMap = new HashMap<>();
+        XSSFWorkbook workbook = null;
+        Row row;
+        Iterator<Cell> cellIterator;
+        Cell cell;
+        Subject subject;
+
+
+        InputStream is = LoginActivity.loginActivity.getResources().openRawResource(resourceId);
+
+        try {
+            File file = File.createTempFile("temp", ".tmp");
+            IOUtil.copyCompletely(is , new FileOutputStream(file));
+            OPCPackage opcPackage = OPCPackage.open(file);
+            workbook = new XSSFWorkbook(opcPackage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Iterator<Sheet> sheetIterator = workbook.sheetIterator();
+
+        while(sheetIterator.hasNext()) {
+
+            Sheet sheet = sheetIterator.next();
+            SubjectList subjectList = new SubjectList();
+
+
+            Iterator<Row> rowIterator = sheet.iterator();
+
+
+            // first row is key values
+
+            if (rowIterator.hasNext()) {
+
+                // get first row
+                row = rowIterator.next();
+            } else {
+                // handle error
+            }
+
+
+            // from the second it's data
+            while (rowIterator.hasNext()) {
+                row = rowIterator.next();
+                cellIterator = row.iterator();
+                subject = new Subject();
+                while (cellIterator.hasNext()) {
+                    cell = cellIterator.next();
+
+                    String cellToString = getCellToString(cell);
+                    // if empty then don't put in
+                    if (cellToString.equals("")) {
+                        continue;
+                    }
+
+                    String key = getCellToString(
+                            sheet
+                                    .getRow(0)
+                                    .getCell(
+                                            cell
+                                                    .getColumnIndex()));
+                    subject.put(key, cellToString);
+                }
+
+                // after subject is done fill subject list
+
+
+                // 과목코드는 키값의 0 번쨰 인덱스에 있음
+                String subjectCode = subject.get(DAPATH.SUBJECT_CODE);
+
+
+                // 과목코드를 키값으로 설계과목목록에 설계과목 해시테이블을 집어넣음
+                subjectList.put(subjectCode, subject);
+            }
+
+            subjectListHashMap.put(sheet.getSheetName(), subjectList);
+        }
+        return subjectListHashMap;
     }
 
     private static SubjectList getSubjectList(int resourceId) {
@@ -218,12 +310,34 @@ public class Database { // 데이터베이스 접근 객체
         return subjectList;
     }
 
+
+
     public static SubjectList getDesignSubjectList() {
         return designSubjectList;
     }
 
-    public static SubjectList getRequiredSubjectList() {
-        return requiredSubjectList;
+    public static SubjectList getRequiredSubjectList(String name) {
+
+        if (isMajorName(name)) {
+            return requiredSubjectLists.get(name);
+        } else {
+            return null;
+        }
+
     }
+
+    private static boolean isMajorName(String name) {
+        switch (name) {
+            case COMPUTPER_ABEEK:
+            case GLOBAL_SOFTWARE_DOUBLE_MAJOR:
+            case GLOBAL_SOFTWARE_MASTERS_CHAINING:
+            case GLOBAL_SOFTWARE_OVERSEAS_UNIV:
+                return true;
+
+                default: return false;
+
+        }
+    }
+
 
 }

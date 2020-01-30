@@ -243,7 +243,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_required = now_student.getCompletedSubjectList();//학생 필수과목 이수현황 가져오기
         //(표준) 필수과목정보
-        SubjectList sub_list = Database.getRequiredSubjectList();
+        SubjectList sub_list = Database.getRequiredSubjectList(DAPATH.COMPUTPER_ABEEK);
 
         //필수과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
