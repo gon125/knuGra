@@ -18,7 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
-import com.knucse.knugra.DM_package.RequestType;
+import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.DM_package.ServerConnectTask;
 
 import com.knucse.knugra.PD_package.User_package.User;
@@ -30,6 +30,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+
+import io.grpc.Server;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -87,15 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         // user logout
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                User.logout();
-            }
-        }).start();
+
+        User.logout();
+        Database.destroy();
+        ServerConnectTask.updateCompleted = false;
 
     }
 
