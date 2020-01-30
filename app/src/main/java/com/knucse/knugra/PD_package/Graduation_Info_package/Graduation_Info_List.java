@@ -194,10 +194,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //(표준) 설계과목정보
         SubjectList sub_list = Database.getDesignSubjectList();
 
-        //학생test
-        //Set<String> stu_keys = student_design.keySet();
-        //System.out.println(stu_keys);
-
         //설계과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
@@ -223,9 +219,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         success=(int)(success_rate*100);
         element = new String[]{subject_type, new Integer(sub_data).toString(), new Integer(user_data).toString(), new Integer(success).toString() + "%"};
         returnValueList.add(0, element);
-
-        //design_success=success_rate;
-        //design_std=sub_data;
 
         return returnValueList;
     }
@@ -256,11 +249,11 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             //과목코드로 이수확인
             String now_key=sub_key.next();
             if(student_required.containsKey(now_key)){//이수 했을 경우
-                Subject now_sub = student_required.get(now_key);
+                Subject now_sub = sub_list.get(now_key);
                 //이수한 게 최근에 대체된 과목일 경우
                 //이미 else while에서 list에 더해줌
                 if(now_sub.get(DAPATH.SUBJECT_REPLACE)!=null && now_sub.get(DAPATH.SUBJECT_REPLACE).compareTo("") != 0 && now_sub.get(DAPATH.SUBJECT_REPLACE).compareTo(" ") != 0){
-                    System.out.println(now_sub.get(DAPATH.SUBJECT_NAME)+"(대체)");
+                    //System.out.println(now_sub.get(DAPATH.SUBJECT_NAME)+"(대체)");
                     found=true;
                 }
                 else{
@@ -302,22 +295,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                     element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
                     returnValueList.add(element);
                 }
-                //testing
-
-/*
-                if(student_required.containsKey(replace_key)){
-                    found=true;
-                    user_data++;
-                    element = new String[]{sub_info.get(DAPATH.SUBJECT_NAME), replace_key, "O(대체)"};
-                    returnValueList.add(element);
-                }
-                else if(found==false) {//모두(원래, 대체) 이수 안했을 경우
-                    Subject now_sub = sub_list.get(now_key);
-                    element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
-                    returnValueList.add(element);
-                }
-
- */
 
             }
         }
