@@ -34,6 +34,7 @@ public class Database { // 데이터베이스 접근 객체
 
     private static HashMap<String, SubjectList> requiredSubjectLists;
     private static SubjectList designSubjectList;
+    private static SubjectList startupSubjectList;
 
 
     private Database() {
@@ -52,6 +53,7 @@ public class Database { // 데이터베이스 접근 객체
         loadGraduationInfoList_temp();
         designSubjectList = loadDesignSubjectList();
         requiredSubjectLists = loadRequiredSubjectLists();
+        startupSubjectList = loadStartupSubjectList();
     }
 
     public static void destroy() {
@@ -150,6 +152,9 @@ public class Database { // 데이터베이스 접근 객체
 
     private static SubjectList loadDesignSubjectList() { // 설계과목 가져오기
         return getSubjectList(R.raw.design_subject_list);
+    }
+    private static SubjectList loadStartupSubjectList() { // 설계과목 가져오기
+        return getSubjectList(R.raw.startup_subject_list);
     }
 
     private static HashMap<String, SubjectList> loadRequiredSubjectLists() {// 필수과목 가져오기
