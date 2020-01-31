@@ -71,13 +71,13 @@ public class CareerSuccessFragment extends Fragment {
 
                 switch (position) {
                     case 0:
-                        requiredmData = Graduation_Info_List.Subject_Required_check();
+                        requiredmData = Graduation_Info_List.getResultRequired();
                         requiredmData.remove(0);
                         RequiredCompleteAdapter required_sc_adapter = new RequiredCompleteAdapter(requiredmData);
                         requiredRecyclerView.setAdapter(required_sc_adapter);
                         requiredRecyclerView.addItemDecoration(new DividerItemDecoration(requiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-                        designmData = Graduation_Info_List.Subject_Design_check();
+                        designmData = Graduation_Info_List.getResultDesign();
                         designmData.remove(0);
                         DesignCompleteAdapter design_sc_adapter = new DesignCompleteAdapter(designmData);
                         designRecyclerView.setAdapter(design_sc_adapter);

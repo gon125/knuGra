@@ -1,6 +1,5 @@
 package com.knucse.knugra.PD_package.Graduation_Info_package;
 
-import android.provider.ContactsContract;
 
 import com.knucse.knugra.DM_package.DAPATH;
 import com.knucse.knugra.DM_package.Database;
@@ -17,8 +16,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
+import static com.knucse.knugra.DM_package.DAPATH.*;
+
 public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     private static volatile Graduation_Info_List instance;
+
+    private static ArrayList<String[]> resultDesign;
+
+    private static ArrayList<String[]> resultRequired;
+
+    public static ArrayList<String[]> getResultDesign() {
+        return resultDesign;
+    }
+
+    public static ArrayList<String[]> getResultRequired() {
+        return resultRequired;
+    }
 
     private Graduation_Info_List() {
     }
@@ -51,8 +64,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         int userdata, stddata;
         Float success_rate;
 
-        ArrayList<String[]> resultDesign = std_career.Subject_Design_check();
-        ArrayList<String[]> resultRequired = std_career.Subject_Required_check();
+        resultDesign = std_career.Subject_Design_check();
+        resultRequired = std_career.Subject_Required_check();
 
         //해당 트랙 정보가져오기
         Iterator<Graduation_Info> std = std_career.iterator();
@@ -180,7 +193,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     }
 
     //설계과목 이수여부확인
-    public static ArrayList<String[]> Subject_Design_check(){
+    private static ArrayList<String[]> Subject_Design_check(){
         String subject_type = "설계과목";
         float success_rate;
         int success;
@@ -205,12 +218,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             Subject now_sub = sub_list.get(now_key);
 
             if(student_design.containsKey(now_key)){//이수 했을 경우
-                user_data+=Integer.parseInt(now_sub.get(DAPATH.SUBJECT_CREDIT));
-                element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "O"};
+                user_data+=Integer.parseInt(now_sub.get(SUBJECT_CREDIT));
+                element = new String[]{now_sub.get(SUBJECT_NAME), now_key, "O"};
                 returnValueList.add(element);
             }
             else{//이수 안했을 경우
-                element = new String[]{now_sub.get(DAPATH.SUBJECT_NAME), now_key, "X"};
+                element = new String[]{now_sub.get(SUBJECT_NAME), now_key, "X"};
                 returnValueList.add(element);
             }
         }
@@ -223,7 +236,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         return returnValueList;
     }
     //필수과목 이수여부확인
-    public static ArrayList<String[]> Subject_Required_check(){
+    private static ArrayList<String[]> Subject_Required_check(){
         String subject_type = "필수과목";
         float success_rate;
         int success;
@@ -236,11 +249,13 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_required = now_student.getCompletedSubjectList();//학생 필수과목 이수현황 가져오기
         //(표준) 필수과목정보
-        SubjectList sub_list = Database.getRequiredSubjectList(DAPATH.COMPUTPER_ABEEK);
+        SubjectList sub_list = Database.getRequiredSubjectList(COMPUTPER_ABEEK);
 
         //필수과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
+
         Iterator<String> sub_key = sub_keys.iterator();
+
 
         user_data=0;//이수한 필수과목수
         sub_data=0;//모든 필수과목 수
