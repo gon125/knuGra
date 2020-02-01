@@ -168,20 +168,27 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
 
     //졸업요건정보 검색(졸업트랙)//
-    public static ArrayList<String[]> Graduation_Info_search(final String selectedTrack) {
+    public static ArrayList<ArrayList<String[]>> Graduation_Info_search(final String selectedTrack) {
         int i;
         Graduation_Info_List std_career = getInstance();
         Graduation_Info std_track = new Graduation_Info();
         ArrayList<String[]> returnList = new ArrayList<>();
+        ArrayList<ArrayList<String[]>> returnList2= new ArrayList<>(); //test
         String[] element;
+        SubjectList required_subject = null;
+        SubjectList designed_subject = null;
 
         //해당트랙정보 가져오기
         Iterator<Graduation_Info> std = std_career.iterator();
         while (std.hasNext()) {
             std_track = std.next();
-
-            if (selectedTrack.equals(std_track.info_track))
+            if (selectedTrack.equals(std_track.info_track)) {
+                required_subject=Database.getRequiredSubjectList(std_track.info_track); //track에 해당하는 필수과목
+                if(std_track.info_track.compareTo(COMPUTPER_ABEEK)==0){
+                    designed_subject=Database.getDesignSubjectList();
+                }
                 break;
+            }
 
         }
         //문자열로 반환해주기
@@ -189,7 +196,33 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             element = new String[]{std_track.get(i).getName(), std_track.get(i).getContent()};
             returnList.add(element);
         }
-        return returnList;
+        //test
+        returnList2.add(returnList);
+        //필수과목 정보 문자열로 반환
+        returnList = new ArrayList<>();
+        Set<String> required_keys = required_subject.keySet();
+        Iterator<String> required_key = required_keys.iterator();
+        while(required_key.hasNext()){
+            Subject nowsubject= required_subject.get(required_key.next());
+            if(nowsubject.get(SUBJECT_REPLACE)==null || nowsubject.get(SUBJECT_REPLACE).compareTo("")==0 || nowsubject.get(SUBJECT_REPLACE).compareTo(" ")==0){
+                element = new String[]{nowsubject.get(SUBJECT_NAME)};
+                returnList.add(element);
+            }
+        }
+        returnList2.add(returnList);
+
+        //설계과목 정보 문자열로 반환 - 심컴abeek만 해당
+        returnList = new ArrayList<>();
+        Set<String> designed_keys = designed_subject.keySet();
+        Iterator<String> designed_key = designed_keys.iterator();
+        while(designed_key.hasNext()){
+            element = new String[]{designed_subject.get(designed_key.next()).get(SUBJECT_NAME)};
+            returnList.add(element);
+        }
+        returnList2.add(returnList);
+
+
+        return returnList2;
     }
 
     //설계과목 이수여부확인
