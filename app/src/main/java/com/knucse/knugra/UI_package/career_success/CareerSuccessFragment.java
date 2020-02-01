@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -19,16 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
-import com.knucse.knugra.PD_package.User_package.Student_package.Student;
-import com.knucse.knugra.PD_package.User_package.User;
 import com.knucse.knugra.R;
 import com.knucse.knugra.UI_package.MainActivity;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
-
-import static com.knucse.knugra.DM_package.DAPATH.*;
 
 public class CareerSuccessFragment extends Fragment {
     private CareerSuccessViewModel careerSuccessViewModel;
@@ -55,6 +51,9 @@ public class CareerSuccessFragment extends Fragment {
         designRecyclerView.setHasFixedSize(true);
         designRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        final LinearLayout csRequiredLayout = (LinearLayout)root.findViewById(R.id.cs_required_layout);
+        final LinearLayout csDesignLayout = (LinearLayout)root.findViewById(R.id.cs_design_layout);
+
         final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.track, android.R.layout.simple_spinner_dropdown_item);
 
         trackSpinner.setAdapter(trackAdapter);
@@ -63,25 +62,45 @@ public class CareerSuccessFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ArrayList<String[]> data;
+                //기본 졸업요건 항목 달성현황
                 data = Graduation_Info_List.Graduation_Info_compare((String)parent.getItemAtPosition(position));
                 mData = getCsList(data);
                 CareerSuccessAdapter cs_adapter = new CareerSuccessAdapter(mData);
                 recyclerView.setAdapter(cs_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
+                RequiredCompleteAdapter required_sc_adapter;
+                DesignCompleteAdapter design_sc_adapter;
                 switch (position) {
                     case 0:
+                        //필수과목 이수현황
                         requiredmData = Graduation_Info_List.getResultRequired();
                         requiredmData.remove(0);
-                        RequiredCompleteAdapter required_sc_adapter = new RequiredCompleteAdapter(requiredmData);
+                        required_sc_adapter = new RequiredCompleteAdapter(requiredmData);
                         requiredRecyclerView.setAdapter(required_sc_adapter);
                         requiredRecyclerView.addItemDecoration(new DividerItemDecoration(requiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
+                        csRequiredLayout.setVisibility(LinearLayout.VISIBLE);
+                        //설계과목 이수현황
                         designmData = Graduation_Info_List.getResultDesign();
                         designmData.remove(0);
-                        DesignCompleteAdapter design_sc_adapter = new DesignCompleteAdapter(designmData);
+                        design_sc_adapter = new DesignCompleteAdapter(designmData);
                         designRecyclerView.setAdapter(design_sc_adapter);
                         designRecyclerView.addItemDecoration(new DividerItemDecoration(designRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                        csRequiredLayout.setVisibility(LinearLayout.VISIBLE);
+                        break;
+                    case 1: case 2: case 3:
+                        //필수과목 이수현황
+                        requiredmData = Graduation_Info_List.getResultRequired();
+                        requiredmData.remove(0);
+                        required_sc_adapter = new RequiredCompleteAdapter(requiredmData);
+                        requiredRecyclerView.setAdapter(required_sc_adapter);
+                        requiredRecyclerView.addItemDecoration(new DividerItemDecoration(requiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                        csRequiredLayout.setVisibility(LinearLayout.VISIBLE);
+                        csDesignLayout.setVisibility(LinearLayout.GONE);
+                        break;
+                    case 4: case 5: case 6: case 7:
+                        csRequiredLayout.setVisibility(LinearLayout.GONE);
+                        csDesignLayout.setVisibility(LinearLayout.GONE);
                         break;
                     default:    break;
                 }

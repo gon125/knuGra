@@ -13,9 +13,9 @@ import com.knucse.knugra.R;
 import java.util.ArrayList;
 
 public class GInfoSubjectAdapter extends RecyclerView.Adapter<GInfoSubjectAdapter.ViewHolder> {
-    private ArrayList<String> mData = null;
+    private ArrayList<String[]> mData = null;
 
-    GInfoSubjectAdapter(ArrayList<String> list) {
+    GInfoSubjectAdapter(ArrayList<String[]> list) {
         mData = list;
     }
 
@@ -24,7 +24,7 @@ public class GInfoSubjectAdapter extends RecyclerView.Adapter<GInfoSubjectAdapte
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
-        View view = inflater.inflate(R.layout.recycler_item_ginfo_required_subject, parent, false) ;
+        View view = inflater.inflate(R.layout.recycler_item_ginfo_subject, parent, false) ;
         GInfoSubjectAdapter.ViewHolder vh = new GInfoSubjectAdapter.ViewHolder(view) ;
 
         return vh ;
@@ -33,9 +33,9 @@ public class GInfoSubjectAdapter extends RecyclerView.Adapter<GInfoSubjectAdapte
     @Override
     public void onBindViewHolder(GInfoSubjectAdapter.ViewHolder holder, int position) {
 
-        String item = mData.get(position) ;
+        String[] item = mData.get(position) ;
 
-        holder.required_subject_name.setText(item) ;
+        holder.required_subject_name.setText(item[0]) ;
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
@@ -50,7 +50,7 @@ public class GInfoSubjectAdapter extends RecyclerView.Adapter<GInfoSubjectAdapte
         public ViewHolder(View itemView) {
             super(itemView);
 
-            required_subject_name = itemView.findViewById(R.id.gis_required_subject_name);
+            required_subject_name = itemView.findViewById(R.id.gis_subject_name);
         }
     }
 }

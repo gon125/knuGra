@@ -75,11 +75,12 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
+                android:id="@+id/gis_required_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/gis_subject"
+                    android:id="@+id/gis_required_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -89,35 +90,64 @@
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textSize="16dp"
-                    android:text="@string/sc_subject"/>
+                    android:text="@string/required_subject"/>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/gis_required_subject_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/colorLightGrayB">
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayB"
+                    android:text="@string/subject_name"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"/>
 
-                    <TextView
-                        android:id="@+id/gis_subject_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp"
-                        android:text="@string/subject_name"
-                        android:textAlignment="center"
-                        android:textSize="16dp"/>
-                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_ginfo_required"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
 
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/recycler_ginfo_required_subject"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical">-->
-<!--                </androidx.recyclerview.widget.RecyclerView>-->
+            <LinearLayout
+                android:id="@+id/gis_design_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/gis_design_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayA"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:text="@string/design_subject"/>
 
+                <TextView
+                    android:id="@+id/gis_design_subject_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayB"
+                    android:text="@string/subject_name"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_ginfo_design"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
         </LinearLayout>

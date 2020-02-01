@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -26,8 +27,7 @@ import java.util.ArrayList;
 public class GInfoSearchFragment extends Fragment {
 
     private GInfoSearchViewModel gInfoSearchViewModel;
-    private static ArrayList<String[]> ginfoDatas = new ArrayList<String[]>();
-    private static ArrayList<String> ginfoSubjectDatas = new ArrayList<String>();
+    private static ArrayList<ArrayList<String[]>> ginfoDatas = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,9 +41,16 @@ public class GInfoSearchFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        final RecyclerView ginfoSubjectRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_ginfo_required_subject);
-//        ginfoSubjectRecyclerView.setHasFixedSize(true);
-//        ginfoSubjectRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        final RecyclerView ginfoRequiredRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_ginfo_required);
+        ginfoRequiredRecyclerView.setHasFixedSize(true);
+        ginfoRequiredRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        final RecyclerView ginfoDesignRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_ginfo_design);
+        ginfoDesignRecyclerView.setHasFixedSize(true);
+        ginfoDesignRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        final LinearLayout gisRequiredLayout = (LinearLayout)root.findViewById(R.id.gis_required_layout);
+        final LinearLayout gisDesignLayout = (LinearLayout)root.findViewById(R.id.gis_design_layout);
 
         trackSpinner.setAdapter(trackAdapter);
         trackSpinner.setSelection(((MainActivity)getActivity()).getMajorposition());
@@ -51,15 +58,35 @@ public class GInfoSearchFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ginfoDatas = Graduation_Info_List.Graduation_Info_search((String)parent.getItemAtPosition(position));
-                GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(ginfoDatas);
+                //기본 졸업요건 항목
+                GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(ginfoDatas.get(0));
                 recyclerView.setAdapter(gis_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
+                GInfoSubjectAdapter gis_required_adapter, gis_design_adapter;
                 switch (position) {
-                    case 0:
-//                        GInfoSubjectAdapter subject_adapter = new GInfoSubjectAdapter(ginfoSubjectDatas);
-//                        ginfoSubjectRecyclerView.setAdapter(subject_adapter);
-//                        ginfoSubjectRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoSubjectRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                    case 0: //COMPUTER_ABEEK
+                        //필수과목
+                        gis_required_adapter = new GInfoSubjectAdapter(ginfoDatas.get(1));
+                        ginfoRequiredRecyclerView.setAdapter(gis_required_adapter);
+                        ginfoRequiredRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoRequiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                        gisRequiredLayout.setVisibility(LinearLayout.VISIBLE);
+                        //설계과목
+                        gis_design_adapter = new GInfoSubjectAdapter(ginfoDatas.get(2));
+                        ginfoDesignRecyclerView.setAdapter(gis_design_adapter);
+                        ginfoDesignRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoDesignRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                        gisDesignLayout.setVisibility(LinearLayout.VISIBLE);
+                        break;
+                    case 1: case 2: case 3: //GLOBAL_SOFTWARE
+                        //필수과목
+                        gis_required_adapter = new GInfoSubjectAdapter(ginfoDatas.get(1));
+                        ginfoRequiredRecyclerView.setAdapter(gis_required_adapter);
+                        ginfoRequiredRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoRequiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+                        gisRequiredLayout.setVisibility(LinearLayout.VISIBLE);
+                        gisDesignLayout.setVisibility(LinearLayout.GONE);
+                        break;
+                    case 4: case 5: case 6: case 7: //CONNECTED_SOFTWARE
+                        gisRequiredLayout.setVisibility(LinearLayout.GONE);
+                        gisDesignLayout.setVisibility(LinearLayout.GONE);
                         break;
                     default:    break;
                 }

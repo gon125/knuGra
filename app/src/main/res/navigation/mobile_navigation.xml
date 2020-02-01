@@ -21,33 +21,4 @@
         android:label="@string/menu_g_info_search"
         tools:layout="@layout/fragment_g_info_search" />
 
-    <fragment
-        android:id="@+id/nav_std_info_input"
-        android:name="com.knucse.knugra.UI_package.std_info_input.StdInfoInputFragment"
-        android:label="@string/menu_std_info_input"
-        tools:layout="@layout/fragment_std_info_input" />
-
-    <fragment
-        android:id="@+id/nav_doc_agree"
-        android:name="com.knucse.knugra.UI_package.doc_agree.DocAgreeFragment"
-        android:label="@string/menu_doc_agree"
-        tools:layout="@layout/fragment_doc_agree" />
-
-    <fragment
-        android:id="@+id/nav_std_info_search"
-        android:name="com.knucse.knugra.UI_package.std_info_search.StdInfoSearchFragment"
-        android:label="@string/menu_std_info_search"
-        tools:layout="@layout/fragment_std_info_search" />
-
-    <fragment
-        android:id="@+id/nav_qa"
-        android:name="com.knucse.knugra.UI_package.qa.QAFragment"
-        android:label="@string/menu_qa"
-        tools:layout="@layout/fragment_qa" />
-
-    <fragment
-        android:id="@+id/nav_notice"
-        android:name="com.knucse.knugra.UI_package.notice.NoticeFragment"
-        android:label="@string/menu_notice"
-        tools:layout="@layout/fragment_notice" />
 </navigation>

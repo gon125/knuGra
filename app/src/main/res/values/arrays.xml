@@ -12,7 +12,9 @@
 
     <string-array name="track">
         <item>심화컴퓨터전공(ABEEK)</item>
-        <item>글로벌소프트웨어전공</item>
+        <item>글로벌소프트웨어전공(다중전공트랙)</item>
+        <item>글로벌소프트웨어전공(해외복수학위트랙)</item>
+        <item>글로벌소프트웨어전공(학석사연계트랙)</item>
         <item>빅데이터전공</item>
         <item>건설IT전공</item>
         <item>핀테크전공</item>

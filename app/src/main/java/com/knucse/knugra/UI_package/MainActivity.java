@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top` level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -61,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        //NavigationUI.setupWithNavController(navigationView, navController);
-
+        NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -102,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void navigateTo(int resId) {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         navController.navigate(resId);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.getMenu().findItem(resId).setChecked(true);
     }
 
     public int getMajorposition() {

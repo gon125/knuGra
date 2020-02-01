@@ -199,28 +199,31 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //test
         returnList2.add(returnList);
         //필수과목 정보 문자열로 반환
-        returnList = new ArrayList<>();
-        Set<String> required_keys = required_subject.keySet();
-        Iterator<String> required_key = required_keys.iterator();
-        while(required_key.hasNext()){
-            Subject nowsubject= required_subject.get(required_key.next());
-            if(nowsubject.get(SUBJECT_REPLACE)==null || nowsubject.get(SUBJECT_REPLACE).compareTo("")==0 || nowsubject.get(SUBJECT_REPLACE).compareTo(" ")==0){
-                element = new String[]{nowsubject.get(SUBJECT_NAME)};
-                returnList.add(element);
+        if (required_subject != null) {
+            returnList = new ArrayList<>();
+            Set<String> required_keys = required_subject.keySet();
+            Iterator<String> required_key = required_keys.iterator();
+            while (required_key.hasNext()) {
+                Subject nowsubject = required_subject.get(required_key.next());
+                if (nowsubject.get(SUBJECT_REPLACE) == null || nowsubject.get(SUBJECT_REPLACE).compareTo("") == 0 || nowsubject.get(SUBJECT_REPLACE).compareTo(" ") == 0) {
+                    element = new String[]{nowsubject.get(SUBJECT_NAME)};
+                    returnList.add(element);
+                }
             }
+            returnList2.add(returnList);
         }
-        returnList2.add(returnList);
 
         //설계과목 정보 문자열로 반환 - 심컴abeek만 해당
-        returnList = new ArrayList<>();
-        Set<String> designed_keys = designed_subject.keySet();
-        Iterator<String> designed_key = designed_keys.iterator();
-        while(designed_key.hasNext()){
-            element = new String[]{designed_subject.get(designed_key.next()).get(SUBJECT_NAME)};
-            returnList.add(element);
+        if (designed_subject != null) {
+            returnList = new ArrayList<>();
+            Set<String> designed_keys = designed_subject.keySet();
+            Iterator<String> designed_key = designed_keys.iterator();
+            while (designed_key.hasNext()) {
+                element = new String[]{designed_subject.get(designed_key.next()).get(SUBJECT_NAME)};
+                returnList.add(element);
+            }
+            returnList2.add(returnList);
         }
-        returnList2.add(returnList);
-
 
         return returnList2;
     }
