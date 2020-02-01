@@ -281,7 +281,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             }
             else{//이수 안했을 경우
                 Subject sub_info = sub_list.get(now_key);
-                String replace_key = sub_info.get(DAPATH.SUBJECT_REPLACE);
+                //String replace_key = sub_info.get(DAPATH.SUBJECT_REPLACE);
 
                 //testing
                 //반복해서 대체할 수 있는 걸 찾기
@@ -295,7 +295,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                                     found=true;
                                     sub_data++;
                                     user_data++;
-                                    element = new String[]{sub_replace.get(DAPATH.SUBJECT_NAME), replace_key, "O"};
+                                    element = new String[]{sub_replace.get(DAPATH.SUBJECT_NAME), sub_info.get(DAPATH.SUBJECT_REPLACE), "O"};
                                     returnValueList.add(element);
                                 }
                             }
