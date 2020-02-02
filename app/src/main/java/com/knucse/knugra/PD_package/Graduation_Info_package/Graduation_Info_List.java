@@ -25,6 +25,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
     private static ArrayList<String[]> resultRequired;
 
+    //private static ArrayList<String[]> resultStartup;
+
     public static ArrayList<String[]> getResultDesign() {
         return resultDesign;
     }
@@ -32,6 +34,12 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     public static ArrayList<String[]> getResultRequired() {
         return resultRequired;
     }
+/*
+    public static ArrayList<String[]> getResultStartup() {
+        return resultStartup;
+    }
+
+ */
 
     private Graduation_Info_List() {
     }
@@ -63,16 +71,27 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Graduation_Info std_track=new Graduation_Info();
         int userdata, stddata;
         Float success_rate;
-
-        resultDesign = std_career.Subject_Design_check();
-        resultRequired = std_career.Subject_Required_check();
+        //초기화
+        resultDesign = null;
+        resultRequired = null;
+        //resultStartup = null;
 
         //해당 트랙 정보가져오기
         Iterator<Graduation_Info> std = std_career.iterator();
         while(std.hasNext()){
             std_track=std.next();
-            if(selectedTrack.equals(std_track.info_track))
+            if(selectedTrack.equals(std_track.info_track)) {
+                if(std_track.info_track.equals(COMPUTPER_ABEEK)){//심컴
+                    resultDesign = std_career.Subject_Design_check();
+                    resultRequired = std_career.Subject_Required_check();
+                }
+                else if(std_track.info_track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR) || std_track.info_track.equals(GLOBAL_SOFTWARE_MASTERS_CHAINING) || std_track.info_track.equals((GLOBAL_SOFTWARE_OVERSEAS_UNIV))){//글솦
+                    //필수, 창업
+                    //resultRequired = std_career.Subject_Required_check();//글솦필수로 바꿔야함
+                    //resultStartup = std_career.Subject_Startup_check();
+                }
                 break;
+            }
         }
         //비교(전체 갯수 count, 완수한 갯수 count)
         for(i=0;i<std_track.size();i++) {
@@ -126,39 +145,36 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         }
 
         //설계과목 count
-        returnValueList.add(resultDesign.get(0));
-        String[] Design = resultDesign.get(0);
-        String Design_std = Design[1], Design_user = Design[2];
+        if(resultDesign!=null) {
+            returnValueList.add(resultDesign.get(0));
+            String[] Design = resultDesign.get(0);
+            String Design_std = Design[1], Design_user = Design[2];
 
-        Float user_design_score = Float.parseFloat(Design_user);
-        int std_design_score = Integer.parseInt(Design_std);
-        if(user_design_score>std_design_score){//기준보다 클 경우
-            totalSuccess_rate+=std_design_score;
+            Float user_design_score = Float.parseFloat(Design_user);
+            int std_design_score = Integer.parseInt(Design_std);
+            if (user_design_score > std_design_score) {//기준보다 클 경우
+                totalSuccess_rate += std_design_score;
+            } else {
+                totalSuccess_rate += user_design_score;
+            }
+            totalcount += std_design_score;
         }
-        else {
-            totalSuccess_rate += user_design_score;
-        }
-        totalcount += std_design_score;
-        //totalSuccess_rate += design_rate*design_std;
-        //totalcount += (int)(design_std);
 
         //필수과목 count
-        returnValueList.add(resultRequired.get(0));
-        String[] Required = resultRequired.get(0);
-        String Required_std = Required[1], Required_user = Required[2];
+        if(resultRequired!=null) {
+            returnValueList.add(resultRequired.get(0));
+            String[] Required = resultRequired.get(0);
+            String Required_std = Required[1], Required_user = Required[2];
 
-        Float user_required_score = Float.parseFloat(Required_user);
-        int std_required_score = Integer.parseInt(Required_std);
-        if(user_required_score>std_required_score){
-            totalSuccess_rate += std_required_score;
+            Float user_required_score = Float.parseFloat(Required_user);
+            int std_required_score = Integer.parseInt(Required_std);
+            if (user_required_score > std_required_score) {
+                totalSuccess_rate += std_required_score;
+            } else
+                totalSuccess_rate += user_required_score;
+
+            totalcount += std_required_score;
         }
-        else
-            totalSuccess_rate += user_required_score;
-
-        totalcount += std_required_score;
-        //totalSuccess_rate += required_rate*required_std;
-        //totalcount += (int)(required_std);
-
 
         int a = (int)((totalSuccess_rate/totalcount) * 100);
         element = new String[]{"총  합", "", "", new Integer(a).toString() + "%"};
@@ -196,7 +212,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             element = new String[]{std_track.get(i).getName(), std_track.get(i).getContent()};
             returnList.add(element);
         }
-        //test
         returnList2.add(returnList);
         //필수과목 정보 문자열로 반환
         if (required_subject != null) {
@@ -239,7 +254,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         int user_data, sub_data;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
-        SubjectList student_design = now_student.getCompletedSubjectList();//학생 설계과목 이수현황 가져오기
+        SubjectList student_design = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
         //(표준) 설계과목정보
         SubjectList sub_list = Database.getDesignSubjectList();
 
@@ -283,7 +298,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         int user_data, sub_data;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
-        SubjectList student_required = now_student.getCompletedSubjectList();//학생 필수과목 이수현황 가져오기
+        SubjectList student_required = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
         //(표준) 필수과목정보
         SubjectList sub_list = Database.getRequiredSubjectList(COMPUTPER_ABEEK);
 
@@ -358,6 +373,31 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
         return returnValueList;
     }
+
+    //test
+    /*
+    private static ArrayList<String[]> Subject_Startup_check(){
+        String subject_type = "창업과목";
+        float success_rate;
+        int success;
+        boolean found;
+        //결과 값 저장공간
+        ArrayList<String[]> returnValueList = new ArrayList<>();
+        String[] element;
+        int user_data, sub_data;
+        //학생정보
+        Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
+        SubjectList student_startup = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
+        //(표준) 필수과목정보
+        //SubjectList sub_list = Database.getStartupSubjectList;
+
+
+
+
+        return returnValueList;
+    }
+
+     */
     //졸업요건정보 업데이트()
     //졸업요건정보 추가()
 }
