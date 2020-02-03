@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
     private int majorposition;
     private String major;
+    private SharedPreferences settings;
+    private  SharedPreferences.Editor editor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,12 +53,23 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = findViewById(R.id.username);
         final EditText passwordEditText = findViewById(R.id.password);
         final Button loginButton = findViewById(R.id.login);
+
+        loginButton.setEnabled(true);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         final Spinner trackSpinner = (Spinner)this.findViewById(R.id.track_spinner);
 
         final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(this, R.array.track, android.R.layout.simple_spinner_dropdown_item);
 
+        // autologin feature
+        settings = getSharedPreferences("settings", 0);
+        editor = settings.edit();
+        editor.putBoolean("autoLogin", true);
+
+        if (settings.getBoolean("autoLogin", false)) {
+            usernameEditText.setText(settings.getString("ID", ""));
+            passwordEditText.setText(settings.getString("PW", ""));
+        }
 
         // setting for poi dependencies
         System.setProperty("org.apache.poi.javax.xml.stream.XMLInputFactory", "com.fasterxml.aalto.stax.InputFactoryImpl");
@@ -124,6 +138,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
 
+                    // save auto login information
+                    // if (autoLogin button is on ) {
+                        editor.putString("ID", User.getInstance().getId());
+                        editor.putString("PW", User.getInstance().getPassword());
+                        editor.commit();
+                    //}
                     // update user data in th beginning of the main activity.
                     new AsyncTask<Void, Void, Void>() {
                         @Override
