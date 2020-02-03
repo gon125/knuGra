@@ -28,6 +28,8 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Iterator;
 
+import static com.knucse.knugra.DM_package.RequestType.*;
+
 public class ServerConnectTask {
 
     public static volatile boolean updateCompleted = false;
@@ -258,12 +260,37 @@ public class ServerConnectTask {
         String requestType;
         String major;
 
-        ServerConnectTaskPrams(String username, String password, String requestType, String major) {
+        public ServerConnectTaskPrams(String username, String password, String requestType, String major) {
             this.username = username;
             this.password = password;
-            this.major = major;
+            this.major = toMajor(major);
             this.requestType = requestType;
         }
+    }
+
+    private static String toMajor(String major) {
+
+        switch (major) {
+            case DAPATH.COMPUTPER_ABEEK:
+                return COMPUTPER_ABEEK;
+            case DAPATH.GLOBAL_SOFTWARE_DOUBLE_MAJOR:
+                return GLOBAL_SOFTWARE_DOUBLE_MAJOR;
+            case DAPATH.GLOBAL_SOFTWARE_MASTERS_CHAINING:
+                return GLOBAL_SOFTWARE_MASTERS_CHAINING;
+            case DAPATH.GLOBAL_SOFTWARE_OVERSEAS_UNIV:
+                return GLOBAL_SOFTWARE_OVERSEAS_UNIV;
+            case DAPATH.FINTECH:
+                return  FINTECH;
+            case DAPATH.BIGDATA:
+                return  BIGDATA;
+            case DAPATH.MEDIAART:
+                return  MEDIAART;
+            case DAPATH.CONSTRUCTION_IT:
+                return  CONSTRUCTION_IT;
+            default:
+                return COMPUTPER_ABEEK;
+        }
+
     }
 }
 

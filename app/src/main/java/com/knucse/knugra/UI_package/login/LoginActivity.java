@@ -128,12 +128,16 @@ public class LoginActivity extends AppCompatActivity {
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
+                            ServerConnectTask.ServerConnectTaskPrams params =
+                                    new ServerConnectTask.ServerConnectTaskPrams(
+                                            User.getInstance().getId(),
+                                            User.getInstance().getPassword(),
+                                            RequestType.UPDATE,
+                                            major);
+
                             ServerConnectTask serverConnectTask = new ServerConnectTask();
 
-                            serverConnectTask.execute(
-                                    User.getInstance().getId(),
-                                    User.getInstance().getPassword(),
-                                    RequestType.UPDATE);
+                            serverConnectTask.execute(params);
                             return null;
                         }
                     }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
