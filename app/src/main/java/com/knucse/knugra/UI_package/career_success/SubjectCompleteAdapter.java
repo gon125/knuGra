@@ -12,26 +12,26 @@ import com.knucse.knugra.R;
 
 import java.util.ArrayList;
 
-public class RequiredCompleteAdapter extends RecyclerView.Adapter<RequiredCompleteAdapter.ViewHolder> {
+public class SubjectCompleteAdapter extends RecyclerView.Adapter<SubjectCompleteAdapter.ViewHolder> {
     private ArrayList<String[]> mData = null;
 
-    RequiredCompleteAdapter(ArrayList<String[]> list) {
+    SubjectCompleteAdapter(ArrayList<String[]> list) {
         mData = list;
     }
 
     @Override
-    public RequiredCompleteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SubjectCompleteAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext() ;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
 
-        View view = inflater.inflate(R.layout.recycler_item_required_complete, parent, false) ;
-        RequiredCompleteAdapter.ViewHolder vh = new RequiredCompleteAdapter.ViewHolder(view) ;
+        View view = inflater.inflate(R.layout.recycler_item_subject_complete, parent, false) ;
+        SubjectCompleteAdapter.ViewHolder vh = new SubjectCompleteAdapter.ViewHolder(view) ;
 
         return vh ;
     }
 
     @Override
-    public void onBindViewHolder(RequiredCompleteAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(SubjectCompleteAdapter.ViewHolder holder, int position) {
         String[] item = mData.get(position) ;
 
         holder.sc_subject.setText(item[0]) ;
@@ -51,8 +51,8 @@ public class RequiredCompleteAdapter extends RecyclerView.Adapter<RequiredComple
         public ViewHolder(View itemView) {
             super(itemView);
 
-            sc_subject = itemView.findViewById(R.id.subject_required_complete);
-            sc_content = itemView.findViewById(R.id.content_required_complete);
+            sc_subject = itemView.findViewById(R.id.name_subject_complete);
+            sc_content = itemView.findViewById(R.id.content_subject_complete);
         }
     }
 }

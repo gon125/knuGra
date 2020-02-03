@@ -62,7 +62,10 @@ public class GInfoSearchFragment extends Fragment {
                 GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(ginfoDatas.get(0));
                 recyclerView.setAdapter(gis_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
                 GInfoSubjectAdapter gis_required_adapter, gis_design_adapter;
+                gisRequiredLayout.setVisibility(LinearLayout.GONE);
+                gisDesignLayout.setVisibility(LinearLayout.GONE);
                 switch (position) {
                     case 0: //COMPUTER_ABEEK
                         //필수과목
@@ -82,11 +85,8 @@ public class GInfoSearchFragment extends Fragment {
                         ginfoRequiredRecyclerView.setAdapter(gis_required_adapter);
                         ginfoRequiredRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoRequiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
                         gisRequiredLayout.setVisibility(LinearLayout.VISIBLE);
-                        gisDesignLayout.setVisibility(LinearLayout.GONE);
                         break;
                     case 4: case 5: case 6: case 7: //CONNECTED_SOFTWARE
-                        gisRequiredLayout.setVisibility(LinearLayout.GONE);
-                        gisDesignLayout.setVisibility(LinearLayout.GONE);
                         break;
                     default:    break;
                 }

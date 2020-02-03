@@ -69,38 +69,36 @@ public class CareerSuccessFragment extends Fragment {
                 recyclerView.setAdapter(cs_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-                RequiredCompleteAdapter required_sc_adapter;
-                DesignCompleteAdapter design_sc_adapter;
+                SubjectCompleteAdapter required_sc_adapter, design_sc_adapter;
+                csRequiredLayout.setVisibility(LinearLayout.GONE);
+                csDesignLayout.setVisibility(LinearLayout.GONE);
                 switch (position) {
                     case 0:
                         //필수과목 이수현황
                         requiredmData = Graduation_Info_List.getResultRequired();
                         requiredmData.remove(0);
-                        required_sc_adapter = new RequiredCompleteAdapter(requiredmData);
+                        required_sc_adapter = new SubjectCompleteAdapter(requiredmData);
                         requiredRecyclerView.setAdapter(required_sc_adapter);
                         requiredRecyclerView.addItemDecoration(new DividerItemDecoration(requiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
                         csRequiredLayout.setVisibility(LinearLayout.VISIBLE);
                         //설계과목 이수현황
                         designmData = Graduation_Info_List.getResultDesign();
                         designmData.remove(0);
-                        design_sc_adapter = new DesignCompleteAdapter(designmData);
+                        design_sc_adapter = new SubjectCompleteAdapter(designmData);
                         designRecyclerView.setAdapter(design_sc_adapter);
                         designRecyclerView.addItemDecoration(new DividerItemDecoration(designRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
-                        csRequiredLayout.setVisibility(LinearLayout.VISIBLE);
+                        csDesignLayout.setVisibility(LinearLayout.VISIBLE);
                         break;
                     case 1: case 2: case 3:
                         //필수과목 이수현황
                         requiredmData = Graduation_Info_List.getResultRequired();
                         requiredmData.remove(0);
-                        required_sc_adapter = new RequiredCompleteAdapter(requiredmData);
+                        required_sc_adapter = new SubjectCompleteAdapter(requiredmData);
                         requiredRecyclerView.setAdapter(required_sc_adapter);
                         requiredRecyclerView.addItemDecoration(new DividerItemDecoration(requiredRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
                         csRequiredLayout.setVisibility(LinearLayout.VISIBLE);
-                        csDesignLayout.setVisibility(LinearLayout.GONE);
                         break;
                     case 4: case 5: case 6: case 7:
-                        csRequiredLayout.setVisibility(LinearLayout.GONE);
-                        csDesignLayout.setVisibility(LinearLayout.GONE);
                         break;
                     default:    break;
                 }
