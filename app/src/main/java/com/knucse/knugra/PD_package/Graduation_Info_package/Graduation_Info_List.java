@@ -58,7 +58,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         int i;
         boolean found;
         float totalSuccess_rate = 0;
-        int totalcount = 0;
+        int totalcount = 0, designcredit=0, startupcredit=0, resultStartup=-1;
         String userContentString;
         StudentCareer scobject = null;
         ArrayList<String[]> returnValueList = new ArrayList<>();
@@ -67,29 +67,20 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         //학생정보받아와서
         Student current_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         StudentCareerList student_career=current_student.getStudentCareerList();//학생career가져오기
-        Graduation_Info_List std_career=getInstance();
+        //
+        Graduation_Info_List std_career = getInstance();
         Graduation_Info std_track=new Graduation_Info();
         int userdata, stddata;
         Float success_rate;
         //초기화
         resultDesign = null;
         resultRequired = null;
-        //resultStartup = null;
 
         //해당 트랙 정보가져오기
         Iterator<Graduation_Info> std = std_career.iterator();
         while(std.hasNext()){
             std_track=std.next();
             if(selectedTrack.equals(std_track.info_track)) {
-                if(std_track.info_track.equals(COMPUTPER_ABEEK)){//심컴
-                    resultDesign = std_career.Subject_Design_check();
-                    resultRequired = std_career.Subject_Required_check();
-                }
-                else if(std_track.info_track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR) || std_track.info_track.equals(GLOBAL_SOFTWARE_MASTERS_CHAINING) || std_track.info_track.equals((GLOBAL_SOFTWARE_OVERSEAS_UNIV))){//글솦
-                    //필수, 창업
-                    //resultRequired = std_career.Subject_Required_check();//글솦필수로 바꿔야함
-                    //resultStartup = std_career.Subject_Startup_check();
-                }
                 break;
             }
         }
@@ -98,8 +89,9 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             Iterator<StudentCareer> sc=student_career.iterator();
             // reset found
             found = false;
-            while(sc.hasNext()){
+            while(sc.hasNext()){ //해당 요건 찾기
                 scobject = sc.next();
+
                 if(scobject.getName().equals(std_track.get(i).getName())){
                         found = true;
                         break;
@@ -107,13 +99,41 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             }
 
             try {
-                stddata = Integer.parseInt(std_track.get(i).getContent());//content가 숫자
+                if(std_track.get(i).getName().equals(GRAINFO_ENGLISH)){
+                    stddata=700;
+                }
+                else if(std_track.get(i).getName().equals(GRAINFO_DESIGN)){//설계
+                    designcredit=Integer.parseInt(std_track.get(i).getContent());
+                    continue;
+                }
+                else if(std_track.get(i).getName().equals(GRAINFO_STARTUP)){//창업
+                    startupcredit=Integer.parseInt(std_track.get(i).getContent());
+                    continue;
+                }
+                else{
+                    stddata = Integer.parseInt(std_track.get(i).getContent());//content가 숫자
+                }
+
                 if(found == true) {
-                    userdata = Integer.parseInt(scobject.getContent());
+                    if(std_track.get(i).getName().equals(GRAINFO_ENGLISH)){
+                        if(scobject.getContent().equals("pass")){
+                            userdata = 700;
+                        }
+                        else{
+                            userdata = 0;
+                        }
+                    }
+                    else {
+                        userdata = Integer.parseInt(scobject.getContent());
+                    }
                     userContentString = scobject.getContent();
-                } else {
+                }
+                else { //학생이 아무것도 안 했을 경우
                     userdata = 0;
                     userContentString = "0";
+                    if(std_track.get(i).getName().equals(GRAINFO_ENGLISH)){
+                        userContentString = "fail";
+                    }
                 }
 
                 if (userdata > stddata) {
@@ -122,14 +142,16 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 } else {
                     success_rate = (float) userdata/(float) stddata;
                 }
+
                 // 영어성적의 경우
-                if (Integer.valueOf(std_track.get(i).getContent()) > 500) {
+                if (std_track.get(i).getName().equals(GRAINFO_ENGLISH)) {
                     totalSuccess_rate += success_rate*15;
                     totalcount += 15;
                 } else {
                     totalSuccess_rate += success_rate*Float.valueOf(std_track.get(i).getContent());
                     totalcount += Integer.valueOf(std_track.get(i).getContent());
                 }
+
 
                 int temp = (int)(success_rate*100);
 
@@ -142,6 +164,18 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             }catch(NumberFormatException e) {
                 //NumberFormatException=숫자형태가 아닌 문자열
             }
+        }
+
+        //track 마다 필요한 함수 구별
+        if(std_track.info_track.equals(COMPUTPER_ABEEK)){//심컴
+
+            resultDesign = std_career.Subject_Design_check(designcredit);
+            resultRequired = std_career.Subject_Required_check(COMPUTPER_ABEEK);
+        }
+        else if(std_track.info_track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR) || std_track.info_track.equals(GLOBAL_SOFTWARE_MASTERS_CHAINING) || std_track.info_track.equals(GLOBAL_SOFTWARE_OVERSEAS_UNIV)){//글솦
+            //필수, 창업
+            resultRequired = std_career.Subject_Required_check(std_track.info_track);
+            //resultStartup = std_career.Subject_Startup_check();
         }
 
         //설계과목 count
@@ -174,6 +208,23 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 totalSuccess_rate += user_required_score;
 
             totalcount += std_required_score;
+        }
+
+        //창업과목 count
+        if(resultStartup!=-1){
+            if(resultStartup > startupcredit){
+                success_rate = new Float(0.0);
+            }
+            else{
+                success_rate = success_rate = (float) resultStartup/(float) startupcredit;
+            }
+            totalSuccess_rate += success_rate*Float.valueOf(resultStartup);
+            totalcount += Integer.valueOf(resultStartup);
+
+            int temp = (int)(success_rate*100);
+            element = new String[]{GRAINFO_STARTUP, new Integer(startupcredit).toString(), new Integer(resultStartup).toString(), new Integer(temp).toString() + "%"};
+
+            returnValueList.add(element);
         }
 
         int a = (int)((totalSuccess_rate/totalcount) * 100);
@@ -244,14 +295,14 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     }
 
     //설계과목 이수여부확인
-    private static ArrayList<String[]> Subject_Design_check(){
+    private static ArrayList<String[]> Subject_Design_check(int sub_data){
         String subject_type = "설계과목";
         float success_rate;
         int success;
         //결과 값 저장공간
         ArrayList<String[]> returnValueList = new ArrayList<>();
         String[] element;
-        int user_data, sub_data;
+        int user_data;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_design = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
@@ -262,7 +313,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
         user_data=0;//이수한 설계과목 학점
-        sub_data=16;//설계과목 학점 기준
+
         while(sub_key.hasNext()){
             //과목코드로 이수확인
             String now_key=sub_key.next();
@@ -287,7 +338,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         return returnValueList;
     }
     //필수과목 이수여부확인
-    private static ArrayList<String[]> Subject_Required_check(){
+    private static ArrayList<String[]> Subject_Required_check(String track){
         String subject_type = "필수과목";
         float success_rate;
         int success;
@@ -300,7 +351,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_required = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
         //(표준) 필수과목정보
-        SubjectList sub_list = Database.getRequiredSubjectList(COMPUTPER_ABEEK);
+        SubjectList sub_list = Database.getRequiredSubjectList(track);
 
         //필수과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
@@ -333,8 +384,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             else{//이수 안했을 경우
                 Subject sub_info = sub_list.get(now_key);
                 //String replace_key = sub_info.get(DAPATH.SUBJECT_REPLACE);
-
-                //testing
                 //반복해서 대체할 수 있는 걸 찾기
                 if(sub_info.get(DAPATH.SUBJECT_REPLACE)==null || sub_info.get(DAPATH.SUBJECT_REPLACE).compareTo("")==0){
                     Iterator<String> sub_replaces = sub_keys.iterator();
@@ -376,25 +425,29 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
     //test
     /*
-    private static ArrayList<String[]> Subject_Startup_check(){
+    private static int Subject_Startup_check(){
         String subject_type = "창업과목";
-        float success_rate;
-        int success;
-        boolean found;
         //결과 값 저장공간
-        ArrayList<String[]> returnValueList = new ArrayList<>();
-        String[] element;
-        int user_data, sub_data;
+        int user_data=0;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_startup = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
         //(표준) 필수과목정보
-        //SubjectList sub_list = Database.getStartupSubjectList;
+        SubjectList sub_list = Database.getStartupSubjectList;
 
+        Set<String> sub_keys = sub_list.keySet();
+        Iterator<String> sub_key = sub_keys.iterator();
 
+        while(sub_key.hasNext()){
+            String now_key=sub_key.next();
+            Subject now_sub = sub_list.get(now_key);
 
+            if(student_startup.containsKey(now_key)){//이수 했을 경우
+                user_data+=Integer.parseInt(now_sub.get(SUBJECT_CREDIT));
+            }
+        }
 
-        return returnValueList;
+        return user_data;
     }
 
      */

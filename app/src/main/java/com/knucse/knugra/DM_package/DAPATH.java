@@ -39,4 +39,7 @@ public class DAPATH { // data access path
     public static final String SUBJECT_CREDIT = "학점";
     public static final String SUBJECT_REPLACE = "대체교과목번호";
 
+    public static final String GRAINFO_ENGLISH = "영어성적";
+    public static final String GRAINFO_STARTUP = "창업역량";
+    public static final String GRAINFO_DESIGN = "설계과목";
 }
