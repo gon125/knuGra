@@ -37,9 +37,10 @@
 
     <Spinner
         android:id="@+id/track_spinner"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="14dp"
         android:layout_marginTop="8dp"
         android:entries="@array/track"
         android:theme="@style/SpinnerTheme"
