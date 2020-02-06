@@ -175,7 +175,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         else if(std_track.info_track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR) || std_track.info_track.equals(GLOBAL_SOFTWARE_MASTERS_CHAINING) || std_track.info_track.equals(GLOBAL_SOFTWARE_OVERSEAS_UNIV)){//글솦
             //필수, 창업
             resultRequired = std_career.Subject_Required_check(std_track.info_track);
-            //resultStartup = std_career.Subject_Startup_check();
+            resultStartup = std_career.Subject_Startup_check();
         }
 
         //설계과목 count
@@ -216,7 +216,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 success_rate = new Float(0.0);
             }
             else{
-                success_rate = success_rate = (float) resultStartup/(float) startupcredit;
+                success_rate = (float) resultStartup/(float) startupcredit;
             }
             totalSuccess_rate += success_rate*Float.valueOf(resultStartup);
             totalcount += Integer.valueOf(resultStartup);
@@ -424,7 +424,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     }
 
     //test
-    /*
+
     private static int Subject_Startup_check(){
         String subject_type = "창업과목";
         //결과 값 저장공간
@@ -433,7 +433,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
         SubjectList student_startup = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
         //(표준) 필수과목정보
-        SubjectList sub_list = Database.getStartupSubjectList;
+        SubjectList sub_list = Database.getStartupSubjectList();
 
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
@@ -446,11 +446,10 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 user_data+=Integer.parseInt(now_sub.get(SUBJECT_CREDIT));
             }
         }
-
         return user_data;
     }
 
-     */
+
     //졸업요건정보 업데이트()
     //졸업요건정보 추가()
 }

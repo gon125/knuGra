@@ -153,7 +153,7 @@ public class Database { // 데이터베이스 접근 객체
     private static SubjectList loadDesignSubjectList() { // 설계과목 가져오기
         return getSubjectList(R.raw.design_subject_list);
     }
-    private static SubjectList loadStartupSubjectList() { // 설계과목 가져오기
+    private static SubjectList loadStartupSubjectList() { // 창업과목 가져오기
         return getSubjectList(R.raw.startup_subject_list);
     }
 
@@ -330,6 +330,8 @@ public class Database { // 데이터베이스 접근 객체
         }
 
     }
+
+    public static SubjectList getStartupSubjectList(){ return startupSubjectList; }
 
     private static boolean isMajorName(String name) {
         switch (name) {
