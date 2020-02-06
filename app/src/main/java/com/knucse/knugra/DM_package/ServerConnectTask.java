@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.knucse.knugra.DM_package.model.ERROR;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
 import com.knucse.knugra.PD_package.Subject_package.Subject;
 import com.knucse.knugra.PD_package.Subject_package.SubjectList;
@@ -28,6 +29,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Iterator;
 
+import static com.knucse.knugra.DM_package.JSONKey.ERROR_CODE;
 import static com.knucse.knugra.DM_package.RequestType.*;
 
 public class ServerConnectTask {
@@ -77,12 +79,12 @@ public class ServerConnectTask {
             }
 
         } catch (IOException e) {
-            return new Result.Error(new IOException("Error serverConnect in", e));
+            return new Result.Error(new IOException("Error serverConnect in", e), ERROR.CODE_NULL);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return new Result.Error(new Exception("Error logging in", e));
+            return new Result.Error(new Exception("Error logging in", e), ERROR.CODE_NULL);
         }
-        return new Result.Error(new Exception("Error serverConnect"));
+        return new Result.Error(new Exception("Error serverConnect"), ERROR.UNKNWON);
     }
 
     public Result<LoggedInUser> execute(ServerConnectTaskPrams... params) {
@@ -130,12 +132,13 @@ public class ServerConnectTask {
             }
 
         } catch (IOException e) {
-            return new Result.Error(new IOException("Error serverConnect in", e));
+
+            return new Result.Error(new IOException("Error serverConnect in", e), ERROR.CODE_NULL);
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return new Result.Error(new Exception("Error logging in", e));
+            return new Result.Error(new Exception("Error logging in", e), ERROR.CODE_NULL);
         }
-        return new Result.Error(new Exception("Error serverConnect"));
+        return null;
     }
 
     private Result<LoggedInUser> login(String result, String username, String pwd) {
@@ -157,7 +160,17 @@ public class ServerConnectTask {
             User newUser = User.getInstance(user, UserAccessLevel.STUDENT);
 
             return new Result.Success<>(user);
-        } else return new Result.Error(new IOException("Error logging in"));
+        } else {
+            int errorCode = ERROR.UNKNWON;
+            try {
+                errorCode = jo.get(ERROR_CODE).getAsInt();
+            } catch (Exception e) {
+                errorCode = ERROR.CODE_NULL;
+            } finally {
+                return new Result.Error(new IOException("Error logging in"), errorCode);
+            }
+
+        }
     }
 
     private boolean logout(String result) {

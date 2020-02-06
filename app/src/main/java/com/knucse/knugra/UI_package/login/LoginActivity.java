@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.knucse.knugra.DM_package.Database;
 import com.knucse.knugra.DM_package.RequestType;
 import com.knucse.knugra.DM_package.ServerConnectTask;
+import com.knucse.knugra.DM_package.model.ERROR;
 import com.knucse.knugra.PD_package.Graduation_Info_package.Graduation_Info_List;
 import com.knucse.knugra.PD_package.User_package.Student_package.Student;
 import com.knucse.knugra.PD_package.User_package.User;
@@ -133,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 loginButton.setEnabled(true);
                 if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
+                    showLoginFailed(loginResult.getErrorCode());
                     loginViewModel.getLoginResult().getValue().resetError();
                 }
                 if (loginResult.getSuccess() != null) {
@@ -224,8 +225,9 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+    private void showLoginFailed(int errorCode) {
+
+        Toast.makeText(getApplicationContext(), ERROR.toString(errorCode), Toast.LENGTH_SHORT).show();
     }
 
     private void login(String username, String password, String major) {

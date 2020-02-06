@@ -1,4 +1,5 @@
 package com.knucse.knugra.DM_package;
+import com.knucse.knugra.DM_package.model.ERROR;
 import com.knucse.knugra.DM_package.model.LoggedInUser;
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ public class LoginDataSource {
             return serverConnectTask.execute(params);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result.Error(new IOException("Error logging in", e));
+            return new Result.Error(new IOException("Error logging in", e), ERROR.UNKNWON);
         }
     }
 

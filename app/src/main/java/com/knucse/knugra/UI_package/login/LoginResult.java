@@ -10,9 +10,11 @@ class LoginResult {
     private LoggedInUserView success;
     @Nullable
     private Integer error;
+    int errorCode;
 
-    LoginResult(@Nullable Integer error) {
+    LoginResult(@Nullable Integer error, int errorCode) {
         this.error = error;
+        this.errorCode = errorCode;
     }
 
     LoginResult(@Nullable LoggedInUserView success) {
@@ -28,6 +30,11 @@ class LoginResult {
     Integer getError() {
         return error;
     }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
     void resetError() { this.error = null;}
 
 }

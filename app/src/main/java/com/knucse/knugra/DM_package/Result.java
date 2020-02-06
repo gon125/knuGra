@@ -5,19 +5,20 @@ package com.knucse.knugra.DM_package;
  */
 public class Result<T> {
     // hide the private constructor to limit subclass types (Success, Error)
+    private int errorCode;
     private Result() {
     }
 
     @Override
-    public String toString() {
-        if (this instanceof Result.Success) {
-            Result.Success success = (Result.Success) this;
-            return "Success[data=" + success.getData().toString() + "]";
-        } else if (this instanceof Result.Error) {
-            Result.Error error = (Result.Error) this;
-            return "Error[exception=" + error.getError().toString() + "]";
-        }
-        return "";
+        public String toString() {
+            if (this instanceof Result.Success) {
+                Result.Success success = (Result.Success) this;
+                return "Success[data=" + success.getData().toString() + "]";
+            } else if (this instanceof Result.Error) {
+                Result.Error error = (Result.Error) this;
+                return "Error[exception=" + error.getError().toString() + "]";
+            }
+            return "";
     }
 
     // Success sub-class
@@ -37,12 +38,20 @@ public class Result<T> {
     public final static class Error extends Result {
         private Exception error;
 
-        public Error(Exception error) {
+
+        public Error(Exception error, int errorCode) {
             this.error = error;
+            super.errorCode = errorCode;
         }
 
         public Exception getError() {
             return this.error;
         }
+
+
+    }
+
+    public int getErrorCode() {
+        return errorCode;
     }
 }
