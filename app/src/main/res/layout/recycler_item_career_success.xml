@@ -9,26 +9,25 @@
         android:id="@+id/item_career_success"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="2"
+        android:text="@string/sc_item"
         android:textAlignment="center"
-        android:textSize="16dp"
-        android:text="@string/sc_item"/>
+        android:textSize="17dp"
+        android:textStyle="" />
 
     <TextView
         android:id="@+id/percent_career_success"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="2.5"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
         android:text="@string/sc_pct"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textSize="16dp"/>
 
     <TextView
@@ -41,15 +40,16 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:textAlignment="textEnd"
-        android:textSize="16dp"
+        android:textSize="15dp"
         android:text="@string/sc_percent"/>
 
     <ProgressBar
         android:id="@+id/success_progress"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="15dp"
         android:layout_weight="3"
+        android:layout_gravity="center"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"

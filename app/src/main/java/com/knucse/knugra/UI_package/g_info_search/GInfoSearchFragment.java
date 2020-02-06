@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class GInfoSearchFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         gInfoSearchViewModel =
                 ViewModelProviders.of(this).get(GInfoSearchViewModel.class);
+        ((TextView)((MainActivity)getActivity()).findViewById(R.id.toolbar_title)).setText(R.string.menu_g_info_search);
         View root = inflater.inflate(R.layout.fragment_g_info_search, container, false);
         final Spinner trackSpinner = (Spinner)root.findViewById(R.id.track_spinner);
         final ArrayAdapter trackAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.track, android.R.layout.simple_spinner_dropdown_item);
@@ -59,7 +61,7 @@ public class GInfoSearchFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ginfoDatas = Graduation_Info_List.Graduation_Info_search((String)parent.getItemAtPosition(position));
                 //기본 졸업요건 항목
-                GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(ginfoDatas.get(0));
+                GInfoSearchAdapter gis_adapter = new GInfoSearchAdapter(getGisList(ginfoDatas.get(0)));
                 recyclerView.setAdapter(gis_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
@@ -103,5 +105,27 @@ public class GInfoSearchFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    public ArrayList<String[]> getGisList(ArrayList<String[]> data){
+        ArrayList<String[]> returnList = new ArrayList<String[]>();
+
+        for (int i=0; i<data.size(); i++){
+            String[] item = new String[2];
+            String[] str = data.get(i);
+
+            item[0] = str[0];
+            if (str[0].equals("영어성적") || str[0].equals("스타트업"))
+                item[1] = str[1];
+            else if (str[0].equals("공학상담") || str[0].equals("상담"))
+                item[1] = str[1] + " 회";
+            else if (str[0].equals("필수과목"))
+                item[1] = str[1] + " 과목";
+            else
+                item[1] = str[1] + " 학점";
+
+            returnList.add(item);
+        }
+        return returnList;
     }
 }

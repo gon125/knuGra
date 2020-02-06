@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class CareerSuccessFragment extends Fragment {
                              final ViewGroup container, Bundle savedInstanceState) {
         careerSuccessViewModel =
                 ViewModelProviders.of(this).get(CareerSuccessViewModel.class);
+        ((TextView)((MainActivity)getActivity()).findViewById(R.id.toolbar_title)).setText(R.string.menu_career_success);
         View root = inflater.inflate(R.layout.fragment_career_success, container, false);
         final Spinner trackSpinner = (Spinner)root.findViewById(R.id.track_spinner);
 
@@ -123,10 +125,16 @@ public class CareerSuccessFragment extends Fragment {
             RecyclerItem item = new RecyclerItem();
             String[] str = data.get(i);
             item.setSc_item(str[0]);
-            if (str[2].equals(""))
+            if (str[0].equals("총  합"))
                 item.setSc_pct("");
+            else if (str[0].equals("영어성적"))
+                item.setSc_pct(str[2]);
+            else if (str[0].equals("공학상담") || str[0].equals("상담"))
+                item.setSc_pct(str[2] + " / " + str[1] + " 회");
+            else if (str[0].equals("필수과목"))
+                item.setSc_pct(str[2] + " / " +str[1] + " 과목");
             else
-                item.setSc_pct(str[2] + " / " +str[1]);
+                item.setSc_pct(str[2] + " / " +str[1] + " 학점");
             item.setSc_percent(str[3]);
             StringTokenizer st = new StringTokenizer(str[3], "%");
             item.setPrg(Integer.parseInt(st.nextToken()));

@@ -78,13 +78,13 @@
                 android:id="@+id/gis_required_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/gis_required_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:background="@color/colorLightGrayA"
@@ -117,13 +117,13 @@
                 android:id="@+id/gis_design_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:visibility="gone">
                 <TextView
                     android:id="@+id/gis_design_subject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:background="@color/colorLightGrayA"

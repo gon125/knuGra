@@ -8,7 +8,7 @@
         android:id="@+id/nav_home"
         android:name="com.knucse.knugra.UI_package.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/nav_career_success"
         android:name="com.knucse.knugra.UI_package.career_success.CareerSuccessFragment"
