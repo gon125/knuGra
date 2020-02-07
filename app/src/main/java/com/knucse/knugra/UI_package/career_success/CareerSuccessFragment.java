@@ -127,7 +127,7 @@ public class CareerSuccessFragment extends Fragment {
             item.setSc_item(str[0]);
             if (str[0].equals("총  합"))
                 item.setSc_pct("");
-            else if (str[0].equals("영어성적"))
+            else if (str[0].equals("영어성적") || str[0].equals("스타트업") || (str[0].equals("해외역량") && str[1].equals("복수학위취득")))
                 item.setSc_pct(str[2]);
             else if (str[0].equals("공학상담") || str[0].equals("상담"))
                 item.setSc_pct(str[2] + " / " + str[1] + " 회");

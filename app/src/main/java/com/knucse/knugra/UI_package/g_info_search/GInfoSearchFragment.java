@@ -115,7 +115,7 @@ public class GInfoSearchFragment extends Fragment {
             String[] str = data.get(i);
 
             item[0] = str[0];
-            if (str[0].equals("영어성적") || str[0].equals("스타트업"))
+            if (str[0].equals("영어성적") || str[0].equals("스타트업") || (str[0].equals("해외역량") && str[1].equals("복수학위취득")))
                 item[1] = str[1];
             else if (str[0].equals("공학상담") || str[0].equals("상담"))
                 item[1] = str[1] + " 회";
