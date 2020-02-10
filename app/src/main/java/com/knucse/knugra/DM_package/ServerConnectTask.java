@@ -301,7 +301,7 @@ public class ServerConnectTask {
             case DAPATH.CONSTRUCTION_IT:
                 return  CONSTRUCTION_IT;
             default:
-                return COMPUTPER_ABEEK;
+                return DEFAULT;
         }
 
     }

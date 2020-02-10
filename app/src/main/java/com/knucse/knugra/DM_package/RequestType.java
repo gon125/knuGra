@@ -16,4 +16,7 @@ public class RequestType {
     public static final String MEDIAART = "미디어아트";
     public static final String CONSTRUCTION_IT = "건설IT전공";
 
+    // get data from yes system for default
+    public static final String DEFAULT = "global";
+
 }
