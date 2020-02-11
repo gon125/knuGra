@@ -29,9 +29,6 @@ public class DAPATH { // data access path
     public static final String FOREIGN_DOUBLE_THREE_ONE = "외국인복수학위(3+1)";
     public static final String FOREIGN_EXCHANGE = "외국인교환학생";
 
-    public static final String DESIGNSUBJECTLIST = "design_subject_list";
-    public static final String REQUIREDSUBJECTLIST = "required_subject_list";
-
     public static final String SUBJECT_CODE = "교과목번호";
     public static final String SUBJECT_NAME = "교과목명";
     public static final String SUBJECT_CREDIT = "학점";
