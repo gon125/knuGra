@@ -35,6 +35,7 @@ public class Database { // 데이터베이스 접근 객체
     private static HashMap<String, SubjectList> requiredSubjectLists;
     private static SubjectList designSubjectList;
     private static SubjectList startupSubjectList;
+    private static HashMap<String, SubjectList> recommendedSubjectLists;
 
 
     private Database() {
@@ -54,12 +55,17 @@ public class Database { // 데이터베이스 접근 객체
         designSubjectList = loadDesignSubjectList();
         requiredSubjectLists = loadRequiredSubjectLists();
         startupSubjectList = loadStartupSubjectList();
+        recommendedSubjectLists = loadRecommendedSubjectLists();
+
     }
 
     public static void destroy() {
         instance = null;
     }
 
+    private static HashMap<String, SubjectList> loadRecommendedSubjectLists() {
+        return getSubjectLists(R.raw.recommeded_subject_list);
+    }
 
     private static void loadGraduationInfoList_temp() {
         XSSFWorkbook workbook = null;
@@ -347,4 +353,11 @@ public class Database { // 데이터베이스 접근 객체
     }
 
 
+    public static SubjectList getRecommendedSubjectLists(String name) {
+        if (isMajorName(name)) {
+            return recommendedSubjectLists.get(name);
+        } else {
+            return null;
+        }
+    }
 }
