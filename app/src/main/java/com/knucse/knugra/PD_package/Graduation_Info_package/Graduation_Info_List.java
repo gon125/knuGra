@@ -175,7 +175,9 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         else if(std_track.info_track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR) || std_track.info_track.equals(GLOBAL_SOFTWARE_MASTERS_CHAINING) || std_track.info_track.equals(GLOBAL_SOFTWARE_OVERSEAS_UNIV)){//글솦
             //필수, 창업
             resultRequired = std_career.Subject_Required_check(std_track.info_track);
-            resultStartup = std_career.Subject_Startup_check();
+            if(std_track.info_track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR) || std_track.info_track.equals(GLOBAL_SOFTWARE_OVERSEAS_UNIV)) {
+                resultStartup = std_career.Subject_Startup_check();
+            }
         }
 
         //설계과목 count
@@ -211,9 +213,10 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         }
 
         //창업과목 count
-        if(resultStartup!=-1){
+        if(resultStartup>-1){
+
             if(resultStartup > startupcredit){
-                success_rate = new Float(0.0);
+                success_rate = new Float(1.0);
             }
             else{
                 success_rate = (float) resultStartup/(float) startupcredit;
@@ -226,6 +229,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
             returnValueList.add(element);
         }
+
 
         int a = (int)((totalSuccess_rate/totalcount) * 100);
         element = new String[]{"총  합", "", "", new Integer(a).toString() + "%"};
