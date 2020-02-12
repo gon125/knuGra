@@ -299,7 +299,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     }
 
     //설계과목 이수여부확인
-    private static ArrayList<String[]> Subject_Design_check(int sub_data){
+    private static ArrayList<String[]> Subject_Design_check(int sub_data){ //대채과목없음, 이수여부 리스트 필요, 학점으로 계산
         String subject_type = "설계과목";
         float success_rate;
         int success;
@@ -342,7 +342,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         return returnValueList;
     }
     //필수과목 이수여부확인
-    private static ArrayList<String[]> Subject_Required_check(String track){
+    private static ArrayList<String[]> Subject_Required_check(String track){//대체과목 있음, 이수여부 리스트 필요
         String subject_type = "필수과목";
         float success_rate;
         int success;
@@ -429,7 +429,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
     //test
 
-    private static int Subject_Startup_check(){
+    private static int Subject_Startup_check(){ //대체과목 없음, 이수여부 리스트 X, 총 이수 학점만
         String subject_type = "창업과목";
         //결과 값 저장공간
         int user_data=0;
