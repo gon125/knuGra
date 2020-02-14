@@ -61,14 +61,14 @@ public class CareerSuccessAdapter extends RecyclerView.Adapter<CareerSuccessAdap
                         holder.subject_recycler_name.setText(R.string.design_subject_complete_status);
                         mSubjectData = Graduation_Info_List.getResultDesign();
                         break;
-/*                    case "SW필수":
+                    case "SW필수":
                         holder.subject_recycler_name.setText(R.string.common_subject_complete_status);
-                        mSubjectData = Graduation_Info_List.getResultRequired();
+                        mSubjectData = Graduation_Info_List.getResultCommonMajor();
                         break;
                     case "SW교양":
                         holder.subject_recycler_name.setText(R.string.general_subject_complete_status);
-                        mSubjectData = Graduation_Info_List.getResultRequired();
-                        break;*/
+                        mSubjectData = Graduation_Info_List.getResultGeneral();
+                        break;
                     default:
                         mSubjectData = Graduation_Info_List.getResultRequired();
                         break;

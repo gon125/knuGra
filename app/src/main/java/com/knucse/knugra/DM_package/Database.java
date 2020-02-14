@@ -27,6 +27,8 @@ import static com.knucse.knugra.DM_package.DAPATH.COMPUTPER_ABEEK;
 import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_DOUBLE_MAJOR;
 import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_MASTERS_CHAINING;
 import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_OVERSEAS_UNIV;
+import static com.knucse.knugra.DM_package.DAPATH.SOFTWARE_COMBINED_COMMON_MAJOR;
+import static com.knucse.knugra.DM_package.DAPATH.SOFTWARE_COMBINED_GENERAL;
 
 public class Database { // 데이터베이스 접근 객체
 
@@ -345,6 +347,8 @@ public class Database { // 데이터베이스 접근 객체
             case GLOBAL_SOFTWARE_DOUBLE_MAJOR:
             case GLOBAL_SOFTWARE_MASTERS_CHAINING:
             case GLOBAL_SOFTWARE_OVERSEAS_UNIV:
+            case SOFTWARE_COMBINED_COMMON_MAJOR:
+            case SOFTWARE_COMBINED_GENERAL:
                 return true;
 
                 default: return false;
