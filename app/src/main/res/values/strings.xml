@@ -25,11 +25,15 @@
     <string name="sc_prg">"달성도"</string>
     <string name="sc_curriculum_status">"교과 과정 이수 현황"</string>
     <string name="sc_curriculum">교과 과정</string>
-    <string name="required_subject_complete_status">"필수 교과목 이수 현황"</string>
+    <string name="required_subject_complete_status">"필수 과목 이수 현황"</string>
     <string name="design_subject_complete_status">"설계 과목 이수 현황"</string>
+    <string name="common_subject_complete_status">"공통 과목 이수 현황"</string>
+    <string name="general_subject_complete_status">"교양 과목 이수 현황"</string>
     <string name="sc_gra_item">"졸업자격 인정원"</string>
     <string name="required_subject">"필수 교과목"</string>
     <string name="design_subject">"설계 교과목"</string>
+    <string name="common_subject">"공통 교과목"</string>
+    <string name="general_subject">"교양 교과목"</string>
     <string name="subject_number">"과목번호</string>
     <string name="subject_name">"교과목명"</string>
     <string name="subject_success">"이수여부"</string>

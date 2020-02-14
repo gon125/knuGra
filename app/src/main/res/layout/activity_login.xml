@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/login_imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
         android:layout_marginTop="55dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginEnd="14dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:entries="@array/track"
         android:theme="@style/SpinnerTheme"
         app:layout_constraintStart_toStartOf="parent"

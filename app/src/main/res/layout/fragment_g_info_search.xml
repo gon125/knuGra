@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:background="@color/colorLightGrayA"
+                    android:background="@color/colorLightGrayB"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textSize="16dp"
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:background="@color/colorLightGrayB"
+                    android:background="@color/colorLightGrayC"
                     android:text="@string/subject_name"
                     android:layout_gravity="center"
                     android:textAlignment="center"
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:background="@color/colorLightGrayA"
+                    android:background="@color/colorLightGrayB"
                     android:layout_gravity="center"
                     android:textAlignment="center"
                     android:textSize="16dp"
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:background="@color/colorLightGrayB"
+                    android:background="@color/colorLightGrayC"
                     android:text="@string/subject_name"
                     android:layout_gravity="center"
                     android:textAlignment="center"
@@ -152,6 +152,83 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/gis_common_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/gis_common_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayB"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:text="@string/common_subject"/>
+
+                <TextView
+                    android:id="@+id/gis_common_subject_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayC"
+                    android:text="@string/subject_name"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_ginfo_common"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/gis_general_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+                <TextView
+                    android:id="@+id/gis_general_subject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayB"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"
+                    android:text="@string/general_subject"/>
+
+                <TextView
+                    android:id="@+id/gis_general_subject_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:background="@color/colorLightGrayC"
+                    android:text="@string/subject_name"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="16dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_ginfo_general"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

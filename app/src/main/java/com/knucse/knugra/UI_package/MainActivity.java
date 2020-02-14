@@ -119,10 +119,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         switch (menuId){
             case R.id.nav_career_success:
+                navController.popBackStack(R.id.nav_home, false);
                 DataLoadingTask dataloading = new DataLoadingTask();
                 dataloading.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 break;
+            case R.id.nav_home:
+                navController.popBackStack(R.id.nav_home, true);
+                navController.navigate(menuId);
+                break;
             default:
+                navController.popBackStack(R.id.nav_home, false);
                 navController.navigate(menuId);
                 break;
         }

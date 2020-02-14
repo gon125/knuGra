@@ -51,8 +51,18 @@ public class GInfoSearchFragment extends Fragment {
         ginfoDesignRecyclerView.setHasFixedSize(true);
         ginfoDesignRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        final RecyclerView ginfoCommonRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_ginfo_common);
+        ginfoCommonRecyclerView.setHasFixedSize(true);
+        ginfoCommonRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        final RecyclerView ginfoGeneralRecyclerView = (RecyclerView) root.findViewById(R.id.recycler_ginfo_general);
+        ginfoGeneralRecyclerView.setHasFixedSize(true);
+        ginfoGeneralRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         final LinearLayout gisRequiredLayout = (LinearLayout)root.findViewById(R.id.gis_required_layout);
         final LinearLayout gisDesignLayout = (LinearLayout)root.findViewById(R.id.gis_design_layout);
+        final LinearLayout gisGeneralLayout = (LinearLayout)root.findViewById(R.id.gis_general_layout);
+        final LinearLayout gisCommonLayout = (LinearLayout)root.findViewById(R.id.gis_common_layout);
 
         trackSpinner.setAdapter(trackAdapter);
         trackSpinner.setSelection(((MainActivity)getActivity()).getMajorposition());
@@ -65,9 +75,11 @@ public class GInfoSearchFragment extends Fragment {
                 recyclerView.setAdapter(gis_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-                GInfoSubjectAdapter gis_required_adapter, gis_design_adapter;
+                GInfoSubjectAdapter gis_required_adapter, gis_design_adapter, gis_common_adapter, gis_general_adapter;
                 gisRequiredLayout.setVisibility(LinearLayout.GONE);
                 gisDesignLayout.setVisibility(LinearLayout.GONE);
+                gisCommonLayout.setVisibility(LinearLayout.GONE);
+                gisGeneralLayout.setVisibility(LinearLayout.GONE);
                 switch (position) {
                     case 0: //COMPUTER_ABEEK
                         //필수과목
@@ -89,6 +101,16 @@ public class GInfoSearchFragment extends Fragment {
                         gisRequiredLayout.setVisibility(LinearLayout.VISIBLE);
                         break;
                     case 4: case 5: case 6: case 7: //CONNECTED_SOFTWARE
+                        //공통과목
+//                        gis_common_adapter = new GInfoSubjectAdapter(ginfoDatas.get(1));
+//                        ginfoCommonRecyclerView.setAdapter(gis_common_adapter);
+//                        ginfoCommonRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoCommonRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+//                        gisCommonLayout.setVisibility(LinearLayout.VISIBLE);
+                        //교양과목
+//                        gis_general_adapter = new GInfoSubjectAdapter(ginfoDatas.get(2));
+//                        ginfoGeneralRecyclerView.setAdapter(gis_general_adapter);
+//                        ginfoGeneralRecyclerView.addItemDecoration(new DividerItemDecoration(ginfoGeneralRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+//                        gisGeneralLayout.setVisibility(LinearLayout.VISIBLE);
                         break;
                     default:    break;
                 }

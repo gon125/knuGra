@@ -12,5 +12,6 @@
     <color name="colorOrange">#E06343</color>
     <color name="colorLightGrayA">#E0E0E0</color>
     <color name="colorLightGrayB">#EBEBEB</color>
+    <color name="colorLightGrayC">#F3F3F3</color>
     <color name="colorHomeBackground">#F5F9FA</color>
 </resources>

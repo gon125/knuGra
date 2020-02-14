@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.knucse.knugra.DM_package.RequestType;
 import com.knucse.knugra.DM_package.ServerConnectTask;
@@ -56,6 +57,7 @@ public class HomeFragment extends Fragment {
             it.next().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Navigation.findNavController(getActivity(), R.id.nav_host_fragment).popBackStack(R.id.nav_home, false);
                     switch (v.getId()) {
                         case R.id.button1_home:
                             DataLoadingTask dataloading = new DataLoadingTask();
