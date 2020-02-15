@@ -48,7 +48,7 @@ public class CareerSuccessAdapter extends RecyclerView.Adapter<CareerSuccessAdap
         holder.sc_percent.setText(item.getSc_percent());
         holder.success_prg.setProgress(item.getPrg());
         switch (item.getSc_item()){
-            case "필수과목": case "설계과목": //case"SW필수": case "SW교양":
+            case "필수과목": case "설계과목": case "SW필수": case "SW교양":
                 holder.recyclerView_expand.setVisibility(View.VISIBLE);
                 holder.recyclerView_expand.setImageResource((holder.subject_layout.getVisibility() == LinearLayout.GONE) ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
                 ArrayList<String[]> mSubjectData;
@@ -88,43 +88,6 @@ public class CareerSuccessAdapter extends RecyclerView.Adapter<CareerSuccessAdap
                 break;
         }
     }
-
-//    public void expandRecyclerVIew(final CareerSuccessAdapter.ViewHolder mholder, String item){
-//        mholder.recyclerView_expand.setVisibility(View.VISIBLE);
-//        mholder.recyclerView_expand.setImageResource((mholder.subject_layout.getVisibility() == LinearLayout.GONE) ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
-//        ArrayList<String[]> mSubjectData;
-//        switch (item){
-//            case "필수과목":
-//                mholder.subject_recycler_name.setText(R.string.required_subject_complete_status);
-//                mSubjectData = Graduation_Info_List.getResultRequired();
-//                break;
-//            case "설계과목":
-//                mholder.subject_recycler_name.setText(R.string.design_subject_complete_status);
-//                mSubjectData = Graduation_Info_List.getResultDesign();
-//                break;
-///*            case "SW필수":
-//                mholder.subject_recycler_name.setText(R.string.common_subject_complete_status);
-//                mSubjectData = Graduation_Info_List.getResultRequired();
-//                break;
-//            case "SW교양":
-//                mholder.subject_recycler_name.setText(R.string.general_subject_complete_status);
-//                mSubjectData = Graduation_Info_List.getResultRequired();
-//                break;*/
-//            default:
-//                mSubjectData = Graduation_Info_List.getResultRequired();
-//                break;
-//        }
-//        mSubjectData.remove(0);
-//        mholder.subject_recyclerView.setAdapter(new SubjectCompleteAdapter(mSubjectData));
-//        mholder.subject_recyclerView.addItemDecoration(new DividerItemDecoration(mholder.subject_recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-//        mholder.recyclerView_expand.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mholder.subject_layout.setVisibility((mholder.subject_layout.getVisibility() == LinearLayout.GONE) ? LinearLayout.VISIBLE : LinearLayout.GONE);
-//                mholder.recyclerView_expand.setImageResource((mholder.subject_layout.getVisibility() == LinearLayout.GONE) ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
-//            }
-//        });
-//    }
 
     // getItemCount() - 전체 데이터 갯수 리턴.
     @Override
