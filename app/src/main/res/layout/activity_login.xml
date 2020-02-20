@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/colorWhite"
     tools:context=".UI_package.login.LoginActivity">
 
     <ImageView
@@ -42,7 +43,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_id"
-        android:textColorHint="#6C6C6C"
+        android:textColorHint="#6F6F6F"
         android:textColor="@android:color/black"
         android:textSize="17dp"
         android:inputType="textEmailAddress"
@@ -58,7 +59,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_password"
-        android:textColorHint="#6C6C6C"
+        android:textColorHint="#6F6F6F"
         android:textColor="@android:color/black"
         android:textSize="17dp"
         android:imeActionLabel="@string/action_sign_in_short"
