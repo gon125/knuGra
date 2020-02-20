@@ -30,12 +30,14 @@
     <string name="common_subject_complete_status">"공통 과목 이수 현황"</string>
     <string name="general_subject_complete_status">"교양 과목 이수 현황"</string>
     <string name="startup_subject_complete_status">"창업 과목 이수 현황"</string>
+    <string name="connected_subject_complete_status">"연계 전공 과목 이수 현황"</string>
     <string name="sc_gra_item">"졸업자격 인정원"</string>
     <string name="required_subject">"필수 교과목"</string>
     <string name="design_subject">"설계 교과목"</string>
     <string name="common_subject">"공통 교과목"</string>
     <string name="general_subject">"교양 교과목"</string>
     <string name="startup_subject">"창업 교과목"</string>
+    <string name="connected_subject">"연계 전공 교과목"</string>
     <string name="subject_number">"과목번호</string>
     <string name="subject_name">"교과목명"</string>
     <string name="subject_success">"이수여부"</string>
