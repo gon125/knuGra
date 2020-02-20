@@ -54,7 +54,7 @@ public class CareerSuccessFragment extends Fragment {
                 //기본 졸업요건 항목 달성현황
                 data = Graduation_Info_List.Graduation_Info_compare((String)parent.getItemAtPosition(position));
                 mData = getCsList(data);
-                CareerSuccessAdapter cs_adapter = new CareerSuccessAdapter(mData);
+                CareerSuccessAdapter cs_adapter = new CareerSuccessAdapter(mData, (String)parent.getItemAtPosition(position));
                 recyclerView.setAdapter(cs_adapter);
                 recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
             }

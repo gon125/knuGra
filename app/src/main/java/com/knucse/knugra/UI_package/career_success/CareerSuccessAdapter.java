@@ -22,9 +22,11 @@ import java.util.ArrayList;
 
 public class CareerSuccessAdapter extends RecyclerView.Adapter<CareerSuccessAdapter.ViewHolder> {
     private ArrayList<RecyclerItem> mData = null;
+    private String mMajor = null;
 
-    CareerSuccessAdapter(ArrayList<RecyclerItem> list) {
+    CareerSuccessAdapter(ArrayList<RecyclerItem> list, String major) {
         mData = list;
+        mMajor = major;
     }
 
     @Override
@@ -48,7 +50,10 @@ public class CareerSuccessAdapter extends RecyclerView.Adapter<CareerSuccessAdap
         holder.sc_percent.setText(item.getSc_percent());
         holder.success_prg.setProgress(item.getPrg());
         switch (item.getSc_item()){
-            case "필수과목": case "설계과목": case "SW필수": case "SW교양": //case "창업역량": //case "연계전공":
+            case "필수과목": case "설계과목": case "SW필수": case "SW교양": case "창업역량": case "연계전공":
+                if (mMajor.equals("글로벌소프트웨어전공(다중전공트랙)") && item.getSc_item().equals("연계전공")){
+                    break;
+                }
                 holder.recyclerView_expand.setVisibility(View.VISIBLE);
                 holder.recyclerView_expand.setImageResource((holder.subject_layout.getVisibility() == LinearLayout.GONE) ? R.drawable.ic_expand_more_black_24dp : R.drawable.ic_expand_less_black_24dp);
                 ArrayList<String[]> mSubjectData;
@@ -69,14 +74,14 @@ public class CareerSuccessAdapter extends RecyclerView.Adapter<CareerSuccessAdap
                         holder.subject_recycler_name.setText(R.string.general_subject_complete_status);
                         mSubjectData = Graduation_Info_List.getResultGeneral();
                         break;
-//                    case "창업역량":
-//                        holder.subject_recycler_name.setText(R.string.startup_subject_complete_status);
-//                        mSubjectData = Graduation_Info_List.getResultStartup();
-//                        break;
-//                    case "연계전공":
-//                        holder.subject_recycler_name.setText(R.string.connected_subject_complete_status);
-//                        mSubjectData = Graduation_Info_List.getResult();
-//                        break;
+                    case "창업역량":
+                        holder.subject_recycler_name.setText(R.string.startup_subject_complete_status);
+                        mSubjectData = Graduation_Info_List.getResultStartup();
+                        break;
+                    case "연계전공":
+                        holder.subject_recycler_name.setText(R.string.connected_subject_complete_status);
+                        mSubjectData = Graduation_Info_List.getResultCombined();
+                        break;
                     default:
                         mSubjectData = Graduation_Info_List.getResultRequired();
                         break;
