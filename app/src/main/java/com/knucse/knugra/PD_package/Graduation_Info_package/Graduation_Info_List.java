@@ -26,9 +26,13 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
     private static ArrayList<String[]> resultRequired;
 
+    private static ArrayList<String[]> resultStartup;
+
     private static ArrayList<String[]> resultCommonMajor;
 
     private static ArrayList<String[]> resultGeneral;
+
+    private static ArrayList<String[]> resultCombined;
 
     public static ArrayList<String[]> getResultDesign() {
         return resultDesign;
@@ -38,6 +42,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         return resultRequired;
     }
 
+    public static ArrayList<String[]> getResultStartup() { return resultStartup; }
+
     public static ArrayList<String[]> getResultCommonMajor() {
         return resultCommonMajor;
     }
@@ -45,6 +51,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
     public static ArrayList<String[]> getResultGeneral() {
         return resultGeneral;
     }
+
+    public static ArrayList<String[]> getResultCombined() { return resultCombined; }
 
 
     private Graduation_Info_List() {
@@ -64,7 +72,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         int i;
         boolean found;
         float totalSuccess_rate = 0;
-        int totalcount = 0, resultStartup=-1;
+        int totalcount = 0;
 
         String userContentString;
         StudentCareer scobject = null;
@@ -83,8 +91,10 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         ArrayList<String[]> result = null;
         resultDesign = null;
         resultRequired = null;
+        resultStartup = null;
         resultCommonMajor = null;
         resultGeneral = null;
+        resultCombined = null;
 
         //해당 트랙 정보가져오기
         Iterator<Graduation_Info> std = std_career.iterator();
@@ -109,12 +119,13 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
             }
 
             //함수필요(과목이수관련)
-            if (found==false && needFunctionCheck(std_track.get(i).getName())==true){
+            if (found==false && needFunctionCheck(std_track.info_track, std_track.get(i).getName())==true){
                 found = true;
                 result = null;
             }
 
             try {
+                //System.out.println(std_track.get(i).getName());
                 if(std_track.get(i).getName().equals(GRAINFO_ENGLISH)){
                     stddata=700;
                 }
@@ -134,7 +145,7 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                         }
                         userContentString = scobject.getContent();
                     }
-                    else if(needFunctionCheck(std_track.get(i).getName())){//함수로 계산 필요한 경우 (과목 이수여부 check)
+                    else if(needFunctionCheck(std_track.info_track,std_track.get(i).getName())){//함수로 계산 필요한 경우 (과목 이수여부 check)
                         switch(std_track.get(i).getName()){
                             case GRAINFO_COMMON_MAJOR:
                                 resultCommonMajor = std_career.Subject_Required_check(SOFTWARE_COMBINED_COMMON_MAJOR, stddata);
@@ -145,23 +156,25 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                                 result = resultGeneral;
                                 break;
                             case GRAINFO_DESIGN:
-                                resultDesign = std_career.Subject_Design_check(stddata);
+                                //resultDesign = std_career.Subject_Design_check(stddata);
+                                resultDesign = std_career.Subject_Credit_check(GRAINFO_DESIGN, stddata);
                                 result = resultDesign;
                                 break;
                             case GRAINFO_STARTUP:
-                                resultStartup = std_career.Subject_Startup_check();
+                                resultStartup = std_career.Subject_Credit_check(GRAINFO_STARTUP, stddata);
+                                result = resultStartup;
+                                break;
+                            case GRAINFO_COMBINED:
+                                System.out.println("왜??");
+                                resultCombined = std_career.Subject_Credit_check(std_track.info_track ,stddata);
+                                result = resultCombined;
                                 break;
                         }
                         //
-                        if(result!=null){
-                            String[] Result = result.get(0);
-                            String Result_user = Result[2];
+                        String[] Result = result.get(0);
+                        String Result_user = Result[2];
 
-                            userdata = Integer.parseInt(Result_user);
-                        }
-                        else{
-                            userdata=resultStartup;
-                        }
+                        userdata = Integer.parseInt(Result_user);
                         userContentString = new Integer(userdata).toString();
                     }
                     else {
@@ -301,49 +314,6 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
         return returnList2;
     }
 
-    //설계과목 이수여부확인
-    private static ArrayList<String[]> Subject_Design_check(int sub_data){//대체과목없음, 이수여부 리스트 필요, 학점으로 계산
-        String subject_type = "설계과목";
-        float success_rate;
-        int success;
-        //결과 값 저장공간
-        ArrayList<String[]> returnValueList = new ArrayList<>();
-        String[] element;
-        int user_data;
-        //학생정보
-        Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
-        SubjectList student_design = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
-        //(표준) 설계과목정보
-        SubjectList sub_list = Database.getDesignSubjectList();
-
-        //설계과목 각각 가져와서 비교
-        Set<String> sub_keys = sub_list.keySet();
-        Iterator<String> sub_key = sub_keys.iterator();
-        user_data=0;//이수한 설계과목 학점
-
-        while(sub_key.hasNext()){
-            //과목코드로 이수확인
-            String now_key=sub_key.next();
-            Subject now_sub = sub_list.get(now_key);
-
-            if(student_design.containsKey(now_key)){//이수 했을 경우
-                user_data+=Integer.parseInt(now_sub.get(SUBJECT_CREDIT));
-                element = new String[]{now_sub.get(SUBJECT_NAME), now_key, "O"};
-                returnValueList.add(element);
-            }
-            else{//이수 안했을 경우
-                element = new String[]{now_sub.get(SUBJECT_NAME), now_key, "X"};
-                returnValueList.add(element);
-            }
-        }
-        success_rate = (float)(user_data) / (float)(sub_data);
-
-        success=(int)(success_rate*100);
-        element = new String[]{subject_type, new Integer(sub_data).toString(), new Integer(user_data).toString(), new Integer(success).toString() + "%"};
-        returnValueList.add(0, element);
-
-        return returnValueList;
-    }
     //필수과목 이수여부확인
     private static ArrayList<String[]> Subject_Required_check(String track, int credit){//대체과목 있음, 이수여부 리스트 필요, 경우에 따라 과목수, 학점으로 계산
         String subject_type = "필수과목";
@@ -384,8 +354,8 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
                 }
                 else{
                     if(credit<0){
-                          sub_data++;
-                          user_data++;
+                        sub_data++;
+                        user_data++;
                     }
                     else{
                         user_data+=Integer.parseInt(now_sub.get(SUBJECT_CREDIT));
@@ -447,40 +417,84 @@ public class Graduation_Info_List extends ArrayList<Graduation_Info>{
 
         return returnValueList;
     }
-
-    private static int Subject_Startup_check(){ //대체과목 없음, 이수여부 리스트 X, 총 이수 학점만, 학점으로 계산
-        String subject_type = "창업과목";
+    //test
+    //과목 이수여부, 대체과목X, 학점기준
+    //sub_data는 기준임, 0이 들어오면 기준이 없으므로 전체 중 얼마로 계산
+    private static ArrayList<String[]> Subject_Credit_check(String subject_type, int sub_data){//대체과목없음, 이수여부 리스트 필요, 학점으로 계산
+        float success_rate;
+        int success;
         //결과 값 저장공간
-        int user_data=0;
+        ArrayList<String[]> returnValueList = new ArrayList<>();
+        String[] element;
+        int user_data, subjectnum=0;
         //학생정보
         Student now_student =(Student)(User.getInstance().getUserData());//현재 로그인 한 student 정보
-        SubjectList student_startup = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
-        //(표준) 필수과목정보
-        SubjectList sub_list = Database.getStartupSubjectList();
+        SubjectList student_completed = now_student.getCompletedSubjectList();//학생 이수현황 가져오기
+        //표준정보
+        SubjectList sub_list = null;
+        switch(subject_type){
+            case GRAINFO_DESIGN:
+                sub_list = Database.getDesignSubjectList();
+                break;
+            case GRAINFO_STARTUP:
+                sub_list = Database.getStartupSubjectList();
+                break;
+            case BIGDATA:
+            case CONSTRUCTION_IT:
+            case FINTECH:
+            case MEDIAART:
+                sub_list = Database.getRecommendedSubjectLists(subject_type);
+                break;
+        }
 
+        //(표준기준)과목 각각 가져와서 비교
         Set<String> sub_keys = sub_list.keySet();
         Iterator<String> sub_key = sub_keys.iterator();
+        user_data=0;//이수한 과목 학점
 
         while(sub_key.hasNext()){
+            //과목코드로 이수확인
+            subjectnum++;
             String now_key=sub_key.next();
+
             Subject now_sub = sub_list.get(now_key);
 
-            if(student_startup.containsKey(now_key)){//이수 했을 경우
+            if(student_completed.containsKey(now_key)){//이수 했을 경우
                 user_data+=Integer.parseInt(now_sub.get(SUBJECT_CREDIT));
+                element = new String[]{now_sub.get(SUBJECT_NAME), now_key, "O"};
+                returnValueList.add(element);
+            }
+            else{//이수 안했을 경우
+                element = new String[]{now_sub.get(SUBJECT_NAME), now_key, "X"};
+                returnValueList.add(element);
             }
         }
-        return user_data;
+        if(sub_data==0){
+            sub_data=subjectnum;
+        }
+        success_rate = (float)(user_data) / (float)(sub_data);
+
+        success=(int)(success_rate*100);
+        element = new String[]{subject_type, new Integer(sub_data).toString(), new Integer(user_data).toString(), new Integer(success).toString() + "%"};
+        returnValueList.add(0, element);
+
+        return returnValueList;
     }
 
-    private static Boolean needFunctionCheck(String object){
+    private static Boolean needFunctionCheck(String track, String object){
         switch(object){
             case GRAINFO_DESIGN:
             case GRAINFO_STARTUP:
             case GRAINFO_COMMON_MAJOR:
             case GRAINFO_GENERAL:
                 return true;
+            case GRAINFO_COMBINED:
+                if(track.equals(GLOBAL_SOFTWARE_DOUBLE_MAJOR)==false)
+                    return true;
+                else
+                    return false;
             default:
-               return false;
+                return false;
         }
     }
 

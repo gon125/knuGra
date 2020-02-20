@@ -23,10 +23,14 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static com.knucse.knugra.DM_package.DAPATH.BIGDATA;
 import static com.knucse.knugra.DM_package.DAPATH.COMPUTPER_ABEEK;
+import static com.knucse.knugra.DM_package.DAPATH.CONSTRUCTION_IT;
+import static com.knucse.knugra.DM_package.DAPATH.FINTECH;
 import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_DOUBLE_MAJOR;
 import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_MASTERS_CHAINING;
 import static com.knucse.knugra.DM_package.DAPATH.GLOBAL_SOFTWARE_OVERSEAS_UNIV;
+import static com.knucse.knugra.DM_package.DAPATH.MEDIAART;
 import static com.knucse.knugra.DM_package.DAPATH.SOFTWARE_COMBINED_COMMON_MAJOR;
 import static com.knucse.knugra.DM_package.DAPATH.SOFTWARE_COMBINED_GENERAL;
 
@@ -349,6 +353,10 @@ public class Database { // 데이터베이스 접근 객체
             case GLOBAL_SOFTWARE_OVERSEAS_UNIV:
             case SOFTWARE_COMBINED_COMMON_MAJOR:
             case SOFTWARE_COMBINED_GENERAL:
+            case BIGDATA:
+            case FINTECH:
+            case CONSTRUCTION_IT:
+            case MEDIAART:
                 return true;
 
                 default: return false;

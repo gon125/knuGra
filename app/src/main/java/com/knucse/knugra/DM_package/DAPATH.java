@@ -39,4 +39,5 @@ public class DAPATH { // data access path
     public static final String GRAINFO_DESIGN = "설계과목";
     public static final String GRAINFO_COMMON_MAJOR ="SW필수";
     public static final String GRAINFO_GENERAL ="SW교양";
+    public static final String GRAINFO_COMBINED ="연계전공";
 }
