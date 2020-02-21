@@ -77,7 +77,12 @@ public class CareerSuccessFragment extends Fragment {
         for (int i=0; i<data.size(); i++){
             RecyclerItem item = new RecyclerItem();
             String[] str = data.get(i);
-            item.setSc_item(str[0]);
+            //졸업 요건 항목
+            if (str[0].contains("-"))
+                item.setSc_item(str[0].replace("-", "\n-"));
+            else
+                item.setSc_item(str[0]);
+            //학생 / 졸업요건 +단위
             if (str[0].equals("총  합"))
                 item.setSc_pct("");
             else if (str[0].equals("영어성적") || str[0].equals("스타트업") || (str[0].equals("해외역량") && str[1].equals("복수학위취득")))
