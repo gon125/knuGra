@@ -197,7 +197,7 @@ public class ServerConnectTask {
             StudentCareerList studentCareerList = student.getStudentCareerList();//여기에 studentCareer 추가할 것
             SubjectList completedSubjectList = student.getCompletedSubjectList();
             // have to get
-            try {
+        try {
                 JSONObject jsonObject = new JSONObject(result);
 
             // get grade info
@@ -217,14 +217,17 @@ public class ServerConnectTask {
                 studentCareerList.add(studentCareer);
             }
 
-            // add 공학인증
-               Integer sum = new Integer(gradeInfoList.getString("기본소양"))
+            if (studentCareerList.getCareer_track().equals(DAPATH.COMPUTPER_ABEEK)) {
+                // add 공학인증
+                Integer sum = new Integer(gradeInfoList.getString("기본소양"))
                         +  new Integer(gradeInfoList.getString("전공기반"))
                         +  new Integer(gradeInfoList.getString("공학전공"));
-            studentCareer = new StudentCareer();
-            studentCareer.setName("공학인증");
-            studentCareer.setContent(sum.toString());
-            studentCareerList.add(studentCareer);
+                studentCareer = new StudentCareer();
+                studentCareer.setName("공학인증");
+                studentCareer.setContent(sum.toString());
+                studentCareerList.add(studentCareer);
+            }
+
 
                         //get requiredList
             JSONArray compeleted = jsonObject.getJSONArray(JSONKey.COMPLETED_SUBJECT_LIST);
@@ -259,11 +262,10 @@ public class ServerConnectTask {
 
 
 
-        }catch(JSONException e){
-            e.printStackTrace();
-            updateCompleted = false;
+        } catch(Exception e) {
+                e.printStackTrace();
+                updateCompleted = false;
         }
-
         updateCompleted = true;
     }
 
