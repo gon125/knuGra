@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         trackSpinner.setAdapter(trackAdapter);
+        trackSpinner.setSelection(settings.getInt("MAJOR", 0));
         trackSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -143,8 +144,10 @@ public class LoginActivity extends AppCompatActivity {
                     // if (autoLogin button is on ) {
                         editor.putString("ID", User.getInstance().getId());
                         editor.putString("PW", User.getInstance().getPassword());
-                        editor.commit();
                     //}
+                    editor.putInt("MAJOR", majorposition);
+                    editor.commit();
+
                     // update user data in th beginning of the main activity.
                     new AsyncTask<Void, Void, Void>() {
                         @Override
