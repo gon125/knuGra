@@ -35,6 +35,7 @@ import static com.knucse.knugra.DM_package.RequestType.*;
 public class ServerConnectTask {
 
     public static volatile boolean updateCompleted = false;
+    private static final String hostIP = "54.180.90.213";
 
     public Result<LoggedInUser> execute(String... str) {
         String username = str[0];
@@ -45,7 +46,7 @@ public class ServerConnectTask {
             Socket socket;
             InputStream is;
             OutputStream os;
-            socket = new Socket("54.180.106.239", 3456);
+            socket = new Socket(hostIP, 3456);
 
             is = socket.getInputStream();
             os = socket.getOutputStream();
@@ -97,7 +98,7 @@ public class ServerConnectTask {
             Socket socket;
             InputStream is;
             OutputStream os;
-            socket = new Socket("54.180.106.239", 3456);
+            socket = new Socket(hostIP, 3456);
 
             is = socket.getInputStream();
             os = socket.getOutputStream();
