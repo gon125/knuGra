@@ -16,16 +16,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
-import com.knucse.knugra.DM_package.RequestType;
+
 import com.knucse.knugra.DM_package.ServerConnectTask;
-import com.knucse.knugra.PD_package.User_package.User;
+
 import com.knucse.knugra.UI_package.MainActivity;
 import com.knucse.knugra.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import io.grpc.Server;
 
 public class HomeFragment extends Fragment {
 
