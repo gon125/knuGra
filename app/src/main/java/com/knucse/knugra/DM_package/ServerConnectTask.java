@@ -36,7 +36,7 @@ import static com.knucse.knugra.DM_package.RequestType.*;
 public class ServerConnectTask {
 
     public static volatile boolean updateCompleted = false;
-    private static final String hostIP = "54.180.90.213";
+    private static final String hostIP = "15.165.41.237";
 
     public Result<LoggedInUser> execute(String... str) {
         String username = str[0];
